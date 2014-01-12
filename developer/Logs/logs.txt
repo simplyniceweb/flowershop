@@ -1,0 +1,9 @@
+January 13, 2014
+DONE:
+- Admin default account created
+- Can now login to the system
+- Overview of Admin page is now ready
+- Overview of Customer is now ready
+- Can now add category
+- Can now add type of payment
+- Product / Package form fields is now ready but not yet functioning just the design
