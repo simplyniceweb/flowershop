@@ -1,0 +1,6 @@
+Preparation:
+1. Go to: C:\wamp\bin\apache\Apache\conf
+2. Look for httpd.conf file
+3. Open and look for: #LoadModule rewrite_module modules/mod_rewrite.so
+4. Remove the hashtag or the comment, it will look like this: LoadModule rewrite_module modules/mod_rewrite.so
+5. Save and Exit

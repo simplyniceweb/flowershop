@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 12, 2014 at 05:52 PM
+-- Generation Time: Jan 13, 2014 at 06:18 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -25,6 +25,20 @@ USE `flowershop`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cart`
+--
+
+CREATE TABLE IF NOT EXISTS `cart` (
+  `cart_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `flower_id` int(11) NOT NULL,
+  `cart_status` int(11) NOT NULL,
+  PRIMARY KEY (`cart_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
@@ -32,14 +46,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(255) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `category`
---
-
-INSERT INTO `category` (`category_id`, `category_name`) VALUES
-(3, 'Vase');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -55,6 +62,8 @@ CREATE TABLE IF NOT EXISTS `flower` (
   `flower_price` int(11) NOT NULL,
   `flower_availability` int(11) NOT NULL,
   `flower_type` int(11) NOT NULL,
+  `flower_category` int(11) NOT NULL,
+  `flower_status` int(11) NOT NULL,
   PRIMARY KEY (`flower_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -68,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `flower_image` (
   `flower_img_id` int(11) NOT NULL AUTO_INCREMENT,
   `flower_img_name` varchar(255) NOT NULL,
   `flower_id` int(11) NOT NULL,
+  `flower_main` int(11) NOT NULL,
   PRIMARY KEY (`flower_img_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -81,14 +91,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `payment_id` int(11) NOT NULL AUTO_INCREMENT,
   `payment_name` varchar(255) NOT NULL,
   PRIMARY KEY (`payment_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `payment`
---
-
-INSERT INTO `payment` (`payment_id`, `payment_name`) VALUES
-(3, 'LBC');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -97,20 +100,21 @@ INSERT INTO `payment` (`payment_id`, `payment_name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_level` int(11) NOT NULL,
   `user_name` varchar(255) NOT NULL,
   `user_password` varchar(255) NOT NULL,
-  `user_email` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `user_email` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `user_level`, `user_name`, `user_password`, `user_email`) VALUES
-(1, 1, '0', '5', '0'),
-(1, 1, 'Administrator', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin@flowershop.com');
+(1, 1, 'Administrator', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin@flowershop.com'),
+(2, 0, 'Juan Dela Cruz', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'juan@delacruz.com');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -11,7 +11,9 @@
 		.box { padding: 5px }
 		.flower-title { margin-left: 20px }
 		.footer { height: 50px }
-		.gallery > img { width: 150px; height: 150px }
+		.gallery ul li { list-style-type: none; float: left; }
+		.gallery img { width: 150px; height: 150px }
+		.specific-delete { cursor: pointer }
 		/* Modified */
 		.thumbnail > img { width: 250px !important; height: 200px !important}
 	</style>
@@ -21,8 +23,9 @@
 <div class="container">
     
     <div class="row divider wrapper box">
+
         <?php foreach($flower as $flw) { ?>
-          <div class="col-sm-3 col-md-3">
+          <div class="col-md-3">
             <div class="thumbnail">
               <img src="assets/flower/<?php echo $flw->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" width="300" height="100">
               <div class="caption">
@@ -30,25 +33,55 @@
                 <p><?php echo $flw->flower_description; ?> Gumamela is just a simple flower.</p>
               	<p>Price: Php <?php echo number_format($flw->flower_price, 2); ?></p>
                 <p>Availability: <?php echo $flw->flower_availability; ?></p>
+                <p>
+                <a href="javascript:void(0);" class="btn <?php if(!is_null($flw->c_flower_id)) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($flw->c_flower_id)) echo $flw->c_flower_id; ?>" data-entry-id="<?php echo $flw->flower_id; ?>" role="button">
+                    <?php if(!is_null($flw->c_flower_id)) { ?>
+                    <i class="glyphicon glyphicon-remove"></i> 
+                    Remove to cart
+                    <?php } else { ?>
+                    <i class="glyphicon glyphicon-shopping-cart"></i> 
+                    Add to cart
+                    <?php } ?>
+                </a>
+                </p>
+				<?php 
+                    if($session['user_level'] == 1){ 
+                    $category = $flw->flower_category;
+                    if($category == 1) {
+                        $category = "product";
+                    } else {
+                        $category = "package";
+                    }
+                ?>
                 <div class="btn-group">
                   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                     Actions <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
-                    <li><a href="javascript:void(0);"><i class="glyphicon glyphicon-shopping-cart"></i> Add to cart</a></li>
-                    <li><a href="javascript:void(0);"><i class="glyphicon glyphicon-pencil"></i> Edit</a></li>
+                    <li><a href="admin/<?php echo $category; ?>/<?php echo $flw->flower_id; ?>"><i class="glyphicon glyphicon-pencil"></i> Edit</a></li>
                     <li><a href="javascript:void(0);" class="delete" data-entry-id="<?php echo $flw->flower_id; ?>"><i class="glyphicon glyphicon-remove"></i> Delete</a></li>
                   </ul>
                 </div>
+                <?php } ?>
               </div>
             </div>
           </div>
          <?php } ?>  
+         
+
          <div class="col-md-9 gallery">
-         <?php foreach($images as $img) { ?>
-         	<img src="assets/flower/<?php echo $img->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" class="img-thumbnail">
-         <?php } ?>
+             <ul>
+                 <?php foreach($images as $img) { ?>
+                    <li>
+                    	<?php if($session['user_level'] == 1){ ?>
+                        	<i class="specific-delete glyphicon glyphicon-remove" data-entry-id="<?php echo $img->flower_img_id; ?>" style="top:-60px;left:20px;position:relative;background: #f1f1f1;"></i>
+                        <?php } ?>
+                        <img src="assets/flower/<?php echo $img->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" class="img-thumbnail img-<?php echo $img->flower_img_id; ?>">
+                    </li>
+                 <?php } ?>
+             </ul>
          </div>  
+
     </div>
 </div>
 

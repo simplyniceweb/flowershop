@@ -82,8 +82,21 @@ class Admin extends CI_Controller {
 	// Product
 	public function product() {
 		$mysession = $this->session->userdata('logged');
+		$flower = NULL;
+		$flower_id = $this->uri->segment(3);
+		
+		if(!empty($flower_id)) {
+			$this->db->where("flower_id", $flower_id);
+			$this->db->where("flower_status",0);
+			$flower = $this->db->get('flower');
+			$flower = $flower->result();
+		} else {
+			$flower_id = 0;
+		}
 
 		$data = array(
+			'id'      => $flower_id,
+			'flower'  => $flower,
 			'session' => $mysession,
 			'flower_category' => 1,
 			'category' => $this->db->get("category")
@@ -96,6 +109,7 @@ class Admin extends CI_Controller {
 		$pick = 0;
 		$mysession = $this->session->userdata('logged');
 		$type = $this->input->post('flower_type');
+		$action = $this->input->post('flower_action');
 		if(empty($type) || is_null($type)) $type = 0;
 
 		$data = array(
@@ -107,9 +121,15 @@ class Admin extends CI_Controller {
 			'flower_type'        => $type,
 			'flower_category'    => $this->input->post('flower_category')
 		);
-
-		$this->db->insert("flower", $data);
-		$flower_id = $this->db->insert_id();
+		
+		if($action == 0) {
+			$this->db->insert("flower", $data);
+			$flower_id = $this->db->insert_id();
+		} else {
+			$this->db->where("flower_id", $action);
+			$this->db->update("flower", $data);
+			$flower_id = $action;
+		}
 
 		$this->upload->initialize(array(
 			"upload_path" => "assets/flower/",
@@ -139,14 +159,31 @@ class Admin extends CI_Controller {
 			}
 		}
 
-		redirect("admin/product?add=true");
+		if($action == 0) {
+			redirect("admin/product?add=true");
+		} else {
+			redirect("admin/product?update=true");
+		}
 	}
 
 	// Package
 	public function package() {
 		$mysession = $this->session->userdata('logged');
+		$flower = NULL;
+		$flower_id = $this->uri->segment(3);
+
+		if(!empty($flower_id)) {
+			$this->db->where("flower_id", $flower_id);
+			$this->db->where("flower_status",0);
+			$flower = $this->db->get('flower');
+			$flower = $flower->result();
+		} else {
+			$flower_id = 0;
+		}
 
 		$data = array(
+			'id'      => $flower_id,
+			'flower'  => $flower,
 			'session' => $mysession,
 			'flower_category' => 2,
 			'category' => $this->db->get("category")

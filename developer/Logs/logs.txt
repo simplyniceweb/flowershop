@@ -7,3 +7,12 @@ DONE:
 - Can now add category
 - Can now add type of payment
 - Product / Package form fields is now ready but not yet functioning just the design
+
+January 14, 2014
+DONE:
+Registration
+Add / Edit / Delete of flower
+Add / Delete of gallery of flower
+Viewing of flower information
+Add to cart function
+Featured and Promo are separated

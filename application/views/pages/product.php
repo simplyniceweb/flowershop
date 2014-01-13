@@ -32,10 +32,15 @@
               	<p>Price: Php <?php echo number_format($flw->flower_price, 2); ?></p>
                 <p>Availability: <?php echo $flw->flower_availability; ?></p>
                 <p>
-                <a href="#" class="btn btn-primary btn-xs" role="button">
+                <a href="javascript:void(0);" class="btn <?php if(!is_null($flw->c_flower_id)) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($flw->c_flower_id)) echo $flw->c_flower_id; ?>" data-entry-id="<?php echo $flw->flower_id; ?>" role="button">
+                    <?php if(!is_null($flw->c_flower_id)) { ?>
+                    <i class="glyphicon glyphicon-remove"></i> 
+                    Remove to cart
+                    <?php } else { ?>
                     <i class="glyphicon glyphicon-shopping-cart"></i> 
                     Add to cart
-				</a>
+                    <?php } ?>
+                </a>
                 </p>
                 
               </div>
