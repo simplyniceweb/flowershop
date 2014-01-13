@@ -1,6 +1,17 @@
-Preparation:
+SETUP: ( Make sure you install WAMP first )
 1. Go to: C:\wamp\bin\apache\Apache\conf
 2. Look for httpd.conf file
 3. Open and look for: #LoadModule rewrite_module modules/mod_rewrite.so
 4. Remove the hashtag or the comment, it will look like this: LoadModule rewrite_module modules/mod_rewrite.so
 5. Save and Exit
+
+DATABASE:
+https://github.com/simplynice25/flowershop/blob/master/developer/database/localhost.sql
+
+PAG NA INSERT NA ANG DATABASE ETO ANG MGA DEFAULT ACCOUNTS ( 1 Admin / 1 Customer ):
+https://github.com/simplynice25/flowershop/blob/master/developer/Credentials/Accounts.txt
+
+DOWNLOAD THE SYSTEM HERE:
+1. https://github.com/simplynice25/flowershop/archive/master.zip
+2. Extract
+3. Visit, http://localhost/flowershop and use the default accounts above.
