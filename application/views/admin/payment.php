@@ -10,7 +10,10 @@
 <?php require_once('/../includes/header.php'); ?>
 <div class="container">
 	<div class="row">
-    
+    <ol class="breadcrumb">
+      <li><a href="<?php echo $this->uri->segment(1); ?>"><?php echo ucfirst($this->uri->segment(1)); ?></a></li>
+      <li class="active"><?php echo ucfirst($this->uri->segment(2)); ?></li>
+    </ol>
     	<div class="col-md-4 col-md-offset-2">
             <div class="panel panel-primary">
                 <div class="panel-heading">

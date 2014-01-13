@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Register extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
@@ -10,20 +10,28 @@ class Login extends CI_Controller {
 		$mysession = $this->session->userdata('logged');
 		if($mysession) redirect('home');
 
-		$this->load->view('login');
+		$this->load->view('register');
 	}
 
 	public function verify() {
-		$email = $this->input->post("user_email");
-		$password = $this->input->post("user_password");
+		$data = array(
+			'user_name'     => $this->input->post("user_name"),
+			'user_email'    => $this->input->post("user_email"),
+			'user_password' => sha1($this->input->post("user_password")),
+			'user_level '   => 0
+		);
 		
 		$this->db->from('users');
-		$this->db->where('user_email', $email);
-		$this->db->where('user_password', sha1($password));
-		$login = $this->db->get();
+		$this->db->where('user_email', $data['user_email']);
+		$check = $this->db->get();
+		if($check->num_rows() > 0) redirect("register?email=false");
 		
-		if($login->num_rows() <= 0) redirect("login?login=false");
+		$this->db->insert("users", $data);
 		
+		$user_id = $this->db->insert_id();
+		$this->db->where('user_id', $user_id);
+		$login = $this->db->get("users");
+
 		foreach($login->result() as $row) {
 			$sess_array = array(
 				'logged'          => TRUE,

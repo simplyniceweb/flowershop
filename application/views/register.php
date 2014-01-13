@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
     <base href="<?php echo base_url(); ?>"/>
-	<title>Login</title>
+	<title>Registration</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css"/>
 </head>
 <body>
@@ -11,9 +11,9 @@
 	<div class="row">
 		<div class="col-sm-4 col-md-offset-4" style="margin-top: 150px">
 
-		<?php if(isset($_GET['login']) && $_GET['login'] == "false"): ?>
+		<?php if(isset($_GET['email']) && $_GET['email'] == "false"): ?>
         <div class="alert alert-danger">
-            <small>Please provide the right credentials.</small>
+            <small>The email you provided is already in use.</small>
         </div>
 		<?php endif; ?>
 		
@@ -23,7 +23,14 @@
         </div>
 		<?php endif; ?>
 		
-		<?php echo form_open('login/verify'); ?>
+		<?php echo form_open('register/verify'); ?>
+        <div class="form-group">
+        	<label><small>Full Name</small></label>
+			<div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input type="text" name="user_name" class="form-control" required="required">
+			</div>
+        </div>
         <div class="form-group">
         	<label><small>Email Address</small></label>
 			<div class="input-group">
@@ -38,8 +45,8 @@
 				<input type="password" name="user_password" class="form-control" required="required">
 			</div>
 		</div>
-		<a href="register">Don't have an account? Register!</a>
-		<button class="btn btn-primary pull-right">Log In <i class="glyphicon glyphicon-log-in"></i></button>
+		<a href="login">Have an account? Login!</a>
+		<button class="btn btn-success pull-right">Register</button>
 		<?php echo form_close(); ?>
 		</div>
 	</div>

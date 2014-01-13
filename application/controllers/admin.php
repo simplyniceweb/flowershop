@@ -4,6 +4,7 @@ class Admin extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		$this->load->library('MY_Upload');
     }
 
 	public function index() {
@@ -91,6 +92,56 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/product', $data);
 	}
 	
+	public function new_product() {
+		$pick = 0;
+		$mysession = $this->session->userdata('logged');
+		$type = $this->input->post('flower_type');
+		if(empty($type) || is_null($type)) $type = 0;
+
+		$data = array(
+			'category'           => $this->input->post('category'),
+			'flower_name'        => $this->input->post('flower_name'),
+			'flower_description' => $this->input->post('flower_description'),
+			'flower_price'       => $this->input->post('flower_price'),
+			'flower_availability' => $this->input->post('flower_availability'),
+			'flower_type'        => $type,
+			'flower_category'    => $this->input->post('flower_category')
+		);
+
+		$this->db->insert("flower", $data);
+		$flower_id = $this->db->insert_id();
+
+		$this->upload->initialize(array(
+			"upload_path" => "assets/flower/",
+			"allowed_types" => 'gif|jpg|png|jpeg',
+			"max_size" => '2000',
+			"encrypt_name" => 'TRUE',
+			"remove_spaces" => 'TRUE',
+			"is_image" => '1'
+		));
+		
+		if($this->upload->do_multi_upload("flower_images")){
+			$image = $this->upload->get_multi_upload_data();
+			foreach($image as $array) {
+				$upload = array(
+					'flower_img_name'  => $array['file_name'],
+					'flower_id'        => $flower_id
+				);
+
+				if($pick == 0) {
+					$upload['flower_main'] = 1;
+				} else {
+					$upload['flower_main'] = 0;
+				}
+				$pick = 1;
+
+				$this->db->insert('flower_image', $upload);
+			}
+		}
+
+		redirect("admin/product?add=true");
+	}
+
 	// Package
 	public function package() {
 		$mysession = $this->session->userdata('logged');
@@ -103,6 +154,7 @@ class Admin extends CI_Controller {
 
 		$this->load->view('admin/product', $data);
 	}
+
 }
 
 /* End of file welcome.php */

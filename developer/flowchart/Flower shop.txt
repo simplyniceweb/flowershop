@@ -31,8 +31,8 @@ Admin ( Reports):
 
 Customer:
 - User settings:
-	* Can update information
-	
+	* Can suggest to update information
+
 - User order:
 	* Can view order history
 	* Cancel / Re-schedule of delivery

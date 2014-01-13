@@ -1,8 +1,4 @@
-;(function(){
-
-	var config = {
-		base_url : window.location.protocol+"//"+window.location.host+'/flowershop',
-		doc     : $(document)
-	}
-
-}(jQuery, window, document));
+var config = {
+	base_url : window.location.protocol+"//"+window.location.host+'/flowershop',
+	doc     : $(document)
+}

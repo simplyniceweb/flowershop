@@ -10,11 +10,19 @@
 <?php require_once('/../includes/header.php'); ?>
 <div class="container">
 	<div class="row">
-    
+    <ol class="breadcrumb">
+      <li><a href="<?php echo $this->uri->segment(1); ?>"><?php echo ucfirst($this->uri->segment(1)); ?></a></li>
+      <li class="active"><?php echo ucfirst($this->uri->segment(2)); ?></li>
+    </ol>
     	<div class="col-md-8 col-md-offset-2">
             <div class="panel panel-info">
                 <div class="panel-body">
-                <?php echo form_open("admin/new_product"); ?>
+				<?php if(isset($_GET['add']) && $_GET['add'] == "true"): ?>
+                <div class="alert alert-success">
+                    <small>New <?php echo $this->uri->segment(2); ?> has been added.</small>
+                </div>
+                <?php endif; ?>
+                <?php echo form_open_multipart("admin/new_product"); ?>
                     <div class="form-group">
                         <label for="category_list"><small>Category</small></label>
                         <select id="category_list" class="form-control" name="category" required="required">
@@ -40,22 +48,22 @@
                     </div>
                     
                     <div class="form-group">
-                    	<label for="flower_availabilty"><small>Availabilty</small></label>
-                        <input type="text" id="flower_availabilty" class="form-control" name="flower_availabilty" required="required">
+                    	<label for="flower_availability"><small>Availabilty</small></label>
+                        <input type="text" id="flower_availability" class="form-control" name="flower_availability" required="required">
                     </div>
                     
                     <div class="form-group">
                     	<label for="flower_images"><small>Upload images</small></label>
-                        <input type="file" id="flower_images" class="form-control" name="flower_images[]" required="required">
+                        <input type="file" id="flower_images" class="form-control" name="flower_images[]" multiple required="required">
                     </div>
                     
                     <div class="form-group">
                     <div class="btn-group" data-toggle="buttons">
                       <label class="btn btn-primary">
-                        <input type="radio" name="options" id="option1"> Featured
+                        <input type="radio" name="flower_type" value="1" id="option1"> Featured
                       </label>
                       <label class="btn btn-primary">
-                        <input type="radio" name="options" id="option2"> Promo
+                        <input type="radio" name="flower_type" value-"2" id="option2"> Promo
                       </label>
                     </div>
                     </div>

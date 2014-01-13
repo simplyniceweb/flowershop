@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Package extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
@@ -12,26 +12,17 @@ class Home extends CI_Controller {
 		$this->db->select('*');
 		$this->db->from('flower');
 		$this->db->join('flower_image', 'flower_image.flower_id = flower.flower_id');
-		$this->db->where("flower.flower_type", 1);
+		$this->db->where("flower.flower_category", 2);
 		$this->db->where("flower.flower_availability >", 1);
 		$this->db->where("flower_image.flower_main", 1);
-		$featured = $this->db->get();
-
-		$this->db->select('*');
-		$this->db->from('flower');
-		$this->db->join('flower_image', 'flower_image.flower_id = flower.flower_id');
-		$this->db->where("flower.flower_type", 2);
-		$this->db->where("flower.flower_availability >", 1);
-		$this->db->where("flower_image.flower_main", 1);
-		$promo = $this->db->get();
-
+		$flower = $this->db->get();	
+		
 		$data = array(
-			'session'   => $mysession,
-			'featured'  => $featured->result(),
-			'promo'     => $promo->result()
+			'session' => $mysession,
+			'flower'  => $flower->result()
 		);
 
-		$this->load->view('homepage', $data);
+		$this->load->view('pages/product', $data);
 	}
 }
 
