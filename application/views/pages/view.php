@@ -23,7 +23,6 @@
 <div class="container">
     
     <div class="row divider wrapper box">
-
         <?php foreach($flower as $flw) { ?>
           <div class="col-md-3">
             <div class="thumbnail">
@@ -34,8 +33,8 @@
               	<p>Price: Php <?php echo number_format($flw->flower_price, 2); ?></p>
                 <p>Availability: <?php echo $flw->flower_availability; ?></p>
                 <p>
-                <a href="javascript:void(0);" class="btn <?php if(!is_null($flw->c_flower_id)) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($flw->c_flower_id)) echo $flw->c_flower_id; ?>" data-entry-id="<?php echo $flw->flower_id; ?>" role="button">
-                    <?php if(!is_null($flw->c_flower_id)) { ?>
+                <a href="javascript:void(0);" class="btn <?php if(!is_null($flw->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($flw->c_flower_id) && $session) echo $flw->c_flower_id; ?>" data-entry-id="<?php echo $flw->flower_id; ?>" role="button">
+                    <?php if(!is_null($flw->c_flower_id) && $session) { ?>
                     <i class="glyphicon glyphicon-remove"></i> 
                     Remove to cart
                     <?php } else { ?>
@@ -67,7 +66,6 @@
             </div>
           </div>
          <?php } ?>  
-         
 
          <div class="col-md-9 gallery">
              <ul>
@@ -80,8 +78,14 @@
                     </li>
                  <?php } ?>
              </ul>
-         </div>  
-
+         </div>
+    </div>
+    
+    <div class="row divider wrapper box">
+    <div class="form-group">
+    	<textarea class="form-control" placeholder="Suggestions.."></textarea>
+	</div>
+        <button type="button" class="btn btn-sm btn-primary pull-right">Submit</button>
     </div>
 </div>
 

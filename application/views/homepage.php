@@ -39,7 +39,7 @@
     <div class="row divider wrapper box">
     	<h4 class="flower-title">Featured</h4>
         <?php if(count($featured) < 1 ): ?>
-        	<p class="flower-title">No promo yet.</p>
+        	<p class="flower-title">No featured product yet.</p>
         <?php endif; ?>
         <?php foreach($featured as $feat) { ?>
           <div class="col-sm-3 col-md-3">
@@ -52,8 +52,8 @@
               	<p>Price: Php <?php echo number_format($feat->flower_price, 2); ?></p>
                 <p>Availability: <?php echo $feat->flower_availability; ?></p>
                 <p>
-                <a href="javascript:void(0);" class="btn <?php if(!is_null($feat->c_flower_id)) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($feat->c_flower_id)) { echo $feat->c_flower_id; } ?>" data-entry-id="<?php echo $feat->flower_id; ?>" role="button">
-                    <?php if(!is_null($feat->c_flower_id)) { ?>
+                <a href="javascript:void(0);" class="btn <?php if(!is_null($feat->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($feat->c_flower_id) && $session) { echo $feat->c_flower_id; } ?>" data-entry-id="<?php echo $feat->flower_id; ?>" role="button">
+                    <?php if(!is_null($feat->c_flower_id) && $session) { ?>
                     <i class="glyphicon glyphicon-remove"></i> 
                     Remove to cart
                     <?php } else { ?>
@@ -85,8 +85,8 @@
               	<p>Price: Php <?php echo number_format($prom->flower_price, 2); ?></p>
                 <p>Availability: <?php echo $prom->flower_availability; ?></p>
                 <p>
-                <a href="javascript:void(0);" class="btn <?php if(!is_null($prom->c_flower_id)) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($prom->c_flower_id)) echo $prom->c_flower_id; ?>" data-entry-id="<?php echo $prom->flower_id; ?>" role="button">
-                    <?php if(!is_null($prom->c_flower_id)) { ?>
+                <a href="javascript:void(0);" class="btn <?php if(!is_null($prom->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($prom->c_flower_id) && $session) echo $prom->c_flower_id; ?>" data-entry-id="<?php echo $prom->flower_id; ?>" role="button">
+                    <?php if(!is_null($prom->c_flower_id) && $session) { ?>
                     <i class="glyphicon glyphicon-remove"></i> 
                     Remove to cart
                     <?php } else { ?>

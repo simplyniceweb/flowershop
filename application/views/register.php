@@ -7,6 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css"/>
 </head>
 <body>
+<?php require_once('includes/header.php'); ?>
+
 <div class="container">
 	<div class="row">
 		<div class="col-sm-4 col-md-offset-4" style="margin-top: 150px">

@@ -7,11 +7,32 @@ class Cart extends CI_Controller {
     }
 
 	public function index() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) redirect("");
+		$this->db->select('*');
+		$this->db->from('flower');
+		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'inner');
+		$this->db->where("cart.user_id", $mysession['user_id']);
+		$this->db->where("flower.flower_availability >", 1);
+		$this->db->where("flower.flower_status",0);
+		$this->db->group_by("flower.flower_id"); 
+		$flower = $this->db->get();
+		// var_dump($flower->result());
+		$data = array(
+			'session' => $mysession,
+			'flower'  => $flower->result()
+		);
+		
+		$this->load->view('pages/cart', $data);
 	}
 	
 	public function add_cart() {
 		$mysession = $this->session->userdata('logged');
-		if(!$mysession) return "off-session";
+		if(!$mysession) {
+			$off = "off-session";
+			echo $off;
+			return $off;
+		}
 
 		$data = array(
 			'user_id'   => $mysession['user_id'],
@@ -26,15 +47,14 @@ class Cart extends CI_Controller {
 	
 	public function remove_cart() {
 		$mysession = $this->session->userdata('logged');
-		if(!$mysession) return "off-session";
+		if(!$mysession) {
+			$off = "off-session";
+			echo $off;
+			return $off;
+		}
 		
 		$cart_id = $this->input->post("id");
-		//$data = array(
-		//	'cart_status' => 1
-		//);
 
-		//$this->db->where("cart_id", $cart_id);
-		//$this->db->update("cart", $data);
 		$this->db->delete('cart', array("cart_id" => $cart_id)); 
 		echo 0;
 		return 0;

@@ -17,7 +17,7 @@ class Product extends CI_Controller {
 		$this->db->where("flower.flower_availability >", 1);
 		$this->db->where("flower_image.flower_main", 1);
 		$this->db->where("flower.flower_status",0);
-		$flower = $this->db->get();	
+		$flower = $this->db->get();
 		
 		$data = array(
 			'session' => $mysession,
