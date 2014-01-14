@@ -24,7 +24,7 @@ class Package extends CI_Controller {
 			'flower'  => $flower->result()
 		);
 
-		$this->load->view('pages/product', $data);
+		$this->load->view('pages/package', $data);
 	}
 }
 

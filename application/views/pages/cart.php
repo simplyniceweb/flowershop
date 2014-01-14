@@ -42,15 +42,15 @@
                 <td>Php <?php echo number_format($flw->flower_price, 2); ?></td>
                 <td><?php echo number_format($flw->flower_availability); ?></td>
                 <td>
-                <button type="submit" class="btn btn-xs btn-default" data-entry-id="<?php echo $flw->flower_id; ?>">
+                <button type="submit" class="remove-flower btn btn-xs btn-default" data-entry-id="<?php echo $flw->flower_id; ?>">
                     <span class="glyphicon glyphicon-remove"></span> 
                     Remove to Cart
 				</button>
                 </td>
                 <td>
-                <button type="submit" class="btn btn-xs btn-default" data-entry-id="<?php echo $flw->flower_id; ?>">
+                <button type="submit" class="btn btn-xs btn-default">
                     <span class="glyphicon glyphicon-credit-card"></span> 
-                    Order Now
+                    <a href="cart/order/<?php echo $flw->flower_id; ?>">Order Now</a>
 				</button>
                 </td>
             <?php } ?>

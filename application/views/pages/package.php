@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +20,9 @@
 <div class="container">
     
     <div class="row divider wrapper box">
+    	<?php if(count($flower) < 1) { ?>
+        	<p>No package yet.</p>
+        <?php } ?>
         <?php foreach($flower as $flw) { ?>
           <div class="col-sm-3 col-md-3">
             <div class="thumbnail">

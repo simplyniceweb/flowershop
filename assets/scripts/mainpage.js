@@ -2,10 +2,48 @@
 	
 	var cartConf = {
 		add: ".add-cart",
-		remove: ".remove-cart"
+		order: ".order-btn",
+		remove: ".remove-cart",
+		archive: ".remove-flower",
 	}
 	
 	var cartFunc = {
+		order: function(){
+			return this.delegate(cartConf.order, "click", function(){
+				var me = $(this),
+				data = me.closest("#order_form").serialize();
+				jQuery.ajax({
+					type: "POST",
+					url: config.base_url+"/cart/add_order/",
+					data: data,
+					cache: false,
+					success: function (response) {
+						alert("Success!");
+						location.href=config.base_url+"/cart";
+					}, error: function () {
+						console.log('Something went wrong..');
+					}
+				});
+			});
+		},
+		archive: function(){
+			return this.delegate(cartConf.archive, "click", function(){
+				var me = $(this), 
+				id = me.data("entry-id");
+				if(!confirm("Are you sure you want to remove this to cart?")) return false;
+				jQuery.ajax({
+					type: "POST",
+					url: config.base_url+"/cart/remove_cart/",
+					data: { 'id' : id },
+					cache: false,
+					success: function (response) {
+						me.closest("tr").slideToggle();
+					}, error: function () {
+						console.log('Something went wrong..');
+					}
+				});
+			});
+		},
 		add: function() {
 			return this.delegate(cartConf.add, "click", function(){
 				var me = $(this),
@@ -65,6 +103,8 @@
 
 	$.extend(config.doc, cartFunc);
 	config.doc.add();
+	config.doc.order();
+	config.doc.archive();
 	config.doc.remove();
 
 	var deleteConf = {

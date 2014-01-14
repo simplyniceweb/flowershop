@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 13, 2014 at 06:18 PM
+-- Generation Time: Jan 14, 2014 at 05:31 PM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
 CREATE TABLE IF NOT EXISTS `category` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(255) NOT NULL,
+  `category_type` int(11) NOT NULL,
   PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -79,6 +80,26 @@ CREATE TABLE IF NOT EXISTS `flower_image` (
   `flower_id` int(11) NOT NULL,
   `flower_main` int(11) NOT NULL,
   PRIMARY KEY (`flower_img_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE IF NOT EXISTS `orders` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(111) NOT NULL,
+  `flower_id` int(11) NOT NULL,
+  `payment` int(11) NOT NULL,
+  `receiver` varchar(255) NOT NULL,
+  `receiver_no` varchar(255) NOT NULL,
+  `delivery_date` datetime NOT NULL,
+  `receiver_address` varchar(255) NOT NULL,
+  `card_message` text NOT NULL,
+  `order_status` int(11) NOT NULL,
+  PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

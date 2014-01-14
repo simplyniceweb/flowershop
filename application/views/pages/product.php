@@ -20,7 +20,9 @@
 <div class="container">
     
     <div class="row divider wrapper box">
-    	<?php // var_dump($flower); ?>
+    	<?php if(count($flower) < 1) { ?>
+        	<p>No product yet.</p>
+        <?php } ?>
         <?php foreach($flower as $flw) { ?>
           <div class="col-sm-3 col-md-3">
             <div class="thumbnail">
