@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 14, 2014 at 05:31 PM
+-- Generation Time: Jan 19, 2014 at 10:43 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -61,7 +61,6 @@ CREATE TABLE IF NOT EXISTS `flower` (
   `flower_name` varchar(255) NOT NULL,
   `flower_description` text NOT NULL,
   `flower_price` int(11) NOT NULL,
-  `flower_availability` int(11) NOT NULL,
   `flower_type` int(11) NOT NULL,
   `flower_category` int(11) NOT NULL,
   `flower_status` int(11) NOT NULL,
@@ -99,6 +98,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `receiver_address` varchar(255) NOT NULL,
   `card_message` text NOT NULL,
   `order_status` int(11) NOT NULL,
+  `order_date` date NOT NULL,
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -117,6 +117,20 @@ CREATE TABLE IF NOT EXISTS `payment` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `suggestions`
+--
+
+CREATE TABLE IF NOT EXISTS `suggestions` (
+  `suggestion_id` int(11) NOT NULL AUTO_INCREMENT,
+  `suggestion` text NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `flower_id` int(11) NOT NULL,
+  PRIMARY KEY (`suggestion_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -126,16 +140,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_name` varchar(255) NOT NULL,
   `user_password` varchar(255) NOT NULL,
   `user_email` varchar(255) NOT NULL,
+  `user_address` text NOT NULL,
+  `user_birthday` date NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_level`, `user_name`, `user_password`, `user_email`) VALUES
-(1, 1, 'Administrator', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin@flowershop.com'),
-(2, 0, 'Juan Dela Cruz', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'juan@delacruz.com');
+INSERT INTO `users` (`user_id`, `user_level`, `user_name`, `user_password`, `user_email`, `user_address`, `user_birthday`) VALUES
+(1, 1, 'Keanna', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin@flowershop.com', 'Purok 9, Brgy Aguisan, Himamaylan City, Negros Occidental', '1990-05-01'),
+(2, 0, 'Juan Dela Cruz', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'juan@delacruz.com', '', '0000-00-00'),
+(3, 0, 'Jaylord Ferrer', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'simplyniceweb@gmail.com', '', '0000-00-00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
