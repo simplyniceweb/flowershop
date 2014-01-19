@@ -29,9 +29,8 @@
               <img src="assets/flower/<?php echo $flw->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" width="300" height="100">
               <div class="caption">
               	<h3><?php echo $flw->flower_name; ?></h3>
-                <p><?php echo $flw->flower_description; ?> Gumamela is just a simple flower.</p>
+                <p><?php echo $flw->flower_description; ?></p>
               	<p>Price: Php <?php echo number_format($flw->flower_price, 2); ?></p>
-                <p>Availability: <?php echo $flw->flower_availability; ?></p>
                 <p>
                 <a href="javascript:void(0);" class="btn <?php if(!is_null($flw->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($flw->c_flower_id) && $session) echo $flw->c_flower_id; ?>" data-entry-id="<?php echo $flw->flower_id; ?>" role="button">
                     <?php if(!is_null($flw->c_flower_id) && $session) { ?>
@@ -80,13 +79,14 @@
              </ul>
          </div>
     </div>
-    
+    <?php if($session): ?>
     <div class="row divider wrapper box">
     <div class="form-group">
-    	<textarea class="form-control" placeholder="Suggestions.."></textarea>
+    	<textarea class="form-control suggest-textarea" placeholder="Suggestions.."></textarea>
 	</div>
-        <button type="button" class="btn btn-sm btn-primary pull-right">Submit</button>
+        <button type="button" class="btn-suggestion btn btn-sm btn-primary pull-right" data-entry-id="<?php echo $flw->flower_id; ?>">Submit</button>
     </div>
+    <?php endif; ?>
 </div>
 
 <?php require_once('/../includes/footer.php'); ?>

@@ -8,12 +8,20 @@ class Register extends CI_Controller {
 
 	public function index() {
 		$mysession = $this->session->userdata('logged');
-		if($mysession) redirect('home');
+		if($mysession && $mysession['user_level'] == 0) redirect('home');
 
-		$this->load->view('register');
+		if(!$mysession) $action = 0;
+		if($mysession && $mysession['user_level'] == 1) $action = 1;
+	
+		$data = array(
+			'action' => $action
+		);
+
+		$this->load->view('register', $data);
 	}
 
 	public function verify() {
+		$action = $this->input->post("action");
 		$data = array(
 			'user_name'     => $this->input->post("user_name"),
 			'user_email'    => $this->input->post("user_email"),
@@ -27,6 +35,8 @@ class Register extends CI_Controller {
 		if($check->num_rows() > 0) redirect("register?email=false");
 		
 		$this->db->insert("users", $data);
+		
+		if($action == 1) redirect("admin");
 		
 		$user_id = $this->db->insert_id();
 		$this->db->where('user_id', $user_id);

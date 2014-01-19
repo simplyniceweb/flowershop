@@ -26,6 +26,13 @@
                 </div>
                 <?php endif; ?>
                 <?php echo form_open("admin/new_category"); ?>
+                	<div class="form-group">
+                    	<label for="category_type"><small>Category Type</small></label>
+                        <select id="category_type" class="form-control" name="category_type">
+                        	<option value="1">Product</option>
+                            <option value="2">Package</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                     	<label for="new_category"><small>Category Name</small></label>
                         <input type="text" id="new_category" class="form-control" name="new_category" required="required">
@@ -48,27 +55,19 @@
                     </div>
                     <?php endif; ?>
                     
-                	<?php
-                    	if($category->num_rows > 0) {
-							echo form_open("admin/archive_category");
-					?>
+					<?php echo form_open("admin/archive_category"); ?>
                         <div class="form-group">
-                            <label for="category_list"><small>List of category</small></label>
-                            <select id="category_list" class="form-control" name="category">
-                                <?php foreach($category->result() as $row) { ?>
-                                    <option value="<?php echo $row->category_id; ?>"><?php echo $row->category_name; ?></option>
-                                <?php } ?>
+                            <label for="category_type"><small>Category Type</small></label>
+                            <select id="category_type" class="form-control" name="category_type">
+                            	<option value="">Choose category type</option>
+                                <option value="1">Product</option>
+                                <option value="2">Package</option>
                             </select>
                         </div>
+                        <div class="form-group category_app">
+                        </div>
                         <button type="submit" class="pull-right btn btn-danger">Delete</button>
-                    <?php 
-							echo form_close(); 
-						} else {
-					?>
-                    <div class="alert alert-info">
-                        <small>No category yet.</small>
-                    </div>
-                    <?php } ?>
+                    <?php  echo form_close();?>
                 </div>
             </div>
 		</div>

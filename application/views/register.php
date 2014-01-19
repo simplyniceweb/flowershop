@@ -48,6 +48,7 @@
 			</div>
 		</div>
 		<a href="login">Have an account? Login!</a>
+        <input type="hidden" name="action" value="<?php echo $action; ?>"/>
 		<button class="btn btn-success pull-right">Register</button>
 		<?php echo form_close(); ?>
 		</div>

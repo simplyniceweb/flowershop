@@ -1,0 +1,270 @@
+body{
+    background-color: #2d000d;
+
+
+
+}
+
+
+
+
+#cssmenu {
+  border: none;	
+  position:relative;
+  margin-left:170px;
+  margin-right: 170px;
+  width: 1040px;
+  font: 67.5% 'Lucida Sans Unicode', 'Bitstream Vera Sans', 'Trebuchet Unicode MS', 'Lucida Grande', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+#cssmenu ul {
+  background: #000000;
+  height: 50px;
+  list-style: none;
+  margin: 0;
+  padding-left: 225px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  -webkit-box-shadow: inset 0px 16px 0px 0px rgba(255, 255, 255, 0.1);
+  -moz-box-shadow: inset 0px 16px 0px 0px rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0px 16px 0px 0px rgba(255, 255, 255, 0.1);
+}
+#cssmenu li {
+  float: left;
+  padding: 0px 0px 0px 15px;
+}
+#cssmenu li a {
+  color: #ffffff;
+  display: block;
+  font-weight: normal;
+  line-height: 50px;
+  margin: 0px;
+  padding: 0px 25px;
+  text-align: center;
+  text-decoration: none;
+}
+#cssmenu li a:hover {
+  background: #5b5b5b;
+  color: #FFFFFF;
+  text-decoration: none;
+  -webkit-box-shadow: inset 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: inset 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+}
+#cssmenu ul li:hover a {
+  background: #5b5b5b;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+#cssmenu li ul {
+  display: none;
+  height: auto;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  position: absolute;
+  width: 200px;
+  z-index: 200;
+}
+#cssmenu li:hover ul {
+  display: block;
+}
+#cssmenu li li {
+  display: block;
+  float: none;
+  margin: 0px;
+  padding: 0px;
+  width: 200px;
+  background: #3c3c3c;
+
+
+}
+#cssmenu li:hover li a {
+  background: none;
+}
+#cssmenu li ul a {
+  display: block;
+  height: 50px;
+  font-size: 12px;
+  font-style: normal;
+  margin: 0px;
+  padding: 0px 10px 0px 15px;
+  text-align: left;
+}
+
+#cssmenu li ul li:hover a {
+  border: 0px;
+  color: #FFFFFF;
+  text-decoration: none;
+  background: #abff54;
+  -webkit-box-shadow: inset 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: inset 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0px 0px 7px 2px rgba(0, 0, 0, 0.3);
+}
+
+
+.banner{
+background-image:url("../images/banner8.png");
+background-repeat: no-repeat;
+margin-left: 170px;
+height: 40%;
+
+
+}
+
+.loginstyle{
+height: 320px;
+width: 400px;
+margin-left:470px;
+margin-top:50px;
+padding-top: 20px;
+border-radius:5px;
+border-style: solid;
+border-width: 5px;
+border-color: #336633;
+background-color:#f3f3f3;
+
+}
+
+.content1{
+
+font-size: 20px;
+height: 1100px;
+width: 1030px;
+margin-left:170px;
+margin-right: 170px;
+padding-top: 20px;
+border-radius: 20px;
+border-style: solid;
+border-width: 5px;
+border-color: #336633;
+background-color:#f3f3f3;
+z-index:1;
+
+}
+.product{
+
+    height: 400px;
+    width: 1030px;
+    margin-left:170px;
+    margin-right:170px;
+    padding-top: 20px;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #336633;
+    background-color:#f3f3f3;
+    z-index:1;
+
+}
+.signup{
+
+    height: 500px;
+    width: 1030px;
+    margin-left:170px;
+    margin-right:170px;
+    padding-top: 20px;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #336633;
+    background-color:#f3f3f3;
+    z-index:1;
+
+}
+
+.slide{
+height: 400px;
+width: 600px;
+margin-left:30px;
+border-radius: 20px;
+border-style: solid;
+border-width: 2px;
+border-color: #336633;
+background-color:#f3f3f3;
+
+z-index:2;
+}
+
+.welcome{
+height: 400px;
+width: 360px;
+margin-left:620px;
+border-radius: 0px;
+border-style: solid;
+border-width: 2px;
+border-color: #336633;
+background-color:#f3f3f3;
+
+z-index:2;
+
+
+}
+
+.featured{
+height:50px;
+width: 1030px;
+background-color: #46e637;
+-webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  -webkit-box-shadow: inset 0px 16px 0px 0px rgba(255, 255, 255, 0.1);
+  -moz-box-shadow: inset 0px 16px 0px 0px rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0px 16px 0px 0px rgba(255, 255, 255, 0.1);
+
+z-index: 2;
+
+}
+
+.cat{
+background-image:url("../images/cat.png");
+background-repeat: no-repeat;
+margin-left: 50px;
+height: 100%;
+width: 300px;
+left: 150px;
+position: absolute;
+
+}
+
+.about{
+background-image:url("../images/about.png");
+background-repeat: no-repeat;
+
+height: 100%;
+
+left: 150px;
+right: 0px;
+position: absolute;
+z-index: 2;
+
+}
+
+.terms{
+background-image:url("../images/terms.png");
+background-repeat: no-repeat;
+height: 100%;
+
+left: 150px;
+right: 0px;
+position: absolute;
+z-index: 2;
+
+}
+
+
+.footergis{
+background-image:url("../images/footer3.png");
+background-repeat: no-repeat;
+margin-left: 30px;
+margin-top: 570px;
+height: 100%;
+
+left: 150px;
+right: 0px;
+position: absolute;
+z-index: 2;
+}
+

@@ -58,15 +58,10 @@
                     	<label for="flower_price"><small>Flower Price</small></label>
                         <input type="text" id="flower_price" class="form-control" name="flower_price" value="<?php if(isset($flw->flower_price)) echo $flw->flower_price; ?>" required="required">
                     </div>
-                    
-                    <div class="form-group">
-                    	<label for="flower_availability"><small>Availabilty</small></label>
-                        <input type="text" id="flower_availability" class="form-control" name="flower_availability" value="<?php if(isset($flw->flower_availability)) echo $flw->flower_availability; ?>" required="required">
-                    </div>
-                    
+
                     <div class="form-group">
                     	<label for="flower_images"><small>Upload images</small></label>
-                        <input type="file" id="flower_images" class="form-control" name="flower_images[]" multiple>
+                        <input type="file" id="flower_images" class="form-control" name="flower_images[]" <?php if($id == 0): ?>required<?php endif; ?> multiple>
                     </div>
                     
                     <div class="form-group">

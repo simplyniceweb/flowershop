@@ -6,7 +6,7 @@ class Admin extends CI_Controller {
 		parent::__construct();
 		$this->load->library('MY_Upload');
     }
-
+	// Index
 	public function index() {
 		$mysession = $this->session->userdata('logged');
 		if(!$mysession) redirect("login");
@@ -22,10 +22,11 @@ class Admin extends CI_Controller {
 	// Category
 	public function category() {
 		$mysession = $this->session->userdata('logged');
+		if(!$mysession) redirect("");
+		if($mysession['user_level'] != 1) redirect("home");
 
 		$data = array(
-			'session' => $mysession,
-			'category' => $this->db->get("category")
+			'session' => $mysession
 		);
 
 		$this->load->view('admin/category', $data);
@@ -33,7 +34,8 @@ class Admin extends CI_Controller {
 	
 	public function new_category() {
 		$data = array(
-			'category_name' => $this->input->post("new_category")
+			'category_name' => $this->input->post("new_category"),
+			'category_type' => $this->input->post("category_type")
 		);
 
 		$this->db->insert("category", $data);
@@ -48,10 +50,24 @@ class Admin extends CI_Controller {
 		
 		redirect("admin/category?del=true");
 	}
+	
+	public function append_category() {
+		$type = $this->input->post("type");
+		$this->db->where("category_type", $type);
+		$category = $this->db->get("category");
+		
+		$data = array(
+			'category' => $category
+		);
+		
+		$this->load->view("admin_append/category", $data);
+	}
 
 	// Payment
 	public function payment() {
 		$mysession = $this->session->userdata('logged');
+		if(!$mysession) redirect("");
+		if($mysession['user_level'] != 1) redirect("home");
 
 		$data = array(
 			'session' => $mysession,
@@ -61,7 +77,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/payment', $data);
 	}
 	
-	public function new_payment() {
+	public function new_payment() {		
 		$data = array(
 			'payment_name' => $this->input->post("new_payment")
 		);
@@ -82,8 +98,13 @@ class Admin extends CI_Controller {
 	// Product
 	public function product() {
 		$mysession = $this->session->userdata('logged');
+		if(!$mysession) redirect("");
+		if($mysession['user_level'] != 1) redirect("home");
+
 		$flower = NULL;
 		$flower_id = $this->uri->segment(3);
+		$this->db->where("category_type", 1);
+		$category = $this->db->get("category");
 		
 		if(!empty($flower_id)) {
 			$this->db->where("flower_id", $flower_id);
@@ -97,14 +118,16 @@ class Admin extends CI_Controller {
 		$data = array(
 			'id'      => $flower_id,
 			'flower'  => $flower,
+			'category' => $category,
 			'session' => $mysession,
 			'flower_category' => 1,
-			'category' => $this->db->get("category")
+			// 'category' => $this->db->get("category")
 		);
 
 		$this->load->view('admin/product', $data);
 	}
 	
+	// New product
 	public function new_product() {
 		$pick = 0;
 		$mysession = $this->session->userdata('logged');
@@ -117,7 +140,6 @@ class Admin extends CI_Controller {
 			'flower_name'        => $this->input->post('flower_name'),
 			'flower_description' => $this->input->post('flower_description'),
 			'flower_price'       => $this->input->post('flower_price'),
-			'flower_availability' => $this->input->post('flower_availability'),
 			'flower_type'        => $type,
 			'flower_category'    => $this->input->post('flower_category')
 		);
@@ -160,17 +182,24 @@ class Admin extends CI_Controller {
 		}
 
 		if($action == 0) {
-			redirect("admin/product?add=true");
+			if($data['flower_category'] == 1) redirect("admin/product?add=true");
+			if($data['flower_category'] == 2) redirect("admin/package?add=true");
 		} else {
-			redirect("admin/product?update=true");
+			if($data['flower_category'] == 1) redirect("admin/product/".$action."/?update=true");
+			if($data['flower_category'] == 2) redirect("admin/package/".$action."/?update=true");
 		}
 	}
 
 	// Package
 	public function package() {
 		$mysession = $this->session->userdata('logged');
+		if(!$mysession) redirect("");
+		if($mysession['user_level'] != 1) redirect("home");
+
 		$flower = NULL;
 		$flower_id = $this->uri->segment(3);
+		$this->db->where("category_type", 2);
+		$category = $this->db->get("category");
 
 		if(!empty($flower_id)) {
 			$this->db->where("flower_id", $flower_id);
@@ -184,12 +213,98 @@ class Admin extends CI_Controller {
 		$data = array(
 			'id'      => $flower_id,
 			'flower'  => $flower,
+			'category' => $category,
 			'session' => $mysession,
 			'flower_category' => 2,
-			'category' => $this->db->get("category")
 		);
 
 		$this->load->view('admin/product', $data);
+	}
+	
+	// Suggestion
+	public function suggest() {
+		$mysession = $this->session->userdata('logged');
+		$flower_id = $this->input->post("flower_id");
+		$suggest = $this->input->post("suggest");
+
+		$data = array(
+			'user_id'   => $mysession['user_id'],
+			'flower_id' => $flower_id,
+			'suggestion'   => $suggest
+		);
+		
+		$this->db->insert("suggestions", $data);
+		return TRUE;
+	}
+	
+	// Orders
+	public function orders() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) redirect("");
+		if($mysession['user_level'] != 1) redirect("home");
+		$ym = date("Y-m");
+
+		$this->db->select('*');
+		$this->db->from('flower');
+		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'inner');
+		$this->db->join('category', 'category.category_id = flower.category', 'inner');
+		$this->db->where("flower.flower_status", 0);
+		$this->db->where("flower.flower_category", 1);
+		$this->db->where("orders.order_status", 1);
+		$this->db->like('orders.order_date', $ym); 
+		$this->db->group_by("flower.flower_id"); 
+		$flower = $this->db->get();
+
+		$data = array(
+			'session' => $mysession,
+			'flower'  => $flower->result()
+		);
+		
+		$this->load->view('admin/orders', $data);
+	}
+	
+	public function bydate() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) return false;
+		if($mysession['user_level'] != 1) return false;
+		$ym = $this->input->post("date");
+
+		$this->db->select('*');
+		$this->db->from('flower');
+		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'inner');
+		$this->db->join('category', 'category.category_id = flower.category', 'inner');
+		$this->db->where("flower.flower_status", 0);
+		$this->db->where("flower.flower_category", 1);
+		$this->db->where("orders.order_status", 1);
+		$this->db->like('orders.order_date', $ym); 
+		$this->db->group_by("flower.flower_id"); 
+		$flower = $this->db->get();
+
+		$data = array(
+			'session' => $mysession,
+			'counter' => $flower->num_rows(),
+			'flower'  => $flower->result(),
+			'status'  => 1,
+			'category' => 1
+		);
+		
+		$this->load->view("user_append/orders", $data);
+	}
+	
+	public function change_status() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) return false;
+		if($mysession['user_level'] != 1) return false;
+		
+		$order_id = $this->input->post("order_id");
+		$data = array(
+			'order_status' => $this->input->post("stats")
+		);
+		
+		$this->db->where("order_id", $order_id);
+		$this->db->update("orders", $data);
+		
+		return TRUE;
 	}
 
 }

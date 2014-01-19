@@ -27,20 +27,20 @@
     	<table class="table table-bordered table-hover">
         	<thead>
             	<tr>
-            	<th>Flower Name</th>
+            	<th>Product Name</th>
+                <th>Category</th>
                 <th>Price</th>
-                <th>Availability</th>
                 <th>Remove to cart</th>
                 <th>Order now</th>
                 </tr>
             </thead>
             
             <tbody>
-            <tr>
             <?php foreach($flower as $flw) { ?>
-            	<td><?php echo $flw->flower_name; ?></td>
+            <tr>
+            	<td><?php echo ucfirst($flw->flower_name); ?></td>
+                <td><?php echo ucfirst($flw->category_name); ?></td>
                 <td>Php <?php echo number_format($flw->flower_price, 2); ?></td>
-                <td><?php echo number_format($flw->flower_availability); ?></td>
                 <td>
                 <button type="submit" class="remove-flower btn btn-xs btn-default" data-entry-id="<?php echo $flw->flower_id; ?>">
                     <span class="glyphicon glyphicon-remove"></span> 
@@ -50,11 +50,11 @@
                 <td>
                 <button type="submit" class="btn btn-xs btn-default">
                     <span class="glyphicon glyphicon-credit-card"></span> 
-                    <a href="cart/order/<?php echo $flw->flower_id; ?>">Order Now</a>
+                    <a href="orders/order/<?php echo $flw->flower_id; ?>/0">Order Now</a>
 				</button>
                 </td>
+			</tr>
             <?php } ?>
-            </tr>
            	</tbody>
         </table>
         </div>

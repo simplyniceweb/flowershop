@@ -1,48 +1,8 @@
 Flowershop:
-- Login
-- Registration
-
-Admin ( Maintenance ):
-- Form for category ( basket, bouquet, vase Etc):
-  * CRUD ( Create, Read, Update and Delete )
-
-- Form for type of payment ( Western, LBC Etc ):
-  * CRUD ( Create, Read, Update and Delete )
-
-- Form for flowers:
-  * Category: (basket, bouquet, vase)
-  * Flower name
-  * Price
-  * Availability
-  * Image Upload ( Unlimited )
-  * Checkboxes: ( Featured , Promo )
-	
-Admin ( Monitoring ):
-- List of orders base in category ( Pending, On delivery, Delivered )
-- Update an order to ( Pending, On delivery, Delivered )
-
-Admin ( Viewing of product ):
-- Edit button for product
-- Delete button for product
-
 Admin ( Reports):
 - Sales for this year and per month.
 - Printable
 
-Customer:
-- User settings:
-	* Can suggest to update information
-
-- User order:
-	* Can view order history
-	* Cancel / Re-schedule of delivery
-
-- User interaction:
-- Clicking products, can view ( information of product, slideshow of product images )
-- Add to cart button beside product information
-- Suggestion button if the customer wants to renew something about the product
-
 - Payment form:
 	* Category ( Western, LBC, Etc )
-	* Details
 	* File upload ( Receipt ) *optional

@@ -1,0 +1,7 @@
+Admin ( Reports):
+- Sales for this year and per month.
+- Printable
+
+Searchable users:
+- Pagination
+- Can be deleted

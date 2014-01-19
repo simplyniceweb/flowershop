@@ -14,7 +14,6 @@ class Home extends CI_Controller {
 		$this->db->join('flower_image', 'flower_image.flower_id = flower.flower_id', 'left');
 		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
 		$this->db->where("flower.flower_type", 1);
-		$this->db->where("flower.flower_availability >", 1);
 		$this->db->where("flower_image.flower_main", 1);
 		$this->db->where("flower.flower_status",0);
 		$this->db->group_by("flower.flower_id"); 
@@ -25,7 +24,6 @@ class Home extends CI_Controller {
 		$this->db->join('flower_image', 'flower_image.flower_id = flower.flower_id', 'left');
 		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
 		$this->db->where("flower.flower_type", 2);
-		$this->db->where("flower.flower_availability >", 1);
 		$this->db->where("flower_image.flower_main", 1);
 		$this->db->where("flower.flower_status",0);
 		$this->db->group_by("flower.flower_id");

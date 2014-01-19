@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +31,6 @@
                 <h3><?php echo $flw->flower_name; ?></h3>
                 <p><?php echo $flw->flower_description; ?></p>
               	<p>Price: Php <?php echo number_format($flw->flower_price, 2); ?></p>
-                <p>Availability: <?php echo $flw->flower_availability; ?></p>
                 <p>
                 <a href="javascript:void(0);" class="btn <?php if(!is_null($flw->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($flw->c_flower_id) && $session) echo $flw->c_flower_id; ?>" data-entry-id="<?php echo $flw->flower_id; ?>" role="button">
                     <?php if(!is_null($flw->c_flower_id) && $session) { ?>

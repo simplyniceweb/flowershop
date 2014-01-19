@@ -45,7 +45,7 @@
                 <div class="panel-body">
                     <ul class="list-group">
                       <li class="list-group-item">
-                        <a href="">Sample</a>
+                        <a href="admin/orders">Orders</a>
                       </li>
                     </ul>
                 </div>
@@ -61,7 +61,7 @@
                 <div class="panel-body">
                     <ul class="list-group">
                       <li class="list-group-item">
-                        <a href="">Sample</a>
+                        <a href="">Sales Report</a>
                       </li>
                     </ul>
                 </div>
@@ -69,6 +69,26 @@
 		</div>
         
 	</div>
+    
+    <div class="row">
+    	<div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Users Maintenance</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        <a href="">Search and Delete</a>
+                      </li>
+                      <li class="list-group-item">
+                        <a href="register">Add user</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+		</div>
+    </div>
 </div>
 
 <?php require_once('includes/footer.php'); ?>

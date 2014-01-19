@@ -50,7 +50,6 @@
                 <h3><?php echo $feat->flower_name; ?></h3>
                 <p><?php echo $feat->flower_description; ?></p>
               	<p>Price: Php <?php echo number_format($feat->flower_price, 2); ?></p>
-                <p>Availability: <?php echo $feat->flower_availability; ?></p>
                 <p>
                 <a href="javascript:void(0);" class="btn <?php if(!is_null($feat->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($feat->c_flower_id) && $session) { echo $feat->c_flower_id; } ?>" data-entry-id="<?php echo $feat->flower_id; ?>" role="button">
                     <?php if(!is_null($feat->c_flower_id) && $session) { ?>

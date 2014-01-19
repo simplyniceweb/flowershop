@@ -15,7 +15,6 @@ class View extends CI_Controller {
 		$this->db->join('flower_image', 'flower_image.flower_id = flower.flower_id', 'left');
 		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
 		$this->db->where("flower.flower_id", $flower_id);
-		$this->db->where("flower.flower_availability >", 1);
 		$this->db->where("flower_image.flower_main", 1);
 		$this->db->where("flower.flower_status",0);
 		$flower = $this->db->get();	

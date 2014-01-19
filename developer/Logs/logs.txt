@@ -16,3 +16,36 @@ Add / Delete of gallery of flower
 Viewing of flower information
 Add to cart function
 Featured and Promo are separated
+
+January 19, 2014
+Users:
+- Edit user information
+- View details of order
+- Reschedule / Edit order details
+- Cancel Order
+- Suggestion for product
+- Order list ( Ordered by: Cancelled, Pending, On Delivery, Delivered )
+- Remove to cart
+- Order now button
+- Dropdown for product and packages
+
+
+Admin:
+- Category for product and packages
+- Search by year and month
+- Search by category type ( Product and Packages )
+- Search by category ( Cancelled, Pending, On Delivery, Delivered )
+- Can cancel someone's order
+- Can edit / re-schedule
+- Can view details
+- Can change order status
+- Can add user
+
+TODO:
+Report:
+- Sales for this year and per month.
+- Printable
+
+Searchable users:
+- Pagination
+- Can be deleted
