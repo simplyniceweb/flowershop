@@ -49,6 +49,7 @@ class Orders extends CI_Controller {
 
 		$order_status = $this->input->post("order_status");
 		$f_categ = $this->input->post("f_categ");
+		$date = $this->input->post("date");
 		$action = $this->input->post("action");
 
 		$this->db->select('*');
@@ -56,6 +57,7 @@ class Orders extends CI_Controller {
 		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'inner');
 		$this->db->join('category', 'category.category_id = flower.category', 'inner');
 		if($action == 1) {
+			$this->db->like('orders.order_date', $date);
 			$this->db->where("flower.flower_category", $f_categ);
 		}
 		$this->db->where("flower.flower_status", 0);
@@ -117,8 +119,10 @@ class Orders extends CI_Controller {
 		$receiver = $this->input->post("receiver");
 		$receiver_no = $this->input->post("receiver_no");
 		$delivery_date = $this->input->post("delivery_date");
+		$quantity = $this->input->post("quantity");
 		$receiver_address = $this->input->post("receiver_address");
 		$card_message = $this->input->post("card_message");
+		$suggestions = $this->input->post("suggestions");
 
 		if($action == 0) {
 			$this->db->delete('cart', array("user_id" => $user_id, "flower_id" => $flower_id));
@@ -131,10 +135,12 @@ class Orders extends CI_Controller {
 			'receiver' => $receiver,
 			'receiver_no' => $receiver_no,
 			'delivery_date' => $delivery_date,
+			'quantity' => $quantity,
 			'receiver_address' => $receiver_address,
 			'card_message' => $card_message,
-			'order_status' => 1, // 0 cancel, 1 pending , 2 = On delivery, 3 = Delivered
-			'order_date' => date("Y-m-d")
+			'order_status' => 1, // 0 cancel, 1 pending , 2 = On delivery, 3 = Delivered, 4 = Processing
+			'order_date' => date("Y-m-d"),
+			'suggestions' => $suggestions,
 		);
 
 		if($action == 0) {
@@ -170,6 +176,29 @@ class Orders extends CI_Controller {
 		);
 		
 		$this->load->view("user_append/modal", $data);
+	}
+	
+	public function billing() {
+		$order_id = $this->input->post("order_id");
+		$flower_id = $this->input->post("flower_id");
+		
+		$this->db->select('*');
+		$this->db->from('flower');
+		$this->db->join('flower_image', 'flower_image.flower_id = flower.flower_id', 'left');
+		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
+		$this->db->join('category', 'category.category_id = flower.category', 'left');
+		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
+		$this->db->where("flower.flower_id", $flower_id);
+		$this->db->where("orders.order_id", $order_id);
+		$this->db->where("flower_image.flower_main", 1);
+		$this->db->where("flower.flower_status",0);
+		$flower = $this->db->get();
+		
+		$data = array(
+			'flower' => $flower->result()
+		);
+		
+		$this->load->view("user_append/billing", $data);
 	}
 }
 

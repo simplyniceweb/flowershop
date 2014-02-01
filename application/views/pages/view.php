@@ -19,7 +19,7 @@
 	</style>
 </head>
 <body>
-<?php require_once('/../includes/header.php'); ?>
+<?php include(__DIR__ . "/../includes/header.php"); ?>
 <div class="container">
     
     <div class="row divider wrapper box">
@@ -79,16 +79,8 @@
              </ul>
          </div>
     </div>
-    <?php if($session): ?>
-    <div class="row divider wrapper box">
-    <div class="form-group">
-    	<textarea class="form-control suggest-textarea" placeholder="Suggestions.."></textarea>
-	</div>
-        <button type="button" class="btn-suggestion btn btn-sm btn-primary pull-right" data-entry-id="<?php echo $flw->flower_id; ?>">Submit</button>
-    </div>
-    <?php endif; ?>
 </div>
 
-<?php require_once('/../includes/footer.php'); ?>
+<?php include(__DIR__ . "/../includes/footer.php"); ?>
 </body>
 </html>

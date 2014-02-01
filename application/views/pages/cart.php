@@ -19,7 +19,7 @@
 	</style>
 </head>
 <body>
-<?php require_once('/../includes/header.php'); ?>
+<?php include(__DIR__ . "/../includes/header.php"); ?>
 <div class="container">
     <div class="row divider">
     	<div class="col-md-12">
@@ -61,6 +61,6 @@
     </div>
 </div>
 
-<?php require_once('/../includes/footer.php'); ?>
+<?php include(__DIR__ . "/../includes/footer.php"); ?>
 </body>
 </html>

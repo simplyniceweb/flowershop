@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css"/>
 </head>
 <body>
-<?php require_once('/../includes/header.php'); ?>
+<?php include(__DIR__ . "/../includes/header.php"); ?>
 <div class="container">
 	<div class="row">
     <ol class="breadcrumb">
@@ -75,6 +75,6 @@
 	</div>
 </div>
 
-<?php require_once('/../includes/footer.php'); ?>
+<?php include(__DIR__ . "/../includes/footer.php"); ?>
 </body>
 </html>

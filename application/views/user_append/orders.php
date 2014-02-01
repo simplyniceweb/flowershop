@@ -30,6 +30,12 @@
 		<a href="javascript:void(0)">View Details</a>
 	</button>
 	</td>
+    <td>
+    <button type="submit" class="view-billing btn btn-xs btn-default" data-flower-id="<?php echo $flw->flower_id; ?>" data-order-id="<?php echo $flw->order_id; ?>" data-toggle="modal" data-target="#billing">
+        <span class="glyphicon glyphicon-usd"></span> 
+        <a href="javascript:void(0)">View Billing</a>
+    </button>
+    </td>
     <?php if($category != 0) { ?>
     <td>
         <select class="form-control order-status" data-entry-id="<?php echo $flw->order_id; ?>" data-status="<?php echo $flw->order_status; ?>">
@@ -37,8 +43,11 @@
             <option <?php if($status == 1) { echo "selected";} ?> value="1">Pending</option>
             <option <?php if($status == 2) { echo "selected";} ?> value="2">On Delivery</option>
             <option <?php if($status == 3) { echo "selected";} ?> value="3">Delivered</option>
+            <option <?php if($status == 4) { echo "selected";} ?> value="4">Processing</option>
         </select>
     </td>
+    <?php } else { ?>
+    No action.
     <?php } ?>
 </tr>
 <?php } } else { ?>

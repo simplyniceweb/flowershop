@@ -18,7 +18,7 @@
 	</style>
 </head>
 <body>
-<?php require_once('/../includes/header.php'); ?>
+<?php include(__DIR__ . "/../includes/header.php"); ?>
 <div class="container">
     <div class="row divider">
     	<div class="col-md-12">
@@ -43,6 +43,7 @@
                 <option selected value="1">Pending Orders</option>
                 <option value="2">On delivery</option>
                 <option value="3">Delivered</option>
+                <option value="4">Processing</option>
             </select>
         </div>
     	<table class="table table-bordered table-hover">
@@ -54,6 +55,7 @@
                 <th>Cancel Order</th>
                 <th>Re-schedule Order</th>
                 <th>View details</th>
+                <th>Billing</th>
                 <th>Order Status</th>
                 </tr>
             </thead>
@@ -83,11 +85,18 @@
 				</button>
                 </td>
                 <td>
+                <button type="submit" class="view-billing btn btn-xs btn-default" data-flower-id="<?php echo $flw->flower_id; ?>" data-order-id="<?php echo $flw->order_id; ?>" data-toggle="modal" data-target="#billing">
+                    <span class="glyphicon glyphicon-usd"></span> 
+                    <a href="javascript:void(0)">View Billing</a>
+				</button>
+                </td>
+                <td>
                 	<select class="form-control order-status" data-entry-id="<?php echo $flw->order_id; ?>" data-status="<?php echo $flw->order_status; ?>">
                     	<!--  <option value="0">Cancel Order</option> -->
                         <option selected value="1">Pending</option>
                         <option value="2">On Delivery</option>
                         <option value="3">Delivered</option>
+                        <option value="4">Processing</option>
                     </select>
                 </td>
 			</tr>
@@ -112,6 +121,20 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<?php require_once('/../includes/footer.php'); ?>
+<div class="modal fade" id="billing">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Billing Statement</h4>
+      </div>
+      <div class="modal-body">
+        <p>Loading...</p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<?php include(__DIR__ . "/../includes/footer.php"); ?>
 </body>
 </html>

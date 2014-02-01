@@ -21,9 +21,8 @@ class Login extends CI_Controller {
 		$this->db->where('user_email', $email);
 		$this->db->where('user_password', sha1($password));
 		$login = $this->db->get();
-		
 		if($login->num_rows() <= 0) redirect("login?login=false");
-		
+
 		foreach($login->result() as $row) {
 			$sess_array = array(
 				'logged'          => TRUE,

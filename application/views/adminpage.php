@@ -79,7 +79,7 @@
                 <div class="panel-body">
                     <ul class="list-group">
                       <li class="list-group-item">
-                        <a href="">Search and Delete</a>
+                        <a href="admin/users">Search and Delete</a>
                       </li>
                       <li class="list-group-item">
                         <a href="register">Add user</a>

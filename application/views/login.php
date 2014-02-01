@@ -18,7 +18,7 @@
         </div>
 		<?php endif; ?>
 		
-		<?php if(isset($_GET['ban']) && $_GET['ban'] == "true"): ?>
+		<?php if(isset($_GET['delete']) && $_GET['delete'] == "true"): ?>
         <div class="alert alert-danger">
             <small>An adminastrator blocked you from viewing this system.</small>
         </div>

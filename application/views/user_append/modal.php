@@ -1,4 +1,4 @@
-<?php $status = array( 0 => "Cancelled", 1 => "Pending", 2=> "On Delivery", 3 => "Delivered" ); ?>
+<?php $status = array( 0 => "Cancelled", 1 => "Pending", 2 => "On Delivery", 3 => "Delivered", 4 => "Processing" ); ?>
 <?php foreach($flower as $flw) { ?>
 <div class="thumbnail">
   <img src="assets/flower/<?php echo $flw->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" width="530" height="340">
@@ -15,6 +15,7 @@
     <p>Receiver Address: <?php echo $flw->receiver_address; ?></p>
     <p>Card Message: <?php echo $flw->card_message; ?></p>
     <p>Order Status: <?php echo $status[$flw->order_status]; ?></p>
+    <p>Suggestions: <?php echo $flw->suggestions; ?></p>
   </div>
 </div>
 <?php } ?>

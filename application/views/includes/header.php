@@ -41,6 +41,25 @@
                   <?php } ?>
                   </ul>
                 </li>
+                <li class="<?php if($segment == "company") { echo "active"; } ?>">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Company <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="company/about">About</a></li>
+                    <li><a href="company/location">Location</a></li>
+                    <li><a href="company/terms_conditons">Terms & Conditions</a></li>
+                  </ul>
+                </li>
+                <li class="<?php if($segment == "gallery") { echo "active"; } ?>">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gallery <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                  <?php foreach($product->result() as $pro) { ?>
+                    <li><a href="gallery/<?php echo $pro->category_id; ?>"><?php echo $pro->category_name; ?></a></li>
+                  <?php } ?>
+                  <?php foreach($package->result() as $pack) { ?>
+                    <li><a href="gallery/<?php echo $pack->category_id; ?>"><?php echo $pack->category_name; ?></a></li>
+                  <?php } ?>
+                  </ul>
+                </li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">

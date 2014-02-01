@@ -8,10 +8,15 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css"/>
 </head>
 <body>
-<?php require_once('/../includes/header.php'); ?>
+<?php include(__DIR__ . "/../includes/header.php"); ?>
 
 <div class="container">
 	<div class="row">
+        <?php if($us->user_favorite == 1): ?>
+        <div class="alert alert-success">
+            Hi <?php echo ucfirst($us->user_name); ?>! Thank you for ordering at keanna's flower shop. With regards to your ordering history you are now classified as our regular/priority customer.
+        </div>
+		<?php endif; ?>
 		<div class="col-sm-4 col-md-offset-4">
 
 		<?php if(isset($_GET['update']) && $_GET['update'] == "true"): ?>
@@ -43,6 +48,6 @@
 
 </div>
 
-<?php require_once('/../includes/footer.php'); ?>
+<?php include(__DIR__ . "/../includes/footer.php"); ?>
 </body>
 </html>

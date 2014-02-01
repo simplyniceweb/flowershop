@@ -263,34 +263,6 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/orders', $data);
 	}
 	
-	public function bydate() {
-		$mysession = $this->session->userdata('logged');
-		if(!$mysession) return false;
-		if($mysession['user_level'] != 1) return false;
-		$ym = $this->input->post("date");
-
-		$this->db->select('*');
-		$this->db->from('flower');
-		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'inner');
-		$this->db->join('category', 'category.category_id = flower.category', 'inner');
-		$this->db->where("flower.flower_status", 0);
-		$this->db->where("flower.flower_category", 1);
-		$this->db->where("orders.order_status", 1);
-		$this->db->like('orders.order_date', $ym); 
-		$this->db->group_by("flower.flower_id"); 
-		$flower = $this->db->get();
-
-		$data = array(
-			'session' => $mysession,
-			'counter' => $flower->num_rows(),
-			'flower'  => $flower->result(),
-			'status'  => 1,
-			'category' => 1
-		);
-		
-		$this->load->view("user_append/orders", $data);
-	}
-	
 	public function change_status() {
 		$mysession = $this->session->userdata('logged');
 		if(!$mysession) return false;
@@ -304,6 +276,37 @@ class Admin extends CI_Controller {
 		$this->db->where("order_id", $order_id);
 		$this->db->update("orders", $data);
 		
+		return TRUE;
+	}
+	
+	public function users() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) redirect('home');
+		// $this->db->where("user_status", 0);
+		$user = $this->db->get("users");
+		
+		$data = array(
+			'session' => $mysession,
+			'user' => $user->result()
+		);
+
+		$this->load->view('user/users', $data);
+	}
+	
+	public function favorite() {
+		$action = $this->input->post("action");
+		$user_id = $this->input->post("user_id");
+		
+		$this->db->where("user_id", $user_id);
+		$this->db->update("users", array("user_favorite" => $action));
+		return TRUE;
+	}
+	
+	public function archive() {
+		$action = $this->input->post("action");
+		$user_id = $this->input->post("user_id");
+		$this->db->where("user_id", $user_id);
+		$this->db->update("users", array("user_status" => $action));
 		return TRUE;
 	}
 

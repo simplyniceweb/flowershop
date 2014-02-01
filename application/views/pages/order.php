@@ -18,7 +18,7 @@
 	</style>
 </head>
 <body>
-<?php require_once('/../includes/header.php'); ?>
+<?php include(__DIR__ . "/../includes/header.php"); ?>
 <div class="container">
     
     <div class="row divider wrapper box">
@@ -71,6 +71,11 @@
                     </div>
                     
                 	<div class="form-group">
+                    	<label for="quantity"><small>Item Quantity</small></label>
+                    	<input type="text" id="quantity" name="quantity" class="form-control" value="<?php if(isset($flw->quantity)) { echo $flw->quantity; } ?>"/>
+                    </div>
+                    
+                	<div class="form-group">
                     	<label for="receiver_address"><small>Receiver Address</small></label>
                     	<textarea id="receiver_address" name="receiver_address" class="form-control"><?php if(isset($flw->receiver_address)) { echo $flw->receiver_address; } ?></textarea>
                         <small>If we are delivering to an office address, kindly provide us the company name and recipient's department.
@@ -81,6 +86,11 @@
                     	<label for="card_message"><small>Card Message</small></label>
                     	<textarea id="card_message" name="card_message" class="form-control"><?php if(isset($flw->card_message)) { echo $flw->card_message; } ?></textarea>
                         <small>Exact message will be printed on card. Please include sender name if you want this printed.</small>
+                    </div>
+                    <div class="form-group">
+                    	<label for="suggestions"><small>Suggestions</small></label>
+                        <textarea id="suggestions" name="suggestions" class="form-control"><?php if(isset($flw->suggestions)) { echo $flw->suggestions; } ?></textarea>
+                        <small>You can add accompaniment, chocolates, stuffed toys and also can change the color.</small>
                     </div>
                     <div class="form-group">
                     	<input type="hidden" name="action" value="<?php echo $action; ?>"/>
@@ -115,6 +125,6 @@
     </div>
 </div>
 
-<?php require_once('/../includes/footer.php'); ?>
+<?php include(__DIR__ . "/../includes/footer.php"); ?>
 </body>
 </html>

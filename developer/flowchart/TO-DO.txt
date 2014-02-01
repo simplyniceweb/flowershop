@@ -4,4 +4,25 @@ Admin ( Reports):
 
 Searchable users:
 - Pagination
-- Can be deleted
+	
+/*
+		$objPHPExcel = new \PHPExcel();
+		$objPHPExcel->getProperties()->setTitle("export")->setDescription("none");
+		$objPHPExcel->setActiveSheetIndex(0);
+
+		$col = 0;
+		$fields = array("test", "test", "test");
+		for($i=0; $i<count($fields); $i++) {
+			// echo $fields[$i];
+			$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $fields[$i]);
+		}
+		
+		$objPHPExcel->setActiveSheetIndex(0);
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Products_'.date('dMy').'.xls"');
+        header('Cache-Control: max-age=0');
+ 
+        $objWriter->save('php://output');
+*/
