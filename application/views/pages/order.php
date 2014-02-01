@@ -40,7 +40,7 @@
                 <p><?php echo $u->user_address; ?></p>
             </div>
             
-            <div class="col-md-8">
+            <div class="col-md-12">
             	<legend>Order Details</legend>
             	<form id="order_form">
                 	<input type="hidden" name="flower_id" value="<?php echo $flw->flower_id; ?>"/>

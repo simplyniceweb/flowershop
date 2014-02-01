@@ -14,7 +14,7 @@
 				data = me.closest("#order_form").serialize();
 				jQuery.ajax({
 					type: "POST",
-					url: config.base_url+"/cart/add_order/",
+					url: config.base_url+"/orders/add_order/",
 					data: data,
 					cache: false,
 					success: function (response) {
