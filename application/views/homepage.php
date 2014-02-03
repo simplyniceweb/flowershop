@@ -82,7 +82,6 @@
                 <h3><?php echo $prom->flower_name; ?></h3>
                 <p><?php echo $prom->flower_description; ?></p>
               	<p>Price: Php <?php echo number_format($prom->flower_price, 2); ?></p>
-                <p>Availability: <?php echo $prom->flower_availability; ?></p>
                 <p>
                 <a href="javascript:void(0);" class="btn <?php if(!is_null($prom->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($prom->c_flower_id) && $session) echo $prom->c_flower_id; ?>" data-entry-id="<?php echo $prom->flower_id; ?>" role="button">
                     <?php if(!is_null($prom->c_flower_id) && $session) { ?>

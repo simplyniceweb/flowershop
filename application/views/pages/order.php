@@ -92,6 +92,12 @@
                         <textarea id="suggestions" name="suggestions" class="form-control"><?php if(isset($flw->suggestions)) { echo $flw->suggestions; } ?></textarea>
                         <small>You can add accompaniment, chocolates, stuffed toys and also can change the color.</small>
                     </div>
+                    <?php if($action == 1) { ?>
+                	<div class="form-group">
+                    	<label for="delivery_fee"><small>Delivery Fee</small></label>
+                    	<input type="text" id="delivery_fee" name="delivery_fee" class="form-control" value="<?php if(isset($flw->delivery_fee)) { echo $flw->delivery_fee; } ?>"/>
+                    </div>
+                    <?php } ?>
                     <div class="form-group">
                     	<input type="hidden" name="action" value="<?php echo $action; ?>"/>
                         <input type="hidden" name="order_id" value="<?php if(isset($flw->order_id)) { echo $flw->order_id; }?>"/>

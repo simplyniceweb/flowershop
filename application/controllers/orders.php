@@ -17,7 +17,7 @@ class Orders extends CI_Controller {
 		$this->db->where("flower.flower_status", 0);
 		$this->db->where("orders.order_status", 1);
 		$this->db->where("orders.user_id", $mysession['user_id']);
-		$this->db->group_by("flower.flower_id"); 
+		// $this->db->group_by("flower.flower_id"); 
 		$flower = $this->db->get();
 
 		$data = array(
@@ -65,7 +65,7 @@ class Orders extends CI_Controller {
 		if($action == 0) {
 			$this->db->where("orders.user_id", $mysession['user_id']);
 		}
-		$this->db->group_by("flower.flower_id"); 
+		//$this->db->group_by("flower.flower_id"); 
 		$flower = $this->db->get();
 
 		$data = array(
@@ -115,7 +115,6 @@ class Orders extends CI_Controller {
 		$action = $this->input->post("action");
 		$flower_id = $this->input->post("flower_id");
 		$user_id = $this->input->post("user_id");
-		// $payment = $this->input->post("payment");
 		$receiver = $this->input->post("receiver");
 		$receiver_no = $this->input->post("receiver_no");
 		$delivery_date = $this->input->post("delivery_date");
@@ -130,7 +129,6 @@ class Orders extends CI_Controller {
 
 		$data = array(
 			'user_id' => $user_id,
-			// 'payment' => $payment,
 			'flower_id' => $flower_id,
 			'receiver' => $receiver,
 			'receiver_no' => $receiver_no,
@@ -146,6 +144,7 @@ class Orders extends CI_Controller {
 		if($action == 0) {
 			$this->db->insert("orders", $data);
 		} else {
+			$data['delivery_fee'] = $this->input->post("delivery_fee");
 			$order_id = $this->input->post("order_id");
 			$this->db->where("order_id", $order_id);
 			$this->db->update("orders", $data);

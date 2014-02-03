@@ -32,7 +32,7 @@
                 <td><?php echo $u->user_birthday; ?></td>
                 <td>
                 <?php if($u->user_favorite == 0) { ?>
-                <button class="favorite-user btn btn-xs btn-default" data-action="1" data-entry-id="<?php echo $u->user_id; ?>"><i class="glyphicon glyphicon-star-empty"></i> Priority</button>
+                <button class="favorite-user btn btn-xs btn-default" data-action="1" data-entry-id="<?php echo $u->user_id; ?>"><i class="glyphicon glyphicon-star"></i> Priority</button>
                 <?php } else { ?>
                 <button class="favorite-user btn btn-xs btn-success" data-action="0" data-entry-id="<?php echo $u->user_id; ?>"><i class="glyphicon glyphicon-star"></i> Priority</button>
                 <?php } ?>

@@ -252,7 +252,7 @@ class Admin extends CI_Controller {
 		$this->db->where("flower.flower_category", 1);
 		$this->db->where("orders.order_status", 1);
 		$this->db->like('orders.order_date', $ym); 
-		$this->db->group_by("flower.flower_id"); 
+		//$this->db->group_by("flower.flower_id"); 
 		$flower = $this->db->get();
 
 		$data = array(
@@ -310,6 +310,33 @@ class Admin extends CI_Controller {
 		return TRUE;
 	}
 
+	public function bydate() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) return false;
+		if($mysession['user_level'] != 1) return false;
+		$ym = $this->input->post("date");
+
+		$this->db->select('*');
+		$this->db->from('flower');
+		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'inner');
+		$this->db->join('category', 'category.category_id = flower.category', 'inner');
+		$this->db->where("flower.flower_status", 0);
+		$this->db->where("flower.flower_category", 1);
+		$this->db->where("orders.order_status", 1);
+		$this->db->like('orders.order_date', $ym); 
+		//$this->db->group_by("flower.flower_id"); 
+		$flower = $this->db->get();
+
+		$data = array(
+			'session' => $mysession,
+			'counter' => $flower->num_rows(),
+			'flower'  => $flower->result(),
+			'status'  => 1,
+			'category' => 1
+		);
+		
+		$this->load->view("user_append/orders", $data);
+	}
 }
 
 /* End of file welcome.php */

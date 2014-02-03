@@ -16,12 +16,12 @@
   <div class="col-md-3"><?php echo $flw->flower_name; ?></div>
   <div class="col-md-3"><?php echo $flw->quantity; ?></div>
   <div class="col-md-3"><?php echo number_format($flw->flower_price, 2); ?></div>
-  <div class="col-md-3">Php <?php echo number_format($flw->quantity*$flw->flower_price); ?></div>
+  <div class="col-md-3">Php <?php echo number_format($flw->quantity*$flw->flower_price, 2); ?></div>
   <br /><br /><br />
   <div class="col-md-3"></div>
   <div class="col-md-3"></div>
-  <div class="col-md-3">Delivery Fee:</div>
-  <div class="col-md-3">Total: Php <?php echo number_format($flw->quantity*$flw->flower_price); ?></div>
+  <div class="col-md-3">Delivery Fee: <?php echo number_format($flw->delivery_fee, 2); ?></div>
+  <div class="col-md-3">Total: Php <?php echo number_format($flw->quantity*$flw->flower_price+$flw->delivery_fee, 2); ?></div>
   </div>
 </div>
 <?php } ?>
