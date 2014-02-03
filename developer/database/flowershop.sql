@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 01, 2014 at 08:03 PM
+-- Generation Time: Feb 03, 2014 at 10:04 PM
 -- Server version: 5.5.35
 -- PHP Version: 5.3.10-1ubuntu3.9
 
@@ -34,7 +34,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `flower_id` int(11) NOT NULL,
   `cart_status` int(11) NOT NULL,
   PRIMARY KEY (`cart_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `user_id`, `flower_id`, `cart_status`) VALUES
+(2, 1, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -47,15 +54,14 @@ CREATE TABLE IF NOT EXISTS `category` (
   `category_name` varchar(255) NOT NULL,
   `category_type` int(11) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`category_id`, `category_name`, `category_type`) VALUES
-(1, 'vase', 1),
-(2, 'weeee', 2);
+(1, 'Vase', 1);
 
 -- --------------------------------------------------------
 
@@ -73,14 +79,15 @@ CREATE TABLE IF NOT EXISTS `flower` (
   `flower_category` int(11) NOT NULL,
   `flower_status` int(11) NOT NULL,
   PRIMARY KEY (`flower_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `flower`
 --
 
 INSERT INTO `flower` (`flower_id`, `category`, `flower_name`, `flower_description`, `flower_price`, `flower_type`, `flower_category`, `flower_status`) VALUES
-(1, 1, 'Gumamela', 'Gumamela is a Philippine flower.', 1000, 1, 1, 0);
+(1, 1, 'Gumamela', 'asdasd', 25555, 1, 1, 0),
+(2, 1, 'asdasd', 'asdasdas', 25425252, 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -94,14 +101,15 @@ CREATE TABLE IF NOT EXISTS `flower_image` (
   `flower_id` int(11) NOT NULL,
   `flower_main` int(11) NOT NULL,
   PRIMARY KEY (`flower_img_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `flower_image`
 --
 
 INSERT INTO `flower_image` (`flower_img_id`, `flower_img_name`, `flower_id`, `flower_main`) VALUES
-(1, 'bedee5c9efe2385cc74e388eceab01c4.jpg', 1, 1);
+(1, 'b5a77c4d7026fc3713666c449c82edcf.png', 1, 1),
+(2, '418d6b74b3d3a986660e39a547e0dad0.png', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -120,19 +128,21 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `quantity` int(11) NOT NULL,
   `receiver_address` varchar(255) NOT NULL,
   `card_message` text NOT NULL,
+  `delivery_fee` decimal(11,2) NOT NULL,
   `order_status` int(11) NOT NULL,
   `order_date` date NOT NULL,
   `suggestions` text NOT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `user_id`, `flower_id`, `payment`, `receiver`, `receiver_no`, `delivery_date`, `quantity`, `receiver_address`, `card_message`, `order_status`, `order_date`, `suggestions`) VALUES
-(1, 1, 1, 0, 'Keanna', '09055872181', '2014-01-01 01:59:00', 15, 'asd', 'asdasdasd', 4, '2014-01-20', 'asdasdasd'),
-(2, 1, 1, 0, 'asdasd', '1233123123', '0000-00-00 00:00:00', 23, 'asdasdasd', 'asdasd', 1, '2014-01-25', 'asdasdasd');
+INSERT INTO `orders` (`order_id`, `user_id`, `flower_id`, `payment`, `receiver`, `receiver_no`, `delivery_date`, `quantity`, `receiver_address`, `card_message`, `delivery_fee`, `order_status`, `order_date`, `suggestions`) VALUES
+(1, 1, 1, 0, 'asdas', '09055872181', '2014-02-28 12:59:00', 25, 'asdasd', 'asdasd', 0.00, 1, '2014-02-03', 'asdasd'),
+(2, 1, 1, 0, 'asdasd', '123123', '2014-02-21 13:59:00', 32, 'asdasd', 'asdasd', 120.00, 1, '2014-02-03', 'asdasd'),
+(3, 1, 1, 0, 'asdasd', '123123123', '2014-02-20 01:00:00', 254, 'asdasd', 'asdasd', 0.00, 1, '2014-02-03', 'asdasdasd');
 
 -- --------------------------------------------------------
 
