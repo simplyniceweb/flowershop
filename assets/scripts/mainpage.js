@@ -1,5 +1,32 @@
 ;(function(){
 	
+	var orderConf = {
+		cancel: ".cancel-flower"
+	}
+	
+	var orderFunc = {
+		cancel: function() {
+			return this.delegate(orderConf.cancel, "click", function(){
+				var me = $(this), order_id = me.data("entry-id");
+				if(!confirm("Are you sure you want to cancel the order?")) return false;
+
+				jQuery.ajax({
+					type: "POST",
+					url: config.base_url+"/orders/cancel_order/",
+					data: { 'order_id' : order_id },
+					cache: false,
+					success: function (response) {
+						$(".order-entry-"+order_id).slideToggle();
+					}, error: function () {
+						console.log('Something went wrong..');
+					}
+				});
+			})
+		}
+	}
+	$.extend(config.doc, orderFunc);
+	config.doc.cancel();
+
 	var cartConf = {
 		add: ".add-cart",
 		order: ".order-btn",

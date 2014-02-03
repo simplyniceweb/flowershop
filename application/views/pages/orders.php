@@ -49,12 +49,12 @@
             
             <tbody class="append_orders">
             <?php foreach($flower as $flw) { ?>
-            <tr>
+            <tr class="order-entry-<?php echo $flw->order_id; ?>">
             	<td><?php echo ucfirst($flw->flower_name); ?></td>
                 <td><?php echo ucfirst($flw->category_name); ?></td>
                 <td>Php <?php echo number_format($flw->flower_price, 2); ?></td>
                 <td>
-                <button type="submit" class="cancel-flower btn btn-xs btn-default" data-entry-id="<?php echo $flw->flower_id; ?>">
+                <button type="submit" class="cancel-flower btn btn-xs btn-default" data-entry-id="<?php echo $flw->order_id; ?>">
                     <span class="glyphicon glyphicon-remove"></span> 
                     Cancel Order
 				</button>

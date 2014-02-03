@@ -32,7 +32,7 @@ class Orders extends CI_Controller {
 		$mysession = $this->session->userdata('logged');
 		if(!$mysession) return false;
 
-		$id = $this->input->post("id");
+		$id = $this->input->post("order_id");
 		$data = array(
 			'order_status' => 0
 		);
