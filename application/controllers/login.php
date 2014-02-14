@@ -24,6 +24,7 @@ class Login extends CI_Controller {
 		if($login->num_rows() <= 0) redirect("login?login=false");
 
 		foreach($login->result() as $row) {
+			if($row->user_status == 1)  redirect("login?block=true");
 			$sess_array = array(
 				'logged'          => TRUE,
 				'user_id'         => $row->user_id,
@@ -35,7 +36,7 @@ class Login extends CI_Controller {
 		
 		$this->session->set_userdata('logged', $sess_array);
 		if($sess_array['user_level'] == 1) redirect("admin");
-		if($sess_array['user_level'] == 0) redirect('home');
+		if($sess_array['user_level'] == 0) redirect("home");
 	}
 }
 

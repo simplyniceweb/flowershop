@@ -9,13 +9,19 @@ class Settings extends CI_Controller {
 	public function index() {
 		$mysession = $this->session->userdata('logged');
 		if(!$mysession) redirect('home');
-		
-		$this->db->where("user_id", $mysession["user_id"]);
+
+		if($mysession["user_level"] == 0 || !$this->uri->segment(2)) {
+			$action = $mysession["user_id"];
+		} else {
+			$action = $this->uri->segment(2);
+		}		
+		$this->db->where("user_id", $action);
 		$user = $this->db->get("users");
 		
 		$data = array(
 			'session' => $mysession,
-			'user' => $user->result()
+			'user'    => $user->result(),
+			'action'  => $action
 		);
 
 		$this->load->view('user/settings', $data);
@@ -24,6 +30,8 @@ class Settings extends CI_Controller {
 	public function update() {
 		$mysession = $this->session->userdata('logged');
 		if(!$mysession) redirect('home');
+		
+		$action = $this->input->post("action");
 
 		$data = array(
 			'user_name' => $this->input->post("user_name"),
@@ -31,11 +39,19 @@ class Settings extends CI_Controller {
 			'user_address' => $this->input->post("user_address"),
 			'user_birthday' => $this->input->post("user_birthday")
 		);
-		
-		$this->db->where("user_id", $mysession["user_id"]);
+
+		if(!empty($action)) {
+			$data['user_password'] = sha1($this->input->post("user_password"));
+		}
+
+		$this->db->where("user_id", $action);
 		$this->db->update("users", $data);
-		
-		redirect("settings?update=true");
+
+		if($action == $mysession["user_id"]) {
+			redirect("settings?update=true");
+		} else {
+			redirect("settings/" . $action . "?update=true");
+		}
 	}
 }
 

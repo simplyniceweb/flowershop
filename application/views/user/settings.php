@@ -35,12 +35,18 @@
         </div>
         <div class="form-group">
         	<label for="user_birthday"><small>Birthday</small></label>
-			<input type="date" id="user_birthday" name="user_birthday" class="form-control" value="<?php if($us->user_birthday != "0000-00-00") echo date("Y-m-d", strtotime($us->user_birthday)); ?>" required="required">
+			<input type="date" id="user_birthday" name="user_birthday" class="form-control" value="<?php if($us->user_birthday != "0000-00-00") echo date("Y-m-d", strtotime($us->user_birthday)); ?>">
         </div>
 		<div class="form-group">
         	<label for="user_address"><small>Address</small></label>
-			<textarea id="user_address" name="user_address" class="form-control" required="required"><?php echo $us->user_address; ?></textarea>
+			<textarea id="user_address" name="user_address" class="form-control"><?php echo $us->user_address; ?></textarea>
 		</div>
+		<div class="form-group">
+        	<label for="user_password"><small>Password</small></label>
+			<input type="password" id="user_password" name="user_password" class="form-control">
+			<small>Please leave this blank if you don't want to change password.</small>
+		</div>
+		<input type="hidden" name="action" value="<?php echo $action; ?>"/>
 		<button class="btn btn-success pull-right">Update</button>
 		<?php echo form_close(); ?>
 		</div>

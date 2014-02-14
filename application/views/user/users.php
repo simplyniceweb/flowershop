@@ -41,15 +41,26 @@
                 <?php } else { ?>
                 <button class="delete-user btn btn-xs btn-danger" data-action="0" data-entry-id="<?php echo $u->user_id; ?>"><i class="glyphicon glyphicon-trash"></i> <span class="del">Undelete</span></button>
 				<?php } ?>
+				<a href="settings/<?php echo $u->user_id; ?>"><button class="btn btn-xs btn-default"><i class="glyphicon glyphicon-wrench"></i> Edit</button></a>
                 </td>
 			</tr>
             <?php } ?>
            	</tbody>
         </table>
+        <ul class="pagination">
+        <?php echo $pagination; ?>
+        </ul>
         </div>
     </div>
 </div>
 
 <?php include(__DIR__ . "/../includes/footer.php"); ?>
+<script>
+	$(document).ready(function(){
+		$( "ul.pagination > a" ).each(function(){
+			$( this ).wrap( "<li></li>" );
+		})
+	})
+</script>
 </body>
 </html>

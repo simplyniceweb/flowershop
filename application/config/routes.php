@@ -43,6 +43,7 @@ $route['view/(:num)'] = "view/index/(:num)";
 $route['product/(:num)'] = "product/index/(:num)";
 $route['package/(:num)'] = "package/index/(:num)";
 $route['gallery/(:num)'] = "gallery/index/(:num)";
+$route['settings/(:num)'] = "settings/index/(:num)";
 $route['404_override'] = '';
 
 

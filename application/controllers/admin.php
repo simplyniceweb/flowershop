@@ -282,12 +282,27 @@ class Admin extends CI_Controller {
 	public function users() {
 		$mysession = $this->session->userdata('logged');
 		if(!$mysession) redirect('home');
-		// $this->db->where("user_status", 0);
-		$user = $this->db->get("users");
-		
+
+		$this->load->library('pagination');
+		$start = $this->uri->segment(3);
+		if(!$start) $start = 0;
+		$config = array(
+			'base_url'    => 'admin/users',
+			'uri_segment' => 3,
+			'total_rows'  => $this->db->count_all('users'),
+			'per_page'    => 15,
+			'cur_tag_open' => '<li class="active"><a href="javascript:;">',
+			'cur_tag_close' => '</a></li>'
+		);
+
+		$this->db->limit($config['per_page'], $start);
+		$user = $this->db->get('users');
+		$this->pagination->initialize($config);
+
 		$data = array(
-			'session' => $mysession,
-			'user' => $user->result()
+			'session'     => $mysession,
+			'pagination'  => $this->pagination->create_links(),
+			'user'        => $user->result()
 		);
 
 		$this->load->view('user/users', $data);

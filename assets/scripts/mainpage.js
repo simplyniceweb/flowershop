@@ -316,5 +316,47 @@
 	$.extend(config.doc, deleteFunc);
 	config.doc.archive();
 	config.doc.specific();
+	
+	var salesConf = {
+		gen: '.generator',
+		date: '.sales-date',
+		face: '.generated-report-interface',
+		print: '.print'
+	}
+
+	var salesFunc = {
+		report: function() {
+			return this.delegate(salesConf.gen, "click", function(){
+				var me = $(this), action = me.data("action");
+				var date = $(salesConf.date).val();
+				
+				$(".generated-report-interface").html("Loading sales...");
+				jQuery.ajax({
+					type: "POST",
+					url: config.base_url+"/sales/date/",
+					data: { 'date' : date, 'action': action },
+					cache: false,
+					success: function (response) {
+						if(response == "none") {
+							$(".generated-report-interface").html("No sales..");
+						} else {
+							$(".generated-report-interface").html(response);
+						}
+					}, error: function () {
+						console.log('Something went wrong..');
+					}
+				})
+			})
+		},
+		print: function() {
+			return this.delegate(salesConf.print, "click", function(){
+				window.print();
+			})
+		}
+	}
+
+	$.extend(config.doc, salesFunc);
+	config.doc.report();
+	config.doc.print();
 
 }(jQuery, window, document));

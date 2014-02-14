@@ -23,9 +23,11 @@
                       <li class="list-group-item">
                         <a href="admin/category">Category</a>
                       </li>
+                      <!--
                       <li class="list-group-item">
                         <a href="admin/payment">Type of Payment</a>
                       </li>
+                      -->
                       <li class="list-group-item">
                         <a href="admin/product">Add Product</a>
                       </li>
@@ -61,7 +63,7 @@
                 <div class="panel-body">
                     <ul class="list-group">
                       <li class="list-group-item">
-                        <a href="">Sales Report</a>
+                        <a href="sales">Sales Report</a>
                       </li>
                     </ul>
                 </div>
@@ -79,7 +81,7 @@
                 <div class="panel-body">
                     <ul class="list-group">
                       <li class="list-group-item">
-                        <a href="admin/users">Search and Delete</a>
+                        <a href="admin/users">Modify account</a>
                       </li>
                       <li class="list-group-item">
                         <a href="register">Add user</a>
