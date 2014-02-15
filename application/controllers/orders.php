@@ -12,8 +12,8 @@ class Orders extends CI_Controller {
 
 		$this->db->select('*');
 		$this->db->from('flower');
-		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'inner');
-		$this->db->join('category', 'category.category_id = flower.category', 'inner');
+		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
+		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		$this->db->where("flower.flower_status", 0);
 		$this->db->where("orders.order_status", 1);
 		$this->db->where("orders.user_id", $mysession['user_id']);
@@ -54,8 +54,8 @@ class Orders extends CI_Controller {
 
 		$this->db->select('*');
 		$this->db->from('flower');
-		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'inner');
-		$this->db->join('category', 'category.category_id = flower.category', 'inner');
+		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
+		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		if($action == 1) {
 			$this->db->like('orders.order_date', $date);
 			$this->db->where("flower.flower_category", $f_categ);
@@ -113,6 +113,7 @@ class Orders extends CI_Controller {
 
 	public function add_order() {
 		$action = $this->input->post("action");
+		$payment = $this->input->post("payment");
 		$flower_id = $this->input->post("flower_id");
 		$user_id = $this->input->post("user_id");
 		$receiver = $this->input->post("receiver");
@@ -129,6 +130,7 @@ class Orders extends CI_Controller {
 
 		$data = array(
 			'user_id' => $user_id,
+			'payment' => $payment,
 			'flower_id' => $flower_id,
 			'receiver' => $receiver,
 			'receiver_no' => $receiver_no,
@@ -164,6 +166,7 @@ class Orders extends CI_Controller {
 		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
 		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
+		$this->db->join('payment', 'payment.payment_id = orders.payment', 'left');
 		$this->db->where("flower.flower_id", $flower_id);
 		$this->db->where("orders.order_id", $order_id);
 		$this->db->where("flower_image.flower_main", 1);
@@ -187,6 +190,7 @@ class Orders extends CI_Controller {
 		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
 		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
+		$this->db->join('payment', 'payment.payment_id = orders.payment', 'left');
 		$this->db->where("flower.flower_id", $flower_id);
 		$this->db->where("orders.order_id", $order_id);
 		$this->db->where("flower_image.flower_main", 1);
@@ -198,6 +202,90 @@ class Orders extends CI_Controller {
 		);
 		
 		$this->load->view("user_append/billing", $data);
+	}
+
+	public function add_ticket() {
+		$details = $this->input->post("ticket_details");
+		$order_id = $this->input->post("order_id");
+		$flower_id = $this->input->post("flower_id");
+
+		$this->upload->initialize(array(
+			"upload_path" => "assets/ticket/",
+			"allowed_types" => 'bmp|jpg|png|jpeg|pdf',
+			"max_size" => '2000',
+			"encrypt_name" => 'TRUE',
+			"remove_spaces" => 'TRUE',
+			"is_image" => '1'
+		));
+		
+		if($this->upload->do_multi_upload("ticket_proof")){
+			$counter = 0;
+			$file = $this->upload->get_multi_upload_data();
+			foreach($file as $array) {
+				if($counter > 0) {
+					redirect("orders?payment=true");
+				}
+				$ticket = array(
+					'ticket_details'   => $details,
+					'ticket_proof'     => $array['file_name'],
+					'order_id'         => $order_id,
+					'flower_id'        => $flower_id,
+					'ticket_date'      => date("Y-m-d")
+				);
+				$this->db->insert('ticket', $ticket);
+				$counter = $counter + 1;
+			}
+		} else {
+				$ticket = array(
+					'ticket_details'   => $details,
+					'ticket_proof'     => "blank",
+					'order_id'         => $order_id,
+					'flower_id'        => $flower_id,
+					'ticket_date'      => date("Y-m-d")
+				);
+				$this->db->insert('ticket', $ticket);
+		}
+
+		redirect("orders?payment=true");
+	}
+
+	public function ticket() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) redirect("");
+
+		$this->db->select('*');
+		$this->db->from('flower');
+		$this->db->join('flower_image', 'flower_image.flower_id = flower.flower_id', 'left');
+		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
+		$this->db->join('category', 'category.category_id = flower.category', 'left');
+		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
+		$this->db->join('payment', 'payment.payment_id = orders.payment', 'left');
+		$this->db->join('ticket', 'ticket.order_id = orders.order_id');
+		$this->db->where("flower.flower_status",0);
+		$flower = $this->db->get();
+
+		$data = array(
+			'session' => $mysession,
+			'flower'  => $flower->result()
+		);
+
+		$this->load->view("user/ticket", $data);
+	}
+
+	public function payment_status() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) redirect("");
+
+		$order_id = $this->input->post("order_id");
+		$status = $this->input->post("new_status");
+
+		$data = array(
+			'payment_status' => $status
+		);
+
+		$this->db->where("order_id", $order_id);
+		$this->db->update("orders", $data);
+		return TRUE;
 	}
 }
 

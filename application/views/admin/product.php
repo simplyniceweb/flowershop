@@ -43,7 +43,16 @@
                             <?php } ?>
                         </select>
                     </div>
-
+                    <!--
+                    <div class="form-group">
+                        <label for="payment_list"><small>Category</small></label>
+                        <select id="payment_list" class="form-control" name="payment" required="required">
+                            <?php foreach($payment->result() as $pay) { ?>
+                                <option <?php if(isset($flw->payment) && $flw->payment == $row->payment_id) echo 'selected'; ?> value="<?php echo $pay->payment_id; ?>"><?php echo $pay->payment_name; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    -->
                     <div class="form-group">
                     	<label for="flower_name"><small>Flower Name</small></label>
                         <input type="text" id="flower_name" class="form-control" name="flower_name" value="<?php if(isset($flw->flower_name)) echo $flw->flower_name; ?>" required="required">

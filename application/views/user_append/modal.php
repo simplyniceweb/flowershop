@@ -11,10 +11,12 @@
     <legend>Order information</legend>
     <p>Receiver: <?php echo $flw->receiver; ?></p>
     <p>Receiver Number: <?php echo $flw->receiver_no; ?></p>
-    <p>Delivery Date: <?php echo  date("Y-m-d", strtotime($flw->delivery_date)); ?></p>
+    <p>Payment method: <?php echo $flw->payment_name; ?></p>
+    <p>Order Status: <?php echo $status[$flw->order_status]; ?></p>
+    <p>Order Date: <?php echo date("F d, Y", strtotime($flw->order_date)); ?></p>
+    <p>Delivery Date: <?php echo  date("F d, Y", strtotime($flw->delivery_date)); ?></p>
     <p>Receiver Address: <?php echo $flw->receiver_address; ?></p>
     <p>Card Message: <?php echo $flw->card_message; ?></p>
-    <p>Order Status: <?php echo $status[$flw->order_status]; ?></p>
     <p>Suggestions: <?php echo $flw->suggestions; ?></p>
   </div>
 </div>

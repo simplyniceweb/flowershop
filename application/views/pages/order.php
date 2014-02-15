@@ -45,7 +45,6 @@
             	<form id="order_form">
                 	<input type="hidden" name="flower_id" value="<?php echo $flw->flower_id; ?>"/>
 					<input type="hidden" name="user_id" value="<?php echo $u->user_id; ?>"/>
-                    <!--
                     <div class="form-group">
                         <label for="payment_type"><small>Type of payment</small></label>
                         <select id="payment_type" class="form-control" name="payment">
@@ -54,7 +53,6 @@
                             <?php } ?>
                         </select>
                     </div>
-					-->
                 	<div class="form-group">
                     	<label for="receiver"><small>Receiver Name</small></label>
                     	<input type="text" id="receiver" name="receiver" class="form-control" value="<?php if(isset($flw->receiver)) { echo $flw->receiver; } ?>"/>

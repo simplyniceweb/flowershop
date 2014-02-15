@@ -98,4 +98,37 @@
 	config.doc.priority();
 	config.doc.archive();
 
+	var paymentStatusConf = {
+		status: ".payment-status"
+	}
+
+	var paymentStatusFunc = {
+		change: function() {
+			return this.delegate(paymentStatusConf.status, "change", function(){
+				var me = $(this), new_status = me.val(), status = me.data("status"), order_id = me.data("entry-id");
+				if(new_status == status) return false;
+				jQuery.ajax({
+					type: "POST",
+					url: config.base_url+"/orders/payment_status/",
+					data: { 'new_status' : new_status, 'order_id' : order_id },
+					cache: false,
+					success: function (response) {
+						me.data("status", new_status);
+						var msg = "unpaid";
+						if(new_status == 1){
+							var msg = "paid";
+						}
+						alert("Payment status successfully changed to " + msg + "!");
+					}, error: function () {
+						console.log('Something went wrong..');
+					}
+				});
+			})
+
+		}
+	}
+
+	$.extend(config.doc, paymentStatusFunc);
+	config.doc.change();
+
 }(jQuery, window, document));

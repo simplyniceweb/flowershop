@@ -105,6 +105,7 @@ class Admin extends CI_Controller {
 		$flower_id = $this->uri->segment(3);
 		$this->db->where("category_type", 1);
 		$category = $this->db->get("category");
+		$payment = $this->db->get("payment");
 		
 		if(!empty($flower_id)) {
 			$this->db->where("flower_id", $flower_id);
@@ -121,7 +122,7 @@ class Admin extends CI_Controller {
 			'category' => $category,
 			'session' => $mysession,
 			'flower_category' => 1,
-			// 'category' => $this->db->get("category")
+			'payment' => $payment,
 		);
 
 		$this->load->view('admin/product', $data);
@@ -137,6 +138,7 @@ class Admin extends CI_Controller {
 
 		$data = array(
 			'category'           => $this->input->post('category'),
+			// 'payment'            => $this->input->post('payment'),
 			'flower_name'        => $this->input->post('flower_name'),
 			'flower_description' => $this->input->post('flower_description'),
 			'flower_price'       => $this->input->post('flower_price'),
@@ -201,6 +203,8 @@ class Admin extends CI_Controller {
 		$this->db->where("category_type", 2);
 		$category = $this->db->get("category");
 
+		$payment = $this->db->get("payment");
+
 		if(!empty($flower_id)) {
 			$this->db->where("flower_id", $flower_id);
 			$this->db->where("flower_status",0);
@@ -216,6 +220,7 @@ class Admin extends CI_Controller {
 			'category' => $category,
 			'session' => $mysession,
 			'flower_category' => 2,
+			'payment' => $payment,
 		);
 
 		$this->load->view('admin/product', $data);
@@ -246,8 +251,8 @@ class Admin extends CI_Controller {
 
 		$this->db->select('*');
 		$this->db->from('flower');
-		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'inner');
-		$this->db->join('category', 'category.category_id = flower.category', 'inner');
+		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
+		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		$this->db->where("flower.flower_status", 0);
 		$this->db->where("flower.flower_category", 1);
 		$this->db->where("orders.order_status", 1);
@@ -333,8 +338,8 @@ class Admin extends CI_Controller {
 
 		$this->db->select('*');
 		$this->db->from('flower');
-		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'inner');
-		$this->db->join('category', 'category.category_id = flower.category', 'inner');
+		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
+		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		$this->db->where("flower.flower_status", 0);
 		$this->db->where("flower.flower_category", 1);
 		$this->db->where("orders.order_status", 1);

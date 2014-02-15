@@ -11,8 +11,8 @@ class Cart extends CI_Controller {
 		if(!$mysession) redirect("");
 		$this->db->select('*');
 		$this->db->from('flower');
-		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'inner');
-		$this->db->join('category', 'category.category_id = flower.category', 'inner');
+		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
+		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		$this->db->where("cart.user_id", $mysession['user_id']);
 		$this->db->where("flower.flower_status", 0);
 		$this->db->group_by("flower.flower_id"); 

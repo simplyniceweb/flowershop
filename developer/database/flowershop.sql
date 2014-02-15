@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2014 at 01:15 PM
+-- Generation Time: Feb 15, 2014 at 07:02 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -92,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `user_id` int(111) NOT NULL,
   `flower_id` int(11) NOT NULL,
   `payment` int(11) NOT NULL,
+  `payment_status` int(11) NOT NULL,
   `receiver` varchar(255) NOT NULL,
   `receiver_no` varchar(255) NOT NULL,
   `delivery_date` datetime NOT NULL,
@@ -120,6 +121,22 @@ CREATE TABLE IF NOT EXISTS `payment` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ticket`
+--
+
+CREATE TABLE IF NOT EXISTS `ticket` (
+  `ticket_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ticket_details` text NOT NULL,
+  `ticket_proof` varchar(255) NOT NULL,
+  `flower_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `ticket_date` datetime NOT NULL,
+  PRIMARY KEY (`ticket_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -134,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_favorite` int(11) NOT NULL,
   `user_status` int(11) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `users`

@@ -23,11 +23,9 @@
                       <li class="list-group-item">
                         <a href="admin/category">Category</a>
                       </li>
-                      <!--
                       <li class="list-group-item">
                         <a href="admin/payment">Type of Payment</a>
                       </li>
-                      -->
                       <li class="list-group-item">
                         <a href="admin/product">Add Product</a>
                       </li>
@@ -48,6 +46,9 @@
                     <ul class="list-group">
                       <li class="list-group-item">
                         <a href="admin/orders">Orders</a>
+                      </li>
+                      <li class="list-group-item">
+                        <a href="orders/ticket">List of Payment</a>
                       </li>
                     </ul>
                 </div>

@@ -49,6 +49,14 @@
     <?php } else { ?>
     No action.
     <?php } ?>
+    <?php if($category != 0) { ?>
+    <td>
+        <select class="form-control payment-status" data-entry-id="<?php echo $flw->order_id; ?>" data-status="<?php echo $flw->payment_status; ?>">
+            <option <?php if($flw->payment_status == 1){ ?>selected<?php } ?> value="1">Paid</option>
+            <option <?php if($flw->payment_status == 0){ ?>selected<?php } ?> value="0">Unpaid</option>
+        </select>
+    </td>
+    <?php } ?>
 </tr>
 <?php } } else { ?>
 <tr>

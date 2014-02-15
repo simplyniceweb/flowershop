@@ -23,6 +23,11 @@
     <div class="row divider">
     	<div class="col-md-12">
         <legend>Orders</legend>
+        <?php if(isset($_GET['payment']) && $_GET['payment'] == "true"): ?>
+        <div class="alert alert-success">
+            <small>Payment has been added, we will process your payment as soon as possible, we will change the order status as paid once payment is valid for the specific product, this will take 24 hours of process. Thank you!</small>
+        </div>
+        <?php endif; ?>
         <div class="form-group">
         	<label><small>Type of order</small></label>
         	<select class="form-control append-orders" data-action="0">
@@ -44,6 +49,7 @@
                 <th>Re-schedule Order</th>
                 <th>View details</th>
                 <th>Billing</th>
+                <th>Payment</th>
                 </tr>
             </thead>
             
@@ -76,6 +82,12 @@
                     <span class="glyphicon glyphicon-usd"></span> 
                     <a href="javascript:void(0)">View Billing</a>
 				</button>
+                </td>
+                <td>
+                <button type="submit" class="payment btn btn-xs btn-default" data-flower-id="<?php echo $flw->flower_id; ?>" data-order-id="<?php echo $flw->order_id; ?>" data-toggle="modal" data-target="#payment">
+                    <span class="glyphicon glyphicon-usd"></span> 
+                    <a href="javascript:void(0)">Payment</a>
+                </button>
                 </td>
 			</tr>
             <?php } ?>
@@ -114,6 +126,43 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="modal fade" id="payment">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Payment</h4>
+      </div>
+      <div class="modal-body">
+        <?php echo form_open_multipart("orders/add_ticket"); ?>
+        <div class="form-group">
+            <label for="payment_details"><small>Payment Details</small></label>
+            <textarea id="payment_details" name="ticket_details" class="form-control" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="payment_proof"><small>Proof of payment ( Optional )</small></label>
+            <input type="file" id="payment_proof" name="ticket_proof[]" class="form-control"/>
+            <small>Allowed file types: ( .jpg, .png, .bmp and .pdf file )</small>
+        </div>
+        <input type="hidden" name="flower_id" />
+        <input type="hidden" name="order_id" />
+        <button class="btn btn-sm btn-primary">Submit</button>
+        <?php echo form_close(); ?>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <?php include(__DIR__ . "/../includes/footer.php"); ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".payment").click(function(){
+            var me = $(this);
+           var flower_id = me.data("flower-id");
+           var order_id = me.data("order-id");
+           $("input[name=flower_id]").val(flower_id);
+           $("input[name=order_id]").val(order_id);
+        });
+    })
+</script>
 </body>
 </html>
