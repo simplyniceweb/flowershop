@@ -31,7 +31,7 @@
         <div class="col-md-6 box">
           <div class="media-body box" style="background: #FFF; border:1px solid #CCC">
             <h4 class="media-heading">Welcome</h4>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            Keanna's Flower Shop offers a wide variety of blossoms in fashion. We can make your gloomy event into a pleasant occasion through unique design of flowers, balloons and giveaways. We accept events such as: Weddings, Parties, Decorating, Orchid Plants, Burials, Gourmet Baskets and many more.
           </div>
         </div>
 	</div> <!-- Header -->

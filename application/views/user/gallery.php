@@ -15,6 +15,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
+			<div class="btn-group">
+			  <a href="<?php echo base_url(); ?>admin/product" class="btn btn-default">Add Product</a>
+			  <a href="<?php echo base_url(); ?>admin/package" class="btn btn-default">Add Package</a>
+			</div>
+		</div>
+
+		<div class="col-md-12">
         <?php foreach($flower as $flw) { ?>
         	<a href="view/<?php echo $flw->flower_id; ?>" target="_blank">
             <img src="assets/flower/<?php echo $flw->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" class="img-thumbnail" data-toggle="tooltip" data-placement="top" title="<?php echo $flw->flower_name; ?>" data-original-title="<?php echo $flw->flower_name; ?>">
