@@ -11,10 +11,8 @@
 	$package = $this->db->get("category");
 	$segment = $this->uri->segment(1);
 ?>
-<div class="container">
-    <div class="row">
-        <nav class="navbar navbar-default" role="navigation">
-            
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
             <div class="navbar-header">
             <?php if(isset($session)) if($session['user_level'] == 1){ ?>
             <a class="navbar-brand" href="admin">Admin Dashboard</a>
@@ -85,7 +83,5 @@
                     </ul>
                 </li>
             </ul>
-            
+          </div>
         </nav>
-    </div>
-</div>
