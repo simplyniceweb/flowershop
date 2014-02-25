@@ -32,6 +32,8 @@ class Settings extends CI_Controller {
 		if(!$mysession) redirect('home');
 		
 		$action = $this->input->post("action");
+		$password = $this->input->post("user_password");
+		$confirm = $this->input->post("old_password");
 
 		$data = array(
 			'user_name' => $this->input->post("user_name"),
@@ -39,9 +41,28 @@ class Settings extends CI_Controller {
 			'user_address' => $this->input->post("user_address"),
 			'user_birthday' => $this->input->post("user_birthday")
 		);
+		
+		if(!empty($password) && !empty($confirm)) {
+			$data['user_password'] = sha1($password);
 
-		if(!empty($action)) {
-			$data['user_password'] = sha1($this->input->post("user_password"));
+			$this->db->where("user_id", $action);
+			$check = $this->db->get("users");
+			
+			if($check->num_rows() > 0) {
+				foreach($check->result() as $ch) {
+					$old_pass = $ch->user_password;
+				}
+				if($old_pass != sha1($confirm)) {
+					redirect("settings/" . $action . "?pass=false");
+				}
+			} else {
+				redirect("settings");
+			}
+			
+			$this->db->where("user_id", $action);
+			$this->db->update("users", $data);
+			
+			redirect("logout");
 		}
 
 		$this->db->where("user_id", $action);

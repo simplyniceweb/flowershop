@@ -47,7 +47,12 @@
         </select>
     </td>
     <?php } else { ?>
-    No action.
+    <td>
+    <button type="submit" class="payment btn btn-xs btn-default" data-flower-id="<?php echo $flw->flower_id; ?>" data-order-id="<?php echo $flw->order_id; ?>" data-toggle="modal" data-target="#payment">
+        <span class="glyphicon glyphicon-usd"></span> 
+        <a href="javascript:void(0)">Payment</a>
+    </button>
+    </td>
     <?php } ?>
     <?php if($category != 0) { ?>
     <td>
@@ -55,6 +60,19 @@
             <option <?php if($flw->payment_status == 1){ ?>selected<?php } ?> value="1">Paid</option>
             <option <?php if($flw->payment_status == 0){ ?>selected<?php } ?> value="0">Unpaid</option>
         </select>
+    </td>
+    <?php } else { ?>
+    <td>
+        <?php 
+        $payment_status = $flw->payment_status;
+        if($payment_status == 2){ 
+            echo "Downpayment";
+        } else if($payment_status == 1) {
+            echo "Paid";
+        } else if($payment_status == 0) {
+            echo "Unpaid";
+        }
+        ?>
     </td>
     <?php } ?>
 </tr>

@@ -32,6 +32,12 @@
                       <li class="list-group-item">
                         <a href="admin/package">Add Package</a>
                       </li>
+                      <li class="list-group-item">
+                        <a href="admin/promo">Add Promo</a>
+                      </li>
+                      <li class="list-group-item">
+                        <a href="delivery">Location / Delivery Fee</a>
+                      </li>
                     </ul>
                 </div>
             </div>
@@ -49,6 +55,12 @@
                       </li>
                       <li class="list-group-item">
                         <a href="orders/ticket">List of Payment</a>
+                      </li>
+                      <li class="list-group-item">
+                        <a href="admin/history">Login History</a>
+                      </li>
+                      <li class="list-group-item">
+                        <a href="message">Messages</a>
                       </li>
                     </ul>
                 </div>
@@ -70,7 +82,6 @@
                 </div>
             </div>
 		</div>
-        
 	</div>
     
     <div class="row">
@@ -82,7 +93,7 @@
                 <div class="panel-body">
                     <ul class="list-group">
                       <li class="list-group-item">
-                        <a href="admin/users">Modify account</a>
+                        <a href="admin/users">View / Modify account</a>
                       </li>
                       <li class="list-group-item">
                         <a href="register">Add user</a>
@@ -92,6 +103,8 @@
             </div>
 		</div>
     </div>
+    
+    
 </div>
 
 <?php require_once('includes/footer.php'); ?>

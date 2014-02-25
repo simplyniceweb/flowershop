@@ -25,15 +25,23 @@ class Register extends CI_Controller {
 		$data = array(
 			'user_name'     => $this->input->post("user_name"),
 			'user_email'    => $this->input->post("user_email"),
+			'user_address'  => $this->input->post("user_address"),
 			'user_password' => sha1($this->input->post("user_password")),
-			'user_level '   => 0
+			'user_level'    => 0,
+			'user_status'   => 2
 		);
 		
+		if($data["user_password"] != sha1($this->input->post("confirm_user_password"))) {
+			redirect("register?pass=fail");
+		}
+		
+		// checks if email is valid
 		$this->db->from('users');
 		$this->db->where('user_email', $data['user_email']);
 		$check = $this->db->get();
 		if($check->num_rows() > 0) redirect("register?email=false");
 		
+		// insert to database
 		$this->db->insert("users", $data);
 		
 		if($action == 1) redirect("admin");
@@ -42,6 +50,33 @@ class Register extends CI_Controller {
 		$this->db->where('user_id', $user_id);
 		$login = $this->db->get("users");
 
+		// send an email
+		$email_config = array(
+			'protocol'  => 'smtp',
+			'smtp_host' => 'ssl://smtp.gmail.com',
+			'smtp_port' => '465',
+			'smtp_user' => 'keannasflowershop@gmail.com',
+			'smtp_pass' => 'keannabarangan',
+			'mailtype'  => 'html',
+			'starttls'  => true,
+			'newline'   => "\r\n"
+		);
+
+		ob_start();
+
+		$link = base_url() . "login?verify=" . $user_id;
+		$anchor = "<a href='". $link ."'>Click to verify your account.</a>";
+		$anchor .= "<br /><ul><li>Full Name: ".$data['user_name']."</li><li>Email Address: ".$data['user_email']."</li><li>Address: ".$data['user_address']."</li><li>Password: ".$this->input->post("user_password")."</li></ul>";
+
+		$this->load->library('email', $email_config);
+		$this->email->from('keannasflowershop@gmail.com', 'Keanna\'s Flowershop');
+		$this->email->to($data["user_email"]);
+		$this->email->subject('Account verification');
+		$this->email->message('To verify your account please click the link below. <br /> '. $anchor);
+		$this->email->send();
+		
+		ob_end_flush();
+/*
 		foreach($login->result() as $row) {
 			$sess_array = array(
 				'logged'          => TRUE,
@@ -51,12 +86,14 @@ class Register extends CI_Controller {
 				'user_level'      => $row->user_level,
 			);
 		}
-		
+
 		$this->session->set_userdata('logged', $sess_array);
-		if($sess_array['user_level'] == 1) redirect("admin");
-		if($sess_array['user_level'] == 0) redirect('home');
+*/
+		redirect('login?notif=email');
 	}
 }
 
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */
+
+?>

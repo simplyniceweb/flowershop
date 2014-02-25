@@ -93,7 +93,6 @@
                 </td>
                 <td>
                 	<select class="form-control order-status" data-entry-id="<?php echo $flw->order_id; ?>" data-status="<?php echo $flw->order_status; ?>">
-                    	<!--  <option value="0">Cancel Order</option> -->
                         <option selected value="1">Pending</option>
                         <option value="2">On Delivery</option>
                         <option value="3">Delivered</option>
@@ -102,6 +101,7 @@
                 </td>
                 <td>
                     <select class="form-control payment-status" data-entry-id="<?php echo $flw->order_id; ?>" data-status="<?php echo $flw->payment_status; ?>">
+                    	<option <?php if($flw->payment_status == 2){ ?>selected<?php } ?> value="2">Downpayment</option>
                         <option <?php if($flw->payment_status == 1){ ?>selected<?php } ?> value="1">Paid</option>
                         <option <?php if($flw->payment_status == 0){ ?>selected<?php } ?> value="0">Unpaid</option>
                     </select>

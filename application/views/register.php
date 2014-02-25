@@ -11,7 +11,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-sm-4 col-md-offset-4" style="margin-top: 150px">
+		<div class="col-sm-6 col-md-offset-3" style="margin-top: 80px">
 
 		<?php if(isset($_GET['email']) && $_GET['email'] == "false"): ?>
         <div class="alert alert-danger">
@@ -22,6 +22,12 @@
 		<?php if(isset($_GET['ban']) && $_GET['ban'] == "true"): ?>
         <div class="alert alert-danger">
             <small>An adminastrator blocked you from viewing this system.</small>
+        </div>
+		<?php endif; ?>
+        
+		<?php if(isset($_GET['pass']) && $_GET['pass'] == "fail"): ?>
+        <div class="alert alert-danger">
+            <small>Password did not match.</small>
         </div>
 		<?php endif; ?>
 		
@@ -40,11 +46,25 @@
 				<input type="email" name="user_email" class="form-control" required="required">
 			</div>
         </div>
+        <div class="form-group">
+        	<label><small>Address</small></label>
+			<div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+				<input type="text" name="user_address" class="form-control" required="required">
+			</div>
+        </div>
 		<div class="form-group">
         	<label><small>Password</small></label>
 			<div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 				<input type="password" name="user_password" class="form-control" required="required">
+			</div>
+		</div>
+		<div class="form-group">
+        	<label><small>Confirm Password</small></label>
+			<div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+				<input type="password" name="confirm_user_password" class="form-control" required="required">
 			</div>
 		</div>
 		<a href="login">Have an account? Login!</a>

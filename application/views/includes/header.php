@@ -53,13 +53,18 @@
                 <li class="<?php if($segment == "company") { echo "active"; } ?>">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Company <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="company/about">About</a></li>
+                    <li><a href="company/about">About us</a></li>
                     <li><a href="company/location">Location</a></li>
                     <li><a href="company/terms_conditons">Terms & Conditions</a></li>
                   </ul>
                 </li>
+                 <?php if(isset($session)) { ?>
+                <li><a href="orders">Orders</a></li>
+                <li><a href="cart">Cart</a></li>
+                <li><a href="message/<?php if(isset($session)) echo $session['user_id']; ?>">Messages</a></li>
+                <?php } ?>
             </ul>
-            
+
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                 <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown">
@@ -73,8 +78,6 @@
                         <li class="divider"></li>
                         <?php endif; ?>
                         <?php if(isset($session))  if($session): ?>
-                        <li><a href="orders">Orders</a></li>
-                        <li><a href="cart">Cart</a></li>
                         <li><a href="settings">Settings</a></li>
                         <li><a href="logout">Logout</a></li>
                         <?php else: ?>

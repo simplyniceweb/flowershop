@@ -100,12 +100,15 @@ class Orders extends CI_Controller {
 		$this->db->where("user_id", $mysession["user_id"]);
 		$user = $this->db->get("users");
 
+		$fee = $this->db->get("fee");
+
 		$data = array(
 			'action'  => $action,
 			'user'    => $user->result(),
 			'session' => $mysession,
 			'flower'  => $flower->result(),
-			'payment' => $this->db->get("payment")
+			'payment' => $this->db->get("payment"),
+			'fee'     => $fee->result()
 		);
 		
 		$this->load->view('pages/order', $data);
@@ -123,6 +126,12 @@ class Orders extends CI_Controller {
 		$receiver_address = $this->input->post("receiver_address");
 		$card_message = $this->input->post("card_message");
 		$suggestions = $this->input->post("suggestions");
+		
+		if($delivery_date <= date("Y-m-d")) {
+			$invalid = "invalid_date";
+			echo $invalid;
+			return $invalid;
+		}
 
 		if($action == 0) {
 			$this->db->delete('cart', array("user_id" => $user_id, "flower_id" => $flower_id));
@@ -157,6 +166,8 @@ class Orders extends CI_Controller {
 	}
 	
 	public function details() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) return false;
 		$order_id = $this->input->post("order_id");
 		$flower_id = $this->input->post("flower_id");
 		
@@ -167,6 +178,7 @@ class Orders extends CI_Controller {
 		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
 		$this->db->join('payment', 'payment.payment_id = orders.payment', 'left');
+		$this->db->join('users', 'users.user_id = orders.user_id', 'left');
 		$this->db->where("flower.flower_id", $flower_id);
 		$this->db->where("orders.order_id", $order_id);
 		$this->db->where("flower_image.flower_main", 1);
@@ -174,6 +186,7 @@ class Orders extends CI_Controller {
 		$flower = $this->db->get();
 		
 		$data = array(
+			'session' => $mysession,
 			'flower' => $flower->result()
 		);
 		

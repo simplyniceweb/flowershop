@@ -50,6 +50,7 @@
                 <th>View details</th>
                 <th>Billing</th>
                 <th>Payment</th>
+                <th>Payment Status</th>
                 </tr>
             </thead>
             
@@ -88,6 +89,18 @@
                     <span class="glyphicon glyphicon-usd"></span> 
                     <a href="javascript:void(0)">Payment</a>
                 </button>
+                </td>
+                <td>
+                	<?php 
+					$payment_status = $flw->payment_status;
+					if($payment_status == 2){ 
+						echo "Downpayment";
+					} else if($payment_status == 1) {
+						echo "Paid";
+					} else if($payment_status == 0) {
+						echo "Unpaid";
+					}
+					?>
                 </td>
 			</tr>
             <?php } ?>

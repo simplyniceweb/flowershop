@@ -27,6 +27,7 @@
     	<table class="table table-bordered table-hover">
         	<thead>
             	<tr>
+                <th><input type="checkbox" class="multiple-order" /></th>
             	<th>Product Name</th>
                 <th>Category</th>
                 <th>Price</th>
@@ -38,6 +39,7 @@
             <tbody>
             <?php foreach($flower as $flw) { ?>
             <tr>
+            	<td><input type="checkbox" class="child-order" data-value="<?php echo $flw->flower_id; ?>"/></td>
             	<td><?php echo ucfirst($flw->flower_name); ?></td>
                 <td><?php echo ucfirst($flw->category_name); ?></td>
                 <td>Php <?php echo number_format($flw->flower_price, 2); ?></td>

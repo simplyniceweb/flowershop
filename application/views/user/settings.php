@@ -24,6 +24,9 @@
             Information saved.
         </div>
 		<?php endif; ?>
+		<?php if(isset($_GET['pass']) && $_GET['pass'] == "false"): ?>
+        <div class="alert alert-danger">Not a valid old password.</div>
+		<?php endif; ?>
 		<?php echo form_open('settings/update'); ?>
         <div class="form-group">
         	<label for="user_name"><small>Full Name</small></label>
@@ -42,9 +45,13 @@
 			<textarea id="user_address" name="user_address" class="form-control"><?php echo $us->user_address; ?></textarea>
 		</div>
 		<div class="form-group">
-        	<label for="user_password"><small>Password</small></label>
+        	<label for="user_password"><small>New Password</small></label>
 			<input type="password" id="user_password" name="user_password" class="form-control">
-			<small>Please leave this blank if you don't want to change password.</small>
+		</div>
+		<div class="form-group">
+        	<label for="old_password"><small>Old Password</small></label>
+			<input type="password" id="old_password" name="old_password" class="form-control">
+			<small>Please leave this blank if you don't want to change password. You will be logged out once password changed.</small>
 		</div>
 		<input type="hidden" name="action" value="<?php echo $action; ?>"/>
 		<button class="btn btn-success pull-right">Update</button>

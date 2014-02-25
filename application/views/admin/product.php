@@ -37,7 +37,7 @@
                 <?php echo form_open_multipart("admin/new_product"); ?>
                     <div class="form-group">
                         <label for="category_list"><small>Category</small></label>
-                        <select id="category_list" class="form-control" name="category" required="required">
+                        <select id="category_list" class="form-control" name="category" required>
                             <?php foreach($category->result() as $row) { ?>
                                 <option <?php if(isset($flw->category) && $flw->category == $row->category_id) echo 'selected'; ?> value="<?php echo $row->category_id; ?>"><?php echo $row->category_name; ?></option>
                             <?php } ?>
@@ -60,7 +60,7 @@
                     
                     <div class="form-group">
                     	<label for="flower_description"><small>Flower Description</small></label>
-                        <textarea id="flower_description" class="form-control" name="flower_description" required="required"><?php if(isset($flw->flower_description)) echo $flw->flower_description; ?></textarea>
+                        <textarea id="flower_description" class="form-control" name="flower_description" required><?php if(isset($flw->flower_description)) echo $flw->flower_description; ?></textarea>
                     </div>
                     
                     <div class="form-group">
@@ -78,9 +78,11 @@
                       <label class="btn btn-primary<?php if(isset($flw->flower_type) && $flw->flower_type == 1) echo ' active'; ?>">
                         <input type="radio" name="flower_type" <?php if(isset($flw->flower_type) && $flw->flower_type == 1) echo 'checked="checked"'; ?> value="1" id="option1"> Featured
                       </label>
+                      <!--
                       <label class="btn btn-primary<?php if(isset($flw->flower_type) && $flw->flower_type == 2) echo ' active'; ?>">
                         <input type="radio" name="flower_type" <?php if(isset($flw->flower_type) && $flw->flower_type == 2) echo 'checked="checked"'; ?> value="2" id="option2"> Promo
                       </label>
+                      -->
                     </div>
                     </div>
 

@@ -14,13 +14,14 @@
 
 <div class="container">
 	<div class="row">
+    <?php if(isset($session)) if($session['user_level'] == 1){ ?>
 		<div class="col-md-12">
 			<div class="btn-group">
 			  <a href="<?php echo base_url(); ?>admin/product" class="btn btn-default">Add Product</a>
 			  <a href="<?php echo base_url(); ?>admin/package" class="btn btn-default">Add Package</a>
 			</div>
 		</div>
-
+	<?php } ?>
 		<div class="col-md-12">
         <?php foreach($flower as $flw) { ?>
         	<a href="view/<?php echo $flw->flower_id; ?>" target="_blank">

@@ -54,6 +54,14 @@
                         </select>
                     </div>
                 	<div class="form-group">
+                    	<label for="delivery_fee"><small>Delivery Location</small></label>
+                        <select id="delivery_fee" name="delivery_fee" class="form-control" required>
+							<?php foreach($fee as $fe) { ?>
+                                <option <?php if(isset($flw->delivery_fee) && $flw->delivery_fee == $fe->fee) { echo "selected"; } ?> value="<?php echo $fe->fee; ?>"><?php echo $fe->location . " - " . $fe->fee; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                	<div class="form-group">
                     	<label for="receiver"><small>Receiver Name</small></label>
                     	<input type="text" id="receiver" name="receiver" class="form-control" value="<?php if(isset($flw->receiver)) { echo $flw->receiver; } ?>"/>
                     </div>
@@ -65,7 +73,7 @@
                     
                 	<div class="form-group">
                     	<label for="delivery_date"><small>Delivery Date/Time</small></label>
-                    	<input type="datetime-local" id="delivery_date" name="delivery_date" class="form-control" value="<?php if(isset($flw->delivery_date)) { echo date("Y-m-d\TH:i", strtotime($flw->delivery_date)); } ?>"/>
+                    	<input type="date" id="delivery_date" name="delivery_date" class="form-control" value="<?php if(isset($flw->delivery_date)) { echo date("Y-m-d", strtotime($flw->delivery_date)); } ?>" required/>
                     </div>
                     
                 	<div class="form-group">
@@ -77,7 +85,7 @@
                     	<label for="receiver_address"><small>Receiver Address</small></label>
                     	<textarea id="receiver_address" name="receiver_address" class="form-control"><?php if(isset($flw->receiver_address)) { echo $flw->receiver_address; } ?></textarea>
                         <small>If we are delivering to an office address, kindly provide us the company name and recipient's department.
-                        Please include the recipient's landline number if available. For more info kindly read our <a href="">Terms and Conditions.</a></small>
+                        Please include the recipient's landline number if available. For more info kindly read our <a href="company/terms_conditons" target="_blank">Terms and Conditions.</a></small>
                     </div>
                     
                 	<div class="form-group">
@@ -90,10 +98,12 @@
                         <textarea id="suggestions" name="suggestions" class="form-control"><?php if(isset($flw->suggestions)) { echo $flw->suggestions; } ?></textarea>
                         <small>You can add accompaniment, chocolates, stuffed toys and also can change the color.</small>
                     </div>
-                    <?php if($action == 1) { ?>
-                	<div class="form-group">
-                    	<label for="delivery_fee"><small>Delivery Fee</small></label>
-                    	<input type="text" id="delivery_fee" name="delivery_fee" class="form-control" value="<?php if(isset($flw->delivery_fee)) { echo $flw->delivery_fee; } ?>"/>
+                    <?php if($action == 0) { ?>
+                    <div class="form-group">
+                    <small>
+                    Have you read and understand our terms and conditions? <br />
+                    <input type="checkbox" name="read_terms" required/>
+                    </small>
                     </div>
                     <?php } ?>
                     <div class="form-group">
@@ -130,5 +140,46 @@
 </div>
 
 <?php include(__DIR__ . "/../includes/footer.php"); ?>
+<script>
+$(document).ready(function(){
+	$("#delivery_date").change(function(){
+		var date  = new Date();
+		var year  = date.getFullYear();
+		var month = date.getMonth()+1;
+		var today = date.getDate();
+		if(month < 10) month = "0"+month;
+		var delivery_date = $(this).val();
+		var date_today = year+"-"+month+"-"+today;
+
+		// console.log(date_today);
+		// console.log(delivery_date);
+
+		if(date_today == delivery_date || delivery_date < date_today) {
+			$(this).val("");
+			alert("Delivery date is not possible, please select a delivery date greater than date today.");
+		}
+	})
+
+    $("#quantity, #receiver_no").keydown(function (e) {
+		isNumeric(e);
+    });
+	
+	function isNumeric(e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+             // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) || 
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+	}
+})
+</script>
 </body>
 </html>

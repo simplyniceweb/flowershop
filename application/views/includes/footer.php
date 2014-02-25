@@ -4,3 +4,4 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/scripts/admin.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/scripts/mainpage.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/scripts/order.js"></script>

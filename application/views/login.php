@@ -23,7 +23,25 @@
             <small>An adminastrator blocked you from viewing this system.</small>
         </div>
 		<?php endif; ?>
-		
+        
+		<?php if(isset($_GET['valid']) && $_GET['valid'] == "nope"): ?>
+        <div class="alert alert-danger">
+            <small>Please verify your account to the email you provided before you can sign in. Thank you!</small>
+        </div>
+		<?php endif; ?>
+        
+		<?php if(isset($_GET['notif']) && $_GET['notif'] == "email"): ?>
+        <div class="alert alert-success">
+            <small>Email has been sent. To verify your account kindly check your email. Thank you!</small>
+        </div>
+		<?php endif; ?>
+        
+		<?php if(isset($_GET['email']) && $_GET['email'] == "verified"): ?>
+        <div class="alert alert-success">
+            <small>Your account has been verified successfully! You can now sign in. Thank you!</small>
+        </div>
+		<?php endif; ?>
+
 		<?php echo form_open('login/verify'); ?>
         <div class="form-group">
         	<label><small>Email Address</small></label>

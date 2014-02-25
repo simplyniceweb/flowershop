@@ -20,6 +20,7 @@
                 <th>Address</th>
                 <th>Birthday</th>
                 <th>Actions</th>
+                <th>Order count</th>
                 </tr>
             </thead>
             
@@ -29,7 +30,7 @@
             	<td><?php echo ucfirst($u->user_name); ?></td>
                 <td><?php echo $u->user_email; ?></td>
                 <td><?php echo $u->user_address; ?></td>
-                <td><?php echo $u->user_birthday; ?></td>
+                <td><?php if($u->user_birthday != "0000-00-00") echo date("F d, Y", strtotime($u->user_birthday)); ?></td>
                 <td>
                 <?php if($u->user_favorite == 0) { ?>
                 <button class="favorite-user btn btn-xs btn-default" data-action="1" data-entry-id="<?php echo $u->user_id; ?>"><i class="glyphicon glyphicon-star"></i> Priority</button>
@@ -42,6 +43,13 @@
                 <button class="delete-user btn btn-xs btn-danger" data-action="0" data-entry-id="<?php echo $u->user_id; ?>"><i class="glyphicon glyphicon-trash"></i> <span class="del">Undelete</span></button>
 				<?php } ?>
 				<a href="settings/<?php echo $u->user_id; ?>"><button class="btn btn-xs btn-default"><i class="glyphicon glyphicon-wrench"></i> Edit</button></a>
+                </td>
+                <td>
+                	<?php 
+						$this->db->where("user_id", $u->user_id);
+						$count = $this->db->get('orders');
+						echo $count->num_rows();
+					?>
                 </td>
 			</tr>
             <?php } ?>

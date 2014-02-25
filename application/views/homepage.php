@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+    <meta property="fb:app_id" content="223633884496335">
+    <meta property="fb:admins" content="1692870492"/>
     <base href="<?php echo base_url(); ?>"/>
 	<title>Flower Shop</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css"/>
@@ -16,6 +18,14 @@
 	</style>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=223633884496335";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <?php require_once('includes/header.php'); ?>
 <div class="container">
 
@@ -99,7 +109,10 @@
           </div>
          <?php } ?>  
     </div>
-    
+    <br />
+    <div class="col-md-12 col-md-offset-1">
+    	<div class="fb-comments" data-href="<?php echo base_url(); ?>/home" data-width="900" data-numposts="15" data-colorscheme="light"></div>
+    </div>
     <div class="col-md-12 footer"></div>
 </div>
 

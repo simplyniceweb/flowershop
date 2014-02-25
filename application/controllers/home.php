@@ -8,7 +8,7 @@ class Home extends CI_Controller {
 
 	public function index() {
 		$mysession = $this->session->userdata('logged');
-		
+
 		$this->db->select('*, flower.flower_id, cart.flower_id AS c_flower_id, flower.flower_id AS f_flower_id');
 		$this->db->from('flower');
 		$this->db->join('flower_image', 'flower_image.flower_id = flower.flower_id', 'left');

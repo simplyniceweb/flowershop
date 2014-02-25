@@ -42,15 +42,41 @@ class Admin extends CI_Controller {
 		redirect("admin/category?add=true");
 	}
 	
-	public function archive_category() {
-		$category_id =  $this->input->post("category");
+	public function update_category() {
+		$category_id = $this->input->post("category");
+		$category_type = $this->input->post("category_type");
+		$data = array(
+			'category_name' => $this->input->post("new_categ_name")
+		);
+
+		$this->db->where("category_id", $category_id);
+		$this->db->where("category_type", $category_type);
+		$this->db->update("category", $data);
 		
+		return TRUE;
+	}
+	
+	public function check_archive() {
+		$category_id =  $this->input->post("category_id");
+		$this->db->where('category', $category_id);
+		$is_use = $this->db->get("flower");
+		if($is_use->num_rows() > 0) {
+			$data["is_use"] = 1;
+		} else {
+			$data["is_use"] = 0;
+		}
+		echo json_encode($data);
+	}
+
+	public function archive_category() {
+		$category_id =  $this->input->post("id");
+
 		$this->db->where('category_id', $category_id);
 		$this->db->delete('category');
 		
-		redirect("admin/category?del=true");
+		return TRUE;
 	}
-	
+
 	public function append_category() {
 		$type = $this->input->post("type");
 		$this->db->where("category_type", $type);
@@ -253,11 +279,11 @@ class Admin extends CI_Controller {
 		$this->db->from('flower');
 		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
 		$this->db->join('category', 'category.category_id = flower.category', 'left');
+		// $this->db->join('users', 'users.user_id = orders.user_id', 'left');
 		$this->db->where("flower.flower_status", 0);
 		$this->db->where("flower.flower_category", 1);
 		$this->db->where("orders.order_status", 1);
-		$this->db->like('orders.order_date', $ym); 
-		//$this->db->group_by("flower.flower_id"); 
+		$this->db->like('orders.order_date', $ym);
 		$flower = $this->db->get();
 
 		$data = array(
@@ -356,6 +382,23 @@ class Admin extends CI_Controller {
 		);
 		
 		$this->load->view("user_append/orders", $data);
+	}
+	
+	public function history() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) redirect("login");
+		
+		$this->db->select('*');
+		$this->db->from('login_history');
+		$this->db->join('users', 'users.user_id = login_history.user_id', 'left');
+		$this->db->order_by("login_history.login_datetime"); 
+		$history = $this->db->get();
+		
+		$data = array(
+			'history' => $history->result()
+		);
+		
+		$this->load->view('admin/history', $data);
 	}
 }
 

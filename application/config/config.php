@@ -14,7 +14,9 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/flowershop/';
+date_default_timezone_set('Asia/Singapore');
+
+$config['base_url']	= 'http://localhost/flowershop/'; //http://keannasflowershop.com/
 
 /*
 |--------------------------------------------------------------------------

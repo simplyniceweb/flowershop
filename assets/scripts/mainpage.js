@@ -154,6 +154,13 @@
 		},
 		order: function(){
 			return this.delegate(cartConf.order, "click", function(){
+				if($("input[name=read_terms]").length > 0) {
+					if($("input[name=read_terms]").is(':checked')) {
+					} else {
+						alert("Please read our our terms and condition.");
+						return false;
+					}
+				}
 				var me = $(this),
 				data = me.closest("#order_form").serialize();
 				jQuery.ajax({
@@ -162,9 +169,12 @@
 					data: data,
 					cache: false,
 					success: function (response) {
-						alert("Success!");
 						if(response == 0) {
+							alert("Success!");
 							location.href=config.base_url+"/cart";
+						} else if(response == "invalid_date"){
+							alert("Delivery date should not be lower or equal than date today.");
+							return false;
 						} else {
 							location.href=config.base_url+"/orders";
 						}
