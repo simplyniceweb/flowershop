@@ -14,11 +14,13 @@ class Orders extends CI_Controller {
 		$this->db->from('flower');
 		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
 		$this->db->join('category', 'category.category_id = flower.category', 'left');
+		// $this->db->join('order_add_ons', 'order_add_ons.order_id = orders.order_id', 'left');
 		$this->db->where("flower.flower_status", 0);
 		$this->db->where("orders.order_status", 1);
 		$this->db->where("orders.user_id", $mysession['user_id']);
 		// $this->db->group_by("flower.flower_id"); 
 		$flower = $this->db->get();
+		// var_dump($flower->result());
 
 		$data = array(
 			'session' => $mysession,
@@ -201,13 +203,14 @@ class Orders extends CI_Controller {
 		$order_id = $this->input->post("order_id");
 		$flower_id = $this->input->post("flower_id");
 		
-		$this->db->select('*');
+		$this->db->select('flower.flower_name, orders.quantity, flower.flower_price, payment.payment_name, orders.delivery_fee, SUM(order_add_ons.quantity*order_add_ons.price) AS addons_total');
 		$this->db->from('flower');
 		$this->db->join('flower_image', 'flower_image.flower_id = flower.flower_id', 'left');
 		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
 		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
 		$this->db->join('payment', 'payment.payment_id = orders.payment', 'left');
+		$this->db->join('order_add_ons', 'order_add_ons.order_id = orders.order_id', 'left');
 		$this->db->where("flower.flower_id", $flower_id);
 		$this->db->where("orders.order_id", $order_id);
 		$this->db->where("flower_image.flower_main", 1);

@@ -20,8 +20,9 @@
   <br /><br /><br />
   <!-- <div class="col-md-3"></div> -->
   <div class="col-md-3">Payment method: <?php echo $flw->payment_name; ?></div>
+  <div class="col-md-3">Add-ons total: <?php echo number_format($flw->addons_total, 2); ?></div>
   <div class="col-md-3">Delivery Fee: <?php echo number_format($flw->delivery_fee, 2); ?></div>
-  <div class="col-md-3">Total: Php <?php echo number_format($flw->quantity*$flw->flower_price+$flw->delivery_fee, 2); ?></div>
+  <div class="col-md-3">Total: Php <?php echo number_format($flw->quantity*$flw->flower_price+$flw->delivery_fee+$flw->addons_total, 2); ?></div>
   </div>
 </div>
 <?php } ?>
