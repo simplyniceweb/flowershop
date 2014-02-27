@@ -15,6 +15,7 @@
 		.gallery img { width: 150px; height: 150px }
 		.specific-delete { cursor: pointer }
 		.caption { background: #f1f1f1; }
+		.btn a { color:#FFF }
 	</style>
 </head>
 <body>

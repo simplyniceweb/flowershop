@@ -97,6 +97,10 @@ class Orders extends CI_Controller {
 		$flower = $this->db->get();
 		// var_dump($flower->result());
 		
+		if($flower->num_rows < 1) {
+			redirect("cart");
+		}
+		
 		$this->db->where("user_id", $mysession["user_id"]);
 		$user = $this->db->get("users");
 

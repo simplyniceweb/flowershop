@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css"/>
     <style>
 		@media print {
-			.form, .print {
+			.form, .print, img {
 				display: none
 			}
 		}
@@ -31,8 +31,9 @@
 					<li class="generator" data-action="1"><a href="javascript:;">Generate by year & month</a></li>
 				</ul>
 			</div>
+            <br /><br />
+            <br /><br />
 		</div>
-		<br /><br />
 		<div class="col-md-12 generated-report-interface">
 			<table class="table table-bordered table-hover">
 				<thead>

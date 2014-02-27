@@ -24,6 +24,9 @@
                         <a href="admin/category">Category</a>
                       </li>
                       <li class="list-group-item">
+                        <a href="addons">Add-ons</a>
+                      </li>
+                      <li class="list-group-item">
                         <a href="admin/payment">Type of Payment</a>
                       </li>
                       <li class="list-group-item">

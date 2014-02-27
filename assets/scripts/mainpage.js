@@ -1,5 +1,5 @@
 ;(function(){
-	
+	var item_ids = [];
 	var status = { 0: "Cancelled", 1: "Pending", 2: "On Delivery", 3: "Delivered" }
 	
 	var imgModalConf = {
@@ -53,10 +53,95 @@
 		quantity: ".quantity",
 		quantity_val: ".quantity_val",
 		order_all: ".order-all",
-		arr: 0
+		add_ons: ".select-add-ons",
+		add_ons_remove: ".add-on-remove",
+		add_ons_show: ".show-order",
+		arr: 0,
+		add_show: 0
+		
 	}
 	
 	var cartFunc = {
+		add_ons_show: function() {
+			return this.delegate(cartConf.add_ons_show, "click", function(){
+				var me = $(this), cart_id = me.data("cart-id");
+				$("input[name=ao_cart_id]").val(cart_id);
+				if(cartConf.add_show == 0) {
+					jQuery.ajax({
+						type: "POST",
+						url: config.base_url+"/addons/cartshow/",
+						data: { "cart_id" : cart_id },
+						cache: false,
+						success: function (response) {
+							cartConf.add_show = 1;
+							$(".append_row").prepend(response);
+							config.doc.price_calculate();
+							$(".add-on-remove").each(function() {
+								if($(this).data("item-id") > 0) {
+									var item_id = $(this).data("item-id");
+									item_ids.push("" + $(this).data("item-id") + "");
+									console.log(item_ids);
+
+									var item_name = $(".select-add-ons option[value="+item_id+"]").text();
+									$(".select-add-ons option[value="+item_id+"]").text(item_name + " - ( selected )");
+								}
+							})
+						}, error: function () {
+							console.log('Something went wrong..');
+						}
+					});
+				}
+			})
+		},
+		add_ons_remove: function() {
+			return this.delegate(cartConf.add_ons_remove, "click", function(){
+				var me = $(this), item_id = me.data("item-id");
+				var item_name = $(".select-add-ons option[value="+item_id+"]").data("item-name");
+				$(".select-add-ons option[value="+item_id+"]").text(item_name);
+				me.parent().parent("tr").remove();
+				item_ids = jQuery.grep(item_ids, function( value ) {
+				  return value != item_id;
+				});
+				config.doc.price_calculate();
+			});
+		},
+		add_ons: function() {
+			return this.delegate(cartConf.add_ons, "change", function(){
+				var me = $(this), item_id = me.val();
+				if(item_id == "") return false;
+				if(jQuery.inArray( item_id, item_ids ) > -1) {
+					return false;
+				}
+
+				var item_name = $(".select-add-ons option[value="+item_id+"]").text();
+				$(".select-add-ons option[value="+item_id+"]").text(item_name + " - ( selected )");
+
+				jQuery.ajax({
+					type: "POST",
+					url: config.base_url+"/addons/append/",
+					data: { 'item_id' : item_id },
+					cache: false,
+					success: function (response) {
+						$(".append_row").prepend(response);
+						item_ids.push(item_id);
+						me.prop('selectedIndex', 0);
+						config.doc.price_calculate();
+					}, error: function () {
+						console.log('Something went wrong..');
+					}
+				});
+			})
+		},
+		price_calculate: function(a) {
+			var total = 0;
+			$(".item_price").each(function(){
+				var item_price = $(this).data("price");
+				total += parseInt(item_price); 
+			})
+		
+			$(".total_price").text("Php " + total + ".00");
+			$("input[name=total_price]").val(total);
+		},
 		process_all: function() {
 			if(cartConf.arr == 0) {
 				alert("Please select an item.");
@@ -91,6 +176,12 @@
 			return this.delegate(cartConf.order_all, "click", function(){
 				cartConf.arr = $( ".child-order:checked" ).map(function() { return this.value; }).get(); //.join()
 				$(".order_all_name").val(cartConf.arr);
+				var arrayx = $(".order_all_name").val();
+				var splitter = arrayx.split(",");
+				if(splitter.length < 2) {
+					$(".close").trigger("click");
+					location.href= config.base_url+"/orders/order/" + $("#my_id"+splitter).data("flower-id") + "/0";
+				}
 			})
 		},
 		quantity: function() {
@@ -370,6 +461,9 @@
 	config.doc.suggestion();
 	config.doc.quantity();
 	config.doc.cartarray();
+	config.doc.add_ons_show();
+	config.doc.add_ons();
+	config.doc.add_ons_remove();
 
 	var deleteConf = {
 		archive: "a.delete",

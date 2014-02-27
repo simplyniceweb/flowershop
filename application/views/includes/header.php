@@ -11,9 +11,10 @@
 	$package = $this->db->get("category");
 	$segment = $this->uri->segment(1);
 ?>
+<style> .panel { background: #fce0ec !important; } .nav .caret { border-top-color: #FFF !important; border-bottom-color: #FFF !important }</style>
         <div class="container">
         <div class="row">
-            <div class="col-md-5 col-md-offset-3" style="z-index:999;background-color: #fce0ec;">
+            <div class="col-md-5 col-md-offset-1" style="z-index:999;background-color: #fce0ec;">
                 <img src="assets/images/header.jpg" alt="Keanna's Flowershop" style="background: #fce0ec;">
             </div>
         </div>

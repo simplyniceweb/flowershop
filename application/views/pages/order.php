@@ -23,7 +23,7 @@
     
     <div class="row divider wrapper box">
 
-        <div class="col-md-9" style="background:#FFF">
+        <div class="col-md-9" style="background:#fce0ec">
         <legend>Personal</legend>
         <div class="row user-data">
              <div class="col-md-3">

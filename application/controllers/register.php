@@ -17,7 +17,8 @@ class Register extends CI_Controller {
 		if($mysession && $mysession['user_level'] == 1) $action = 1;
 	
 		$data = array(
-			'action' => $action
+			'action'  => $action,
+			'session' => $mysession
 		);
 
 		$this->load->view('register', $data);

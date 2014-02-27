@@ -33,7 +33,7 @@
 <div class="container">
 
 	<div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
         <?php if($promo_count > 0) { ?>
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
           <!-- Indicators -->
@@ -69,7 +69,7 @@
         <?php } ?>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="media-body box" style="background: #FFF; border:1px solid #CCC">
             <h4 class="media-heading">Welcome</h4>
             Keanna's Flower Shop offers a wide variety of blossoms in fashion. We can make your gloomy event into a pleasant occasion through unique design of flowers, balloons and giveaways. We accept events such as: Weddings, Parties, Decorating, Orchid Plants, Burials, Gourmet Baskets and many more.

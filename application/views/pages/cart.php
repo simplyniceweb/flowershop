@@ -24,6 +24,11 @@
     <div class="row divider">
     	<div class="col-md-12">
         <legend>Cart</legend>
+		<?php if(isset($_GET['add_ons']) && $_GET['add_ons'] == "true"): ?>
+        <div class="alert alert-success">
+            <small>Add-ons has been added successfully.</small>
+        </div>
+        <?php endif; ?>
         <a href="#" class="order-all btn btn-sm btn-primary" data-toggle="modal" data-target="#orderForm"><span class="glyphicon glyphicon-credit-card"></span> Order Now</a>
         <br /><br />
     	<table class="table table-bordered table-hover">
@@ -32,6 +37,7 @@
                 <th><input type="checkbox" class="multiple-order" /></th>
             	<th>Product Name</th>
                 <th>Category</th>
+                <th>Add-ons</th>
                 <th>Unit Price</th>
                 <th>Quantity</th>
                 <th>Remove to cart</th>
@@ -42,9 +48,10 @@
             <tbody>
             <?php foreach($flower as $flw) { ?>
             <tr class="row-<?php echo $flw->cart_id; ?>">
-            	<td><input type="checkbox" id="my_id<?php echo $flw->cart_id; ?>" class="child-order" name="child-order[]" value="<?php echo $flw->cart_id; ?>"/></td>
+            	<td><input type="checkbox" id="my_id<?php echo $flw->cart_id; ?>" class="child-order" name="child-order[]" value="<?php echo $flw->cart_id; ?>" data-flower-id="<?php echo $flw->flower_id; ?>"/></td>
             	<td><?php echo ucfirst($flw->flower_name); ?></td>
                 <td><?php echo ucfirst($flw->category_name); ?></td>
+                <td><a href="#" class="btn btn-primary btn-sm show-order" data-cart-id="<?php echo $flw->cart_id; ?>" data-toggle="modal" data-target="#addOns">Add-ons</a></td>
                 <td>Php <?php echo number_format($flw->flower_price, 2); ?></td>
                 <td>
                     <div class="input-group" style="width:90px">
@@ -139,6 +146,53 @@
         <button type="button" class="order-btn btn btn-primary" data-action="0">Submit</button>
       </div>
       </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="addOns">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add-ons</h4>
+      </div>
+      <?php echo form_open("addons/save"); ?>
+      <div class="modal-body">
+        <div class="form-group">
+        <label for="select_add_ons"><small>Select Add-ons</small></label>
+        	<select id="select_add_ons" class="form-control select-add-ons">
+            	<option value="">Select Add-ons</option>
+            <?php foreach($add_ons as $ao) { ?>
+            	<option value="<?php echo $ao->item_id; ?>" data-item-name="<?php echo $ao->item_name; ?>"><?php echo $ao->item_name; ?></option>
+            <?php } ?>
+            </select>
+        <div class="append_add_ons">
+        	<table class="table table-bordered table-hover">
+            	<thead>
+                    <tr>
+                		<th>Item Name</th>
+                        <th>Item Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+					</tr>
+                </thead>
+                
+                <tbody class="append_row">
+                    <tr>
+                    	<td>Total: <span class="total_price"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      	<input type="hidden" name="ao_cart_id" value=""/>
+      	<input type="hidden" name="total_price" value=""/>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary">Save</button>
+      </div>
+      <?php echo form_close(); ?>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

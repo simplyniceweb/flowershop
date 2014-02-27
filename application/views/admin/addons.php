@@ -21,71 +21,29 @@
 <?php include(__DIR__ . "/../includes/header.php"); ?>
 <div class="container">
     <div class="row divider">
-    	<div class="col-md-12"><legend>Delivery Fee</legend></div>
-        <div class="col-md-4">
-        <?php echo form_open("delivery/add"); ?>
+    	<div class="col-md-12"><legend>Add-ons</legend></div>
 		<?php if(isset($_GET['add']) && $_GET['add'] == "true"): ?>
         <div class="alert alert-success">
-            <small>Added successfully!</small>
+            <small>Add-ons has been added successfully.</small>
         </div>
         <?php endif; ?>
-        <div class="form-group">
-        	<label for="location"><small>Location</small></label>
-        	<input type="text" id="location" name="location" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label for="fee"><small>Delivery Fee</small></label>
-            <input type="text" id="fee" name="fee" class="form-control" required />
-        </div>
-        <button class="btn btn-sm btn-success pull-right">Add location</button>
+        <?php echo form_open_multipart("addons/add"); ?>
+        	<div class="form-group">
+            	<label for="item_name"><small>Item Name</small></label>
+                <input type="text" id="item_name" name="item_name" class="form-control" value=""/>
+            </div>
+        	<div class="form-group">
+            	<label for="item_price"><small>Price</small></label>
+                <input type="text" id="item_price" name="item_price" class="form-control" value=""/>
+            </div>
+        	<div class="form-group">
+            	<label for="item_image"><small>Image</small></label>
+                <input type="file" id="item_image" name="item_image[]" class="form-control" value=""/>
+            </div>
+            <div class="form-group">
+            	<button class="btn btn-sm btn-primary pull-right">Submit</button>
+            </div>
         <?php echo form_close(); ?>
-        </div>
-
-        <div class="col-md-4">
-        <?php echo form_open("delivery/update"); ?>
-		<?php if(isset($_GET['update']) && $_GET['update'] == "true"): ?>
-        <div class="alert alert-success">
-            <small>Updated successfully!</small>
-        </div>
-        <?php endif; ?>
-        <div class="form-group">
-        	<label for="location"><small>Location</small></label>
-        	<select id="location" name="location" class="form-control"required >
-            <?php foreach($fee as $fe) { ?>
-            	<option value="<?php echo $fe->id; ?>"><?php echo $fe->location; ?></option>
-            <?php } ?>
-            </select>
-        </div>
-        <div class="form-group">
-        	<label for="new_location"><small>New Location</small></label>
-        	<input type="text" id="new_location" name="new_location" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label for="fee"><small>New Delivery Fee</small></label>
-            <input type="text" id="fee" name="fee" class="form-control" required />
-        </div>
-        <button class="btn btn-sm btn-info pull-right">Update</button>
-        <?php echo form_close(); ?>
-        </div>
-
-        <div class="col-md-4">
-        <?php echo form_open("delivery/delete"); ?>
-		<?php if(isset($_GET['delete']) && $_GET['delete'] == "true"): ?>
-        <div class="alert alert-success">
-            <small>Deleted successfully!</small>
-        </div>
-        <?php endif; ?>
-        <div class="form-group">
-        	<label for="location"><small>Location</small></label>
-        	<select id="location" name="location" class="form-control"required >
-            <?php foreach($fee as $fe) { ?>
-            	<option value="<?php echo $fe->id; ?>"><?php echo $fe->location; ?></option>
-            <?php } ?>
-            </select>
-        </div>
-        <button class="btn btn-sm btn-danger pull-right">Delete</button>
-        <?php echo form_close(); ?>
-        </div>
     </div>
 </div>
 <?php include(__DIR__ . "/../includes/footer.php"); ?>

@@ -19,11 +19,13 @@ class Cart extends CI_Controller {
 		$flower = $this->db->get();
 		
 		$fee = $this->db->get("fee");
+		$add_ons = $this->db->get("add_ons");
 
 		$data = array(
 			'session' => $mysession,
 			'flower'  => $flower->result(),
 			'fee'     => $fee->result(),
+			'add_ons' => $add_ons->result(),
 			'payment' => $this->db->get("payment"),
 		);
 		
