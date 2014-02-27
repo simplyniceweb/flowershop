@@ -15,6 +15,7 @@
 		.gallery img { width: 150px; height: 150px }
 		.specific-delete { cursor: pointer }
 		.caption { background: #f1f1f1; }
+		.btn a { color:#FFF }
 	</style>
 </head>
 <body>
@@ -64,7 +65,21 @@
             <tbody class="append_orders">
             <?php foreach($flower as $flw) { ?>
             <tr>
-            	<td><?php echo ucfirst($flw->flower_name); ?></td>
+            	<td>
+                    <select class="form-control">
+                        <option><?php echo ucfirst($flw->flower_name); ?></option>
+                        <?php
+                            $this->db->select('*');
+                            $this->db->from('order_add_ons');
+                            $this->db->join('add_ons', 'add_ons.item_id = order_add_ons.item_id', 'left');
+                            $this->db->where("order_id", $flw->order_id);
+                            $addons = $this->db->get();
+                            foreach($addons->result() as $ao) {
+                        ?>
+                        <option><?php echo $ao->item_name; ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
                 <td><?php echo ucfirst($flw->category_name); ?></td>
                 <td>Php <?php echo number_format($flw->flower_price, 2); ?></td>
                 <td>
