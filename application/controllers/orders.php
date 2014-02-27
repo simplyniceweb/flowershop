@@ -83,7 +83,7 @@ class Orders extends CI_Controller {
 		$flower_id = $this->uri->segment(3);
 		$action = $this->uri->segment(4);
 
-		$this->db->select('*');
+		$this->db->select('*, cart.quantity AS cart_quantity');
 		$this->db->from('flower');
 		$this->db->join('flower_image', 'flower_image.flower_id = flower.flower_id', 'left');
 		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');

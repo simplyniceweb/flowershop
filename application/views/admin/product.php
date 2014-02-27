@@ -78,11 +78,11 @@
                       <label class="btn btn-primary<?php if(isset($flw->flower_type) && $flw->flower_type == 1) echo ' active'; ?>">
                         <input type="radio" name="flower_type" <?php if(isset($flw->flower_type) && $flw->flower_type == 1) echo 'checked="checked"'; ?> value="1" id="option1"> Featured
                       </label>
-                      <!--
+                      
                       <label class="btn btn-primary<?php if(isset($flw->flower_type) && $flw->flower_type == 2) echo ' active'; ?>">
-                        <input type="radio" name="flower_type" <?php if(isset($flw->flower_type) && $flw->flower_type == 2) echo 'checked="checked"'; ?> value="2" id="option2"> Promo
+                        <input type="radio" name="flower_type" <?php if(isset($flw->flower_type) && $flw->flower_type == 2) echo 'checked="checked"'; ?> value="2" id="option2"> Same Day Delivery
                       </label>
-                      -->
+                      <!---->
                     </div>
                     </div>
 

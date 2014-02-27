@@ -6,7 +6,8 @@
 	<title>About</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css"/>
     <style>
-		img { width: 200px; height: 200px; margin:3px; }
+		.col-md-12 img { width: 200px; height: 200px; margin:3px; }
+		.modal-body img { width: 100%; height: 100%; }
 	</style>
 </head>
 <body>
@@ -23,15 +24,27 @@
 		</div>
 	<?php } ?>
 		<div class="col-md-12">
-        <?php foreach($flower as $flw) { ?>
-        	<a href="view/<?php echo $flw->flower_id; ?>" target="_blank">
-            <img src="assets/flower/<?php echo $flw->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" class="img-thumbnail" data-toggle="tooltip" data-placement="top" title="<?php echo $flw->flower_name; ?>" data-original-title="<?php echo $flw->flower_name; ?>">
+        <?php foreach($gallery as $gall) { ?>
+        	<a href="javascript:;" target="_blank">
+            <img src="assets/flower/<?php echo $gall->image; ?>" alt="<?php echo $gall->image; ?>" class="img-thumbnail img-modal"  data-toggle="modal" data-target="#myModal">
         	</a>
 		<?php } ?>
         </div>
 	</div>
 </div>
-
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br />
+      </div>
+      <div class="modal-body">
+        <img src="" />
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <?php include(__DIR__ . "/../includes/footer.php"); ?>
 </body>
 </html>

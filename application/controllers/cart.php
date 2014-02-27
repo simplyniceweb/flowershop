@@ -17,10 +17,14 @@ class Cart extends CI_Controller {
 		$this->db->where("flower.flower_status", 0);
 		$this->db->group_by("flower.flower_id"); 
 		$flower = $this->db->get();
+		
+		$fee = $this->db->get("fee");
 
 		$data = array(
 			'session' => $mysession,
-			'flower'  => $flower->result()
+			'flower'  => $flower->result(),
+			'fee'     => $fee->result(),
+			'payment' => $this->db->get("payment"),
 		);
 		
 		$this->load->view('pages/cart', $data);
@@ -36,7 +40,8 @@ class Cart extends CI_Controller {
 
 		$data = array(
 			'user_id'   => $mysession['user_id'],
-			'flower_id' => $this->input->post("id")
+			'flower_id' => $this->input->post("id"),
+			'quantity'  => 1
 		);
 
 		$this->db->insert("cart", $data);
@@ -54,10 +59,36 @@ class Cart extends CI_Controller {
 		}
 		
 		$cart_id = $this->input->post("id");
+		$this->db->where("cart_id", $cart_id);
+		$cart_count = $this->db->get("cart");
+		if( $cart_count->num_rows() < 1 ) {
+			echo 0;
+			return 0;
+		}
 
 		$this->db->delete('cart', array("cart_id" => $cart_id)); 
-		echo 0;
-		return 0;
+		echo 0; return 0;
+	}
+	
+	public function quantity() {
+		$quantity = $this->input->post("quantity");
+		$cart_id = $this->input->post("cart_id");
+		$this->db->where("cart_id", $cart_id);
+		$this->db->update("cart", array("quantity" => $quantity));
+		
+		return TRUE;
+	}
+	
+	public function order_all() {
+		$cart_ids = $this->input->post("order_all");
+		$cart_ids = explode(',', $cart_ids);
+
+		foreach($cart_ids as $ci) {
+			$this->db->where("cart_id", $ci);
+			$cart = $this->db->get("cart");
+		var_dump($cart->result());
+		}
+		return TRUE;
 	}
 }
 

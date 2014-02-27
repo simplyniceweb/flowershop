@@ -2,6 +2,41 @@
 	
 	var status = { 0: "Cancelled", 1: "Pending", 2: "On Delivery", 3: "Delivered" }
 	
+	var imgModalConf = {
+		show: ".img-modal",
+		allem: ".advertise-format"
+	}
+	
+	var imgModalFunc = {
+		show: function() {
+			return this.delegate(imgModalConf.show, "click", function(){
+				var me = $(this);
+				console.log(me.attr("src"));
+				$(".modal-body > img").attr("src", me.attr("src"));
+			});
+		},
+		allem: function() {
+			return this.delegate(imgModalConf.allem, "change", function(){
+				var me = $(this), val = me.val();
+				jQuery.ajax({
+					type: "POST",
+					url: config.base_url+"/advertise/getem/",
+					data: { 'val' : val },
+					cache: false,
+					success: function (response) {
+						$(".image-append-here").html(response);
+					}, error: function () {
+						console.log('Something went wrong..');
+					}
+				});
+			})
+		}
+	}
+
+	$.extend(config.doc, imgModalFunc);
+	config.doc.show();
+	config.doc.allem();
+
 	var cartConf = {
 		add:     ".add-cart",
 		order:   ".order-btn",
@@ -14,10 +49,55 @@
 		categ:   ".flower_category",
 		bydate: ".by_date",
 		status: ".order-status",
-		billing: ".view-billing"
+		billing: ".view-billing",
+		quantity: ".quantity",
+		quantity_val: ".quantity_val",
+		order_all: ".order-all",
+		arr: 0
 	}
 	
 	var cartFunc = {
+		process_all: function() {
+			if(cartConf.arr == 0) {
+				alert("Please select an item.");
+				return false;
+			}
+
+			var data = $("#order_all_form").serialize();
+
+			jQuery.ajax({
+				type: "POST",
+				url: config.base_url+"/cart/order_all/",
+				data: data,
+				cache: false,
+				success: function (response) {
+				}, error: function () {
+					console.log('Something went wrong..');
+				}
+			});
+		},
+		cartarray: function() {
+			return this.delegate(cartConf.order_all, "click", function(){
+				cartConf.arr = $( ".child-order:checked" ).map(function() { return this.value; }).get(); //.join()
+				$(".order_all_name").val(cartConf.arr);
+			})
+		},
+		quantity: function() {
+			return this.delegate(cartConf.quantity, "click", function(){
+				var cart_id = $(this).data("entry-id");
+				var quantity = $(this).prev(".quantity_val").val();
+				jQuery.ajax({
+					type: "POST",
+					url: config.base_url+"/cart/quantity/",
+					data: { 'quantity' : quantity, "cart_id" : cart_id },
+					cache: false,
+					success: function (response) {
+					}, error: function () {
+						console.log('Something went wrong..');
+					}
+				});
+			});
+		},
 		billing: function() {
 			return this.delegate(cartConf.billing, "click", function(){
 				var me = $(this), flower_id = me.data("flower-id"), order_id = me.data("order-id");
@@ -156,6 +236,11 @@
 			return this.delegate(cartConf.order, "click", function(){
 				if($("input[name=read_terms]").length > 0) {
 					if($("input[name=read_terms]").is(':checked')) {
+						// console.log("try");
+						if($(this).data("action") == 0) {
+							config.doc.process_all();
+							return false;
+						}
 					} else {
 						alert("Please read our our terms and condition.");
 						return false;
@@ -272,10 +357,12 @@
 	config.doc.cancel();
 	config.doc.archive();
 	config.doc.suggestion();
+	config.doc.quantity();
+	config.doc.cartarray();
 
 	var deleteConf = {
 		archive: "a.delete",
-		specific: "i.specific-delete"
+		specific: ".specific-delete"
 	}
 	
 	var deleteFunc = {
@@ -300,16 +387,15 @@
 			})
 		},
 		specific: function() {
-			return this.delegate(deleteConf.specific,"click", function(){
+			return this.delegate(deleteConf.specific, "click", function(){
 				var me = $(this),
 				id = me.data("entry-id");
 				if(!confirm("Are you sure you want to delete this?")) return false;
-				var img = $("img.img-"+id).attr("src");
 				
 				jQuery.ajax({
 					type: "POST",
-					url: config.base_url+"/view/img_delete/",
-					data: { 'id' : id, 'img' : img },
+					url: config.base_url+"/advertise/img_delete/",
+					data: { 'id' : id },
 					cache: false,
 					success: function (response) {
 						alert("Successfuly deleted!");

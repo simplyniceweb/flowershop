@@ -15,7 +15,9 @@
 		.gallery img { width: 150px; height: 150px }
 		.specific-delete { cursor: pointer }
 		/* Modified */
+		.img-modal { cursor: pointer }
 		.thumbnail > img { width: 250px !important; height: 200px !important}
+		.modal-body img { width: 100%; height: 100%; }
 	</style>
 </head>
 <body>
@@ -73,14 +75,25 @@
                     	<?php if($session['user_level'] == 1){ ?>
                         	<i class="specific-delete glyphicon glyphicon-remove" data-entry-id="<?php echo $img->flower_img_id; ?>" style="top:-60px;left:20px;position:relative;background: #f1f1f1;"></i>
                         <?php } ?>
-                        <img src="assets/flower/<?php echo $img->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" class="img-thumbnail img-<?php echo $img->flower_img_id; ?>">
+                        <img src="assets/flower/<?php echo $img->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" class="img-thumbnail img-<?php echo $img->flower_img_id; ?> img-modal" data-toggle="modal" data-target="#myModal">
                     </li>
                  <?php } ?>
              </ul>
          </div>
     </div>
 </div>
-
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="" />
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <?php include(__DIR__ . "/../includes/footer.php"); ?>
 </body>
 </html>

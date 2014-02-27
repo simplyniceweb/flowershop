@@ -7,6 +7,7 @@ class Register extends CI_Controller {
     }
 
 	public function index() {
+		// phpinfo();
 		$mysession = $this->session->userdata('logged');
 		if($mysession && $mysession['user_level'] == 0) redirect('home');
 
@@ -54,13 +55,16 @@ class Register extends CI_Controller {
 		$email_config = array(
 			'protocol'  => 'smtp',
 			'smtp_host' => 'ssl://smtp.gmail.com',
-			'smtp_port' => '465',
-			'smtp_user' => 'keannasflowershop@gmail.com',
-			'smtp_pass' => 'keannabarangan',
+			'smtp_port' => '465', //587
+			'smtp_user' => 'dummyofruben@gmail.com',
+			'smtp_pass' => 'varikas12345',
 			'mailtype'  => 'html',
-			'starttls'  => true,
+			'charset'   => 'iso-8859-1',
 			'newline'   => "\r\n"
 		);
+
+		$this->email->initialize($email_config);
+		$this->load->library('email', $email_config);
 
 		ob_start();
 
@@ -68,8 +72,7 @@ class Register extends CI_Controller {
 		$anchor = "<a href='". $link ."'>Click to verify your account.</a>";
 		$anchor .= "<br /><ul><li>Full Name: ".$data['user_name']."</li><li>Email Address: ".$data['user_email']."</li><li>Address: ".$data['user_address']."</li><li>Password: ".$this->input->post("user_password")."</li></ul>";
 
-		$this->load->library('email', $email_config);
-		$this->email->from('keannasflowershop@gmail.com', 'Keanna\'s Flowershop');
+		$this->email->from('dummyofruben@gmail.com', 'Keanna\'s Flowershop');
 		$this->email->to($data["user_email"]);
 		$this->email->subject('Account verification');
 		$this->email->message('To verify your account please click the link below. <br /> '. $anchor);

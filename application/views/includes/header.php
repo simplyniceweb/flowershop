@@ -11,6 +11,38 @@
 	$package = $this->db->get("category");
 	$segment = $this->uri->segment(1);
 ?>
+<style>
+/*
+	.navbar-default {
+		background: #24C94B
+	}
+	 .navbar-brand {
+		 color: #FFF !important
+	 }
+	  .caret {
+		 border-top: 4px solid #167215 !important;
+	  }
+	  .navbar-nav li.active a {
+		  color: #333 !important
+	  }
+	   .navbar-nav li a {
+		  color: #FFF !important
+	   }
+	    .navbar-default .navbar-nav>.active>a {
+			background-color: #64D783 !important
+		}
+		.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+			 color: #FFF !important;
+			 background-color: #64D783 !important
+		}
+		 .dropdown-menu>li>a {
+			 color: #333 !important
+		 }
+		 .dropdown-menu > li:hover {
+			 background-color: #64D783 !important
+		 }
+*/
+</style>
         <nav class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="container">
             <div class="navbar-header">
@@ -39,6 +71,7 @@
                   <?php } ?>
                   </ul>
                 </li>
+                <!--
                 <li class="<?php if($segment == "gallery") { echo "active"; } ?>">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gallery <b class="caret"></b></a>
                   <ul class="dropdown-menu">
@@ -50,6 +83,8 @@
                   <?php } ?>
                   </ul>
                 </li>
+                -->
+                <li class="<?php if($segment == "gallery") { echo "active"; } ?>"><a href="gallery">Gallery</a></li>
                 <li class="<?php if($segment == "company") { echo "active"; } ?>">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Company <b class="caret"></b></a>
                   <ul class="dropdown-menu">
@@ -58,9 +93,9 @@
                     <li><a href="company/terms_conditons">Terms & Conditions</a></li>
                   </ul>
                 </li>
-                 <?php if(isset($session)) { ?>
-                <li><a href="orders">Orders</a></li>
+                <?php if(isset($session) && isset($session["logged"])) { ?>
                 <li><a href="cart">Cart</a></li>
+                <li><a href="orders">Orders</a></li>
                 <li><a href="message/<?php if(isset($session)) echo $session['user_id']; ?>">Messages</a></li>
                 <?php } ?>
             </ul>

@@ -8,6 +8,7 @@ class Gallery extends CI_Controller {
 
 	public function index() {
 		$mysession = $this->session->userdata('logged');
+		/*
 		$category = $this->uri->segment(2);
 
 		$this->db->select('*');
@@ -18,10 +19,14 @@ class Gallery extends CI_Controller {
 		$this->db->where("flower.flower_status",0);
 		$this->db->group_by("flower.flower_id");
 		$flower = $this->db->get();
+		*/
+		
+		$this->db->where("type", 1);
+		$gallery = $this->db->get("advertisement");
 
 		$data = array(
 			'session' => $mysession, 
-			'flower' => $flower->result()
+			'gallery' => $gallery->result()
 		);
 		
 		$this->load->view("user/gallery", $data);

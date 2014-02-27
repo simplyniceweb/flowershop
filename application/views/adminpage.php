@@ -33,7 +33,7 @@
                         <a href="admin/package">Add Package</a>
                       </li>
                       <li class="list-group-item">
-                        <a href="admin/promo">Add Promo</a>
+                        <a href="advertise">Advertisement</a>
                       </li>
                       <li class="list-group-item">
                         <a href="delivery">Location / Delivery Fee</a>

@@ -78,7 +78,7 @@
                     
                 	<div class="form-group">
                     	<label for="quantity"><small>Item Quantity</small></label>
-                    	<input type="text" id="quantity" name="quantity" class="form-control" value="<?php if(isset($flw->quantity)) { echo $flw->quantity; } ?>"/>
+                    	<input type="text" id="quantity" name="quantity" class="form-control" value="<?php if(isset($flw->quantity)) { echo $flw->quantity; } else { $flw->cart_quantity; } ?>"/>
                     </div>
                     
                 	<div class="form-group">
@@ -109,7 +109,7 @@
                     <div class="form-group">
                     	<input type="hidden" name="action" value="<?php echo $action; ?>"/>
                         <input type="hidden" name="order_id" value="<?php if(isset($flw->order_id)) { echo $flw->order_id; }?>"/>
-                    	<button type="button" class="order-btn btn btn-primary">
+                    	<button type="button" class="order-btn btn btn-primary" data-action="1">
                         <?php if($action == 1) {
 							echo "Update";
 						} else {
