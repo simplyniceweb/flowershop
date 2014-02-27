@@ -11,50 +11,25 @@
 	$package = $this->db->get("category");
 	$segment = $this->uri->segment(1);
 ?>
-<style>
-/*
-	.navbar-default {
-		background: #24C94B
-	}
-	 .navbar-brand {
-		 color: #FFF !important
-	 }
-	  .caret {
-		 border-top: 4px solid #167215 !important;
-	  }
-	  .navbar-nav li.active a {
-		  color: #333 !important
-	  }
-	   .navbar-nav li a {
-		  color: #FFF !important
-	   }
-	    .navbar-default .navbar-nav>.active>a {
-			background-color: #64D783 !important
-		}
-		.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
-			 color: #FFF !important;
-			 background-color: #64D783 !important
-		}
-		 .dropdown-menu>li>a {
-			 color: #333 !important
-		 }
-		 .dropdown-menu > li:hover {
-			 background-color: #64D783 !important
-		 }
-*/
-</style>
-        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-md-offset-3" style="z-index:999;background-color: #fce0ec;">
+                <img src="assets/images/header.jpg" alt="Keanna's Flowershop" style="background: #fce0ec;">
+            </div>
+        </div>
+        </div>
+        <nav class="navbar navbar-default" role="navigation"> <!--  navbar-static-top -->
             <div class="container">
             <div class="navbar-header">
             <?php if(isset($session)) if($session['user_level'] == 1){ ?>
             <a class="navbar-brand" href="admin">Admin Dashboard</a>
             <?php } else { ?>
-            <a class="navbar-brand" href="home">Flower Shop</a>
+            <a class="navbar-brand" href="home">Keanna's Flower shop</a>
             <?php } ?>
             </div>
             
             <ul class="nav navbar-nav">
-                <li class="<?php if($segment == "home" || $segment == "") { echo "active"; } ?>"><a href="home">Home</a></li>                
+                <li class="<?php if($segment == "home" || $segment == "") { echo "active"; } ?>"><a href="">Home</a></li>                
                 <li class="<?php if($segment == "product") { echo "active"; } ?>">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
                   <ul class="dropdown-menu">

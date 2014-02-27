@@ -17,6 +17,7 @@ class Product extends CI_Controller {
 		$this->db->where("flower.flower_category", 1);
 		$this->db->where("flower.category", $product_categ);
 		$this->db->where("flower_image.flower_main", 1);
+		$this->db->or_where("flower_image.flower_main is null");
 		$this->db->where("flower.flower_status",0);
 		$flower = $this->db->get();
 		

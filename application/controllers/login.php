@@ -23,8 +23,10 @@ class Login extends CI_Controller {
 			
 			redirect("login?email=verified");
 		}
-
-		$this->load->view('login');
+		$data = array(
+			'session' => $mysession
+		);
+		$this->load->view('login', $data);
 	}
 
 	public function verify() {

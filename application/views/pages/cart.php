@@ -41,7 +41,7 @@
             
             <tbody>
             <?php foreach($flower as $flw) { ?>
-            <tr>
+            <tr class="row-<?php echo $flw->cart_id; ?>">
             	<td><input type="checkbox" id="my_id<?php echo $flw->cart_id; ?>" class="child-order" name="child-order[]" value="<?php echo $flw->cart_id; ?>"/></td>
             	<td><?php echo ucfirst($flw->flower_name); ?></td>
                 <td><?php echo ucfirst($flw->category_name); ?></td>

@@ -26,7 +26,11 @@
         <?php foreach($flower as $flw) { ?>
           <div class="col-sm-3 col-md-3">
             <div class="thumbnail">
-              <img src="assets/flower/<?php echo $flw->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" width="300" height="100">
+			<?php if(!empty($flw->flower_img_name)) { ?>
+            <img src="assets/flower/<?php echo $flw->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" width="300" height="100">
+            <?php } else { ?>
+            <img src="assets/flower/download.jpg" alt="">
+            <?php } ?>
               <div class="caption">
               	<a class="pull-right" href="view/<?php echo $flw->flower_id; ?>" data-entry-id="<?php echo $flw->flower_id; ?>">View</a>
                 <h3><?php echo $flw->flower_name; ?></h3>

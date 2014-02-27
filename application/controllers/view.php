@@ -16,9 +16,12 @@ class View extends CI_Controller {
 		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
 		$this->db->where("flower.flower_id", $flower_id);
 		$this->db->where("flower_image.flower_main", 1);
+		$this->db->or_where("flower_image.flower_main is null");
 		$this->db->where("flower.flower_status",0);
 		$this->db->limit(1);
-		$flower = $this->db->get();	
+		$flower = $this->db->get();
+		
+		if($flower->num_rows() < 1) redirect("home");
 		
 		$this->db->where("flower_id", $flower_id);
 		$images = $this->db->get("flower_image");	

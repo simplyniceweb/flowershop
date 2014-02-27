@@ -71,6 +71,17 @@
 				data: data,
 				cache: false,
 				success: function (response) {
+					if(response == "invalid_date") {
+						alert("Please input a valid date.");
+						return false;
+					}
+					var arrayx = $(".order_all_name").val();
+					var splitter = arrayx.split(",");
+					for(var i=0; i < splitter.length; i++) {
+						$("tr.row-"+ splitter[i]).slideToggle();
+					}
+					$(".close").trigger("click");
+					alert("Success!");
 				}, error: function () {
 					console.log('Something went wrong..');
 				}
@@ -390,12 +401,13 @@
 			return this.delegate(deleteConf.specific, "click", function(){
 				var me = $(this),
 				id = me.data("entry-id");
+				type = me.data("type");
 				if(!confirm("Are you sure you want to delete this?")) return false;
 				
 				jQuery.ajax({
 					type: "POST",
 					url: config.base_url+"/advertise/img_delete/",
-					data: { 'id' : id },
+					data: { 'id' : id, 'type' : type },
 					cache: false,
 					success: function (response) {
 						alert("Successfuly deleted!");

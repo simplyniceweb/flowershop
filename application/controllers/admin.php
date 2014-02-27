@@ -197,11 +197,14 @@ class Admin extends CI_Controller {
 					'flower_img_name'  => $array['file_name'],
 					'flower_id'        => $flower_id
 				);
+				
+				$this->db->where("flower_main", 1);
+				$has_main = $this->db->get("flower_image");
 
-				if($pick == 0) {
-					$upload['flower_main'] = 1;
-				} else {
+				if($has_main->num_rows() > 0) {
 					$upload['flower_main'] = 0;
+				} else {
+					$upload['flower_main'] = 1;
 				}
 				$pick = 1;
 

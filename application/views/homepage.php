@@ -13,6 +13,7 @@
 		.box { padding: 5px }
 		.flower-title { margin-left: 20px }
 		.footer { height: 50px }
+		div.item img { max-height: 300px }
 		/* Modified */
 		.thumbnail > img { width: 250px !important; height: 200px !important}
 		.carousel-inner .item img { align: center }
@@ -33,87 +34,6 @@
 
 	<div class="row">
         <div class="col-md-6">
-        	<div class="media">
-            <a class="pull-left" href="#">
-            <img src="assets/images/banner.jpg" class="img-thumbnail img-square" alt="">
-            </a>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="media-body box" style="background: #FFF; border:1px solid #CCC">
-            <h4 class="media-heading">Welcome</h4>
-            Keanna's Flower Shop offers a wide variety of blossoms in fashion. We can make your gloomy event into a pleasant occasion through unique design of flowers, balloons and giveaways. We accept events such as: Weddings, Parties, Decorating, Orchid Plants, Burials, Gourmet Baskets and many more.
-          </div>
-        </div>
-	</div> <!-- Header -->
-
-    <div class="row divider">
-    	<h4 class="flower-title">Featured</h4>
-        <br/>
-        <?php if(count($featured) < 1 ): ?>
-        	<p class="flower-title">No featured product yet.</p>
-        <?php endif; ?>
-        <?php foreach($featured as $feat) { ?>
-          <div class="col-sm-3 col-md-3 bg-trans">
-            <div class="thumbnail">
-              <img src="assets/flower/<?php echo $feat->flower_img_name; ?>" alt="<?php echo $feat->flower_name; ?>" width="300" height="100">
-              <div class="caption">
-              	<a class="pull-right" href="view/<?php echo $feat->flower_id; ?>" data-entry-id="<?php echo $feat->flower_id; ?>">View</a>
-                <h3><?php echo $feat->flower_name; ?></h3>
-                <p><?php echo $feat->flower_description; ?></p>
-              	<p>Price: Php <?php echo number_format($feat->flower_price, 2); ?></p>
-                <p>
-                <a href="javascript:void(0);" class="btn <?php if(!is_null($feat->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($feat->cart_id) && $session) { echo $feat->cart_id; } ?>" data-entry-id="<?php echo $feat->flower_id; ?>" role="button">
-                    <?php if(!is_null($feat->c_flower_id) && $session) { ?>
-                    <i class="glyphicon glyphicon-remove"></i> 
-                    Remove to cart
-                    <?php } else { ?>
-                    <i class="glyphicon glyphicon-shopping-cart"></i> 
-                    Add to cart
-                    <?php } ?>
-                </a>
-                </p>
-                
-              </div>
-            </div>
-          </div>
-         <?php } ?>         
-    </div>
-    <div class="row divider">
-    	<h4 class="flower-title">Same Day Delivery</h4>
-        <?php if(count($samedaydelivery) < 1 ): ?>
-        	<p class="flower-title">No same day delivery product yet.</p>
-        <?php endif; ?>
-        <?php foreach($samedaydelivery as $sdd) { ?>
-          <div class="col-sm-3 col-md-3 bg-trans">
-            <div class="thumbnail">
-            <img src="assets/flower/<?php echo $sdd->flower_img_name; ?>" alt="<?php echo $sdd->flower_name; ?>" width="300" height="100">
-              <div class="caption">
-              	<a class="pull-right" href="view/<?php echo $sdd->flower_id; ?>" data-entry-id="<?php echo $sdd->flower_id; ?>">View</a>
-                <h3><?php echo $sdd->flower_name; ?></h3>
-                <p><?php echo $sdd->flower_description; ?></p>
-              	<p>Price: Php <?php echo number_format($sdd->flower_price, 2); ?></p>
-                <p>
-                <a href="javascript:void(0);" class="btn <?php if(!is_null($sdd->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($sdd->cart_id) && $session) { echo $sdd->cart_id; } ?>" data-entry-id="<?php echo $sdd->flower_id; ?>" role="button">
-                	<?php if(!is_null($sdd->c_flower_id) && $session) { ?>
-                    <i class="glyphicon glyphicon-remove"></i> 
-                    Remove to cart
-                    <?php } else { ?>
-                    <i class="glyphicon glyphicon-shopping-cart"></i> 
-                    Add to cart
-                    <?php } ?>
-				</a>
-                </p>
-                
-              </div>
-            </div>
-          </div>
-         <?php } ?>  
-    </div>
-	<br />
-    <div class="row divider wrapper box">
-    	<h4 class="flower-title">Promo</h4>
         <?php if($promo_count > 0) { ?>
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
           <!-- Indicators -->
@@ -147,12 +67,92 @@
         <?php } else { ?>
         <p class="flower-title">No Promo yet</p>
         <?php } ?>
+        </div>
+
+        <div class="col-md-6">
+          <div class="media-body box" style="background: #FFF; border:1px solid #CCC">
+            <h4 class="media-heading">Welcome</h4>
+            Keanna's Flower Shop offers a wide variety of blossoms in fashion. We can make your gloomy event into a pleasant occasion through unique design of flowers, balloons and giveaways. We accept events such as: Weddings, Parties, Decorating, Orchid Plants, Burials, Gourmet Baskets and many more.
+          </div>
+        </div>
+	</div> <!-- Header -->
+
+    <div class="row divider">
+    	<h4 class="flower-title">Featured</h4>
+        <br/>
+        <?php if(count($featured) < 1 ): ?>
+        	<p class="flower-title">No featured product yet.</p>
+        <?php endif; ?>
+        <?php foreach($featured as $feat) { ?>
+          <div class="col-sm-3 col-md-3 bg-trans">
+            <div class="thumbnail">
+			<?php if(!empty($feat->flower_img_name)) { ?>
+            <img src="assets/flower/<?php echo $feat->flower_img_name; ?>" alt="<?php echo $feat->flower_name; ?>" width="300" height="100">
+            <?php } else { ?>
+            <img src="assets/flower/download.jpg" alt="">
+            <?php } ?>
+              <div class="caption">
+              	<a class="pull-right" href="view/<?php echo $feat->flower_id; ?>" data-entry-id="<?php echo $feat->flower_id; ?>">View</a>
+                <h3><?php echo $feat->flower_name; ?></h3>
+                <p><?php echo $feat->flower_description; ?></p>
+              	<p>Price: Php <?php echo number_format($feat->flower_price, 2); ?></p>
+                <p>
+                <a href="javascript:void(0);" class="btn <?php if(!is_null($feat->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($feat->cart_id) && $session) { echo $feat->cart_id; } ?>" data-entry-id="<?php echo $feat->flower_id; ?>" role="button">
+                    <?php if(!is_null($feat->c_flower_id) && $session) { ?>
+                    <i class="glyphicon glyphicon-remove"></i> 
+                    Remove to cart
+                    <?php } else { ?>
+                    <i class="glyphicon glyphicon-shopping-cart"></i> 
+                    Add to cart
+                    <?php } ?>
+                </a>
+                </p>
+                
+              </div>
+            </div>
+          </div>
+         <?php } ?>         
     </div>
-    <br />
+
+    <div class="row divider">
+    	<h4 class="flower-title">Same Day Delivery</h4>
+        <?php if(count($samedaydelivery) < 1 ): ?>
+        	<p class="flower-title">No same day delivery product yet.</p>
+        <?php endif; ?>
+        <?php foreach($samedaydelivery as $sdd) { ?>
+          <div class="col-sm-3 col-md-3 bg-trans">
+            <div class="thumbnail">
+			<?php if(!empty($sdd->flower_img_name)) { ?>
+            <img src="assets/flower/<?php echo $sdd->flower_img_name; ?>" alt="<?php echo $sdd->flower_name; ?>" width="300" height="100">
+            <?php } else { ?>
+            <img src="assets/flower/download.jpg" alt="">
+            <?php } ?>
+              <div class="caption">
+              	<a class="pull-right" href="view/<?php echo $sdd->flower_id; ?>" data-entry-id="<?php echo $sdd->flower_id; ?>">View</a>
+                <h3><?php echo $sdd->flower_name; ?></h3>
+                <p><?php echo $sdd->flower_description; ?></p>
+              	<p>Price: Php <?php echo number_format($sdd->flower_price, 2); ?></p>
+                <p>
+                <a href="javascript:void(0);" class="btn <?php if(!is_null($sdd->c_flower_id) && $session) { echo "remove-cart btn-danger"; } else { echo "add-cart btn-primary"; } ?> btn-xs" data-cart-id="<?php if(!is_null($sdd->cart_id) && $session) { echo $sdd->cart_id; } ?>" data-entry-id="<?php echo $sdd->flower_id; ?>" role="button">
+                	<?php if(!is_null($sdd->c_flower_id) && $session) { ?>
+                    <i class="glyphicon glyphicon-remove"></i> 
+                    Remove to cart
+                    <?php } else { ?>
+                    <i class="glyphicon glyphicon-shopping-cart"></i> 
+                    Add to cart
+                    <?php } ?>
+				</a>
+                </p>
+                
+              </div>
+            </div>
+          </div>
+         <?php } ?>  
+    </div>
+	<br />
     <div class="col-md-12 col-md-offset-1">
     	<div class="fb-comments" data-href="<?php echo base_url(); ?>/home" data-width="900" data-numposts="15" data-colorscheme="light"></div>
     </div>
-    <div class="col-md-12 footer"></div>
 </div>
 
 <?php require_once('includes/footer.php'); ?>

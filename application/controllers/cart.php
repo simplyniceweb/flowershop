@@ -80,13 +80,50 @@ class Cart extends CI_Controller {
 	}
 	
 	public function order_all() {
+		$mysession = $this->session->userdata('logged');
+		if(!$mysession) return false;
+
 		$cart_ids = $this->input->post("order_all");
 		$cart_ids = explode(',', $cart_ids);
+		$payment = $this->input->post("payment");
+		$fee = $this->input->post("delivery_fee");
+		$receiver = $this->input->post("receiver");
+		$receiver_no = $this->input->post("receiver_no");
+		$delivery_date = $this->input->post("delivery_date");
+		$receiver_address = $this->input->post("receiver_address");
+		$card_message = $this->input->post("card_message");
+		$suggestions = $this->input->post("suggestions");
+		if($delivery_date <= date("Y-m-d")) {
+			$invalid = "invalid_date";
+			echo $invalid;
+			return $invalid;
+		}
 
 		foreach($cart_ids as $ci) {
 			$this->db->where("cart_id", $ci);
 			$cart = $this->db->get("cart");
-		var_dump($cart->result());
+			foreach($cart->result() as $ct) {
+				$data = array(
+					'user_id' => $ct->user_id,
+					'payment' => $payment,
+					'flower_id' => $ct->flower_id,
+					'receiver' => $receiver,
+					'receiver_no' => $receiver_no,
+					'delivery_date' => $delivery_date,
+					'quantity' => $ct->quantity,
+					'receiver_address' => $receiver_address,
+					'card_message' => $card_message,
+					'delivery_fee' => $fee,
+					'order_status' => 1, // 0 cancel, 1 pending , 2 = On delivery, 3 = Delivered, 4 = Processing
+					'order_date' => date("Y-m-d"),
+					'suggestions' => $suggestions,
+				);
+				
+				$this->db->insert("orders", $data);
+				// Delete the cart after insert to order tabl
+				$this->db->delete('cart', array("cart_id" => $ct->cart_id));
+			}
+			// var_dump($cart->result());
 		}
 		return TRUE;
 	}

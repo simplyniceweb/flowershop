@@ -70,8 +70,38 @@ class Advertise extends CI_Controller {
 	
 	public function img_delete() {
 		$img_id = $this->input->post("id");
-		$this->db->where("id", $img_id);
-		$this->db->delete("advertisement");
+		$type = $this->input->post("type");
+		if($type == "advert") {
+			$this->db->where("id", $img_id);
+			$delete = $this->db->get("advertisement");
+			
+			foreach($delete->result() as $del) {
+				$image = $del->image;
+				if($image != "") {
+					$link = 'assets/flower/'.$image;
+					if(file_exists($link)) {
+						unlink($link);
+					}
+				}
+			}
+			$this->db->where("id", $img_id);
+			$this->db->delete("advertisement");
+		} else {
+			$this->db->where("flower_img_id", $img_id);
+			$delete = $this->db->get("flower_image");
+
+			foreach($delete->result() as $del) {
+				$image = $del->flower_img_name;
+				if($image != "") {
+					$link = 'assets/flower/'.$image;
+					if(file_exists($link)) {
+						unlink($link);
+					}
+				}
+			}
+			$this->db->where("flower_img_id", $img_id);
+			$this->db->delete("flower_image");
+		}
 
 		return TRUE;
 	}

@@ -15,6 +15,7 @@ class Home extends CI_Controller {
 		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
 		$this->db->where("flower.flower_type", 1);
 		$this->db->where("flower_image.flower_main", 1);
+		$this->db->or_where("flower_image.flower_main is null");
 		$this->db->where("flower.flower_status",0);
 		$this->db->group_by("flower.flower_id"); 
 		$featured = $this->db->get();
@@ -25,6 +26,7 @@ class Home extends CI_Controller {
  		$this->db->join('cart', 'cart.flower_id = flower.flower_id', 'left');
  		$this->db->where("flower.flower_type", 2);
  		$this->db->where("flower_image.flower_main", 1);
+		$this->db->or_where("flower_image.flower_main is null");
  		$this->db->where("flower.flower_status",0);
  		$this->db->group_by("flower.flower_id");
 		$samedaydelivery = $this->db->get();

@@ -16,7 +16,7 @@
 		.specific-delete { cursor: pointer }
 		/* Modified */
 		.img-modal { cursor: pointer }
-		.thumbnail > img { width: 250px !important; height: 200px !important}
+		.thumbnail > img.image { width: 250px !important; height: 200px !important}
 		.modal-body img { width: 100%; height: 100%; }
 	</style>
 </head>
@@ -28,7 +28,11 @@
         <?php foreach($flower as $flw) { ?>
           <div class="col-md-3">
             <div class="thumbnail">
-              <img src="assets/flower/<?php echo $flw->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" width="300" height="100">
+             <?php if(!empty($flw->flower_img_name)) { ?>
+              <img class="image" src="assets/flower/<?php echo $flw->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" width="300" height="100">
+             <?php } else { ?>
+             <img src="assets/flower/download.jpg" alt="">
+             <?php } ?>
               <div class="caption">
               	<h3><?php echo $flw->flower_name; ?></h3>
                 <p><?php echo $flw->flower_description; ?></p>
@@ -71,13 +75,14 @@
          <div class="col-md-9 gallery">
              <ul>
                  <?php foreach($images as $img) { ?>
-                    <li>
+                 <?php if(!empty($img->flower_img_name)) { ?>
+                    <li style="margin-bottom: 10px">
                     	<?php if($session['user_level'] == 1){ ?>
-                        	<i class="specific-delete glyphicon glyphicon-remove" data-entry-id="<?php echo $img->flower_img_id; ?>" style="top:-60px;left:20px;position:relative;background: #f1f1f1;"></i>
+                        	<i class="specific-delete glyphicon glyphicon-remove" data-entry-id="<?php echo $img->flower_img_id; ?>" data-type="flower" style="top:-60px;left:20px;position:relative;background: #f1f1f1;"></i>
                         <?php } ?>
                         <img src="assets/flower/<?php echo $img->flower_img_name; ?>" alt="<?php echo $flw->flower_name; ?>" class="img-thumbnail img-<?php echo $img->flower_img_id; ?> img-modal" data-toggle="modal" data-target="#myModal">
                     </li>
-                 <?php } ?>
+                 <?php } } ?>
              </ul>
          </div>
     </div>
