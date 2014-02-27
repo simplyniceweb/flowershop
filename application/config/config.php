@@ -16,7 +16,7 @@
 */
 date_default_timezone_set('Asia/Singapore');
 
-$config['base_url']	= 'http://localhost/flowershop/'; //http://keannasflowershop.com/
+$config['base_url']	= 'http://localhost/flowershop/'; //http://keannasflowershop.com/ http://localhost/flowershop/
 
 /*
 |--------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2014 at 07:25 PM
+-- Generation Time: Feb 27, 2014 at 07:48 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -15,6 +15,12 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `flowershop`
+--
+CREATE DATABASE IF NOT EXISTS `flowershop` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `flowershop`;
 
 -- --------------------------------------------------------
 
