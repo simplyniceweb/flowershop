@@ -51,6 +51,7 @@
                 <th>View details</th>
                 <th>Billing</th>
                 <th>Payment</th>
+                <th>Add-ons</th>
                 <th>Payment Status</th>
                 </tr>
             </thead>
@@ -90,6 +91,7 @@
                     <span class="glyphicon glyphicon-usd"></span> 
                     <a href="javascript:void(0)">Payment</a>
                 </button>
+                <td></td>
                 </td>
                 <td>
                 	<?php 

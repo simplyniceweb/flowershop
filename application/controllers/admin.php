@@ -199,6 +199,7 @@ class Admin extends CI_Controller {
 				);
 				
 				$this->db->where("flower_main", 1);
+				$this->db->where("flower_id", $flower_id);
 				$has_main = $this->db->get("flower_image");
 
 				if($has_main->num_rows() > 0) {

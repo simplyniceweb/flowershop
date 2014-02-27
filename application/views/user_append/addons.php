@@ -1,5 +1,5 @@
 <?php foreach($item as $i) { ?>
-<tr>
+<tr class="orig_addons">
 	<td>
 	<?php echo $i->item_name; ?>
     <input type="hidden" name="item_id[]" value="<?php echo $i->item_id; ?>"/>

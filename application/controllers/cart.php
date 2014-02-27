@@ -120,12 +120,18 @@ class Cart extends CI_Controller {
 					'order_date' => date("Y-m-d"),
 					'suggestions' => $suggestions,
 				);
-				
+				// insert to orders
 				$this->db->insert("orders", $data);
+				// get order id and own the add_ons
+				$order_id = $this->db->insert_id();
+				$addons = array("cart_id" => NULL, "order_id" => $order_id);
+				$this->db->where("cart_id", $ct->cart_id);
+				$this->db->update("order_add_ons", $addons);
+
 				// Delete the cart after insert to order tabl
 				$this->db->delete('cart', array("cart_id" => $ct->cart_id));
 			}
-			// var_dump($cart->result());
+			echo print_r($cart->result());
 		}
 		return TRUE;
 	}

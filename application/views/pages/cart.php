@@ -51,7 +51,7 @@
             	<td><input type="checkbox" id="my_id<?php echo $flw->cart_id; ?>" class="child-order" name="child-order[]" value="<?php echo $flw->cart_id; ?>" data-flower-id="<?php echo $flw->flower_id; ?>"/></td>
             	<td><?php echo ucfirst($flw->flower_name); ?></td>
                 <td><?php echo ucfirst($flw->category_name); ?></td>
-                <td><a href="#" class="btn btn-primary btn-sm show-order" data-cart-id="<?php echo $flw->cart_id; ?>" data-toggle="modal" data-target="#addOns">Add-ons</a></td>
+                <td><a href="#" class="btn btn-primary btn-sm show-order" data-cart-id="<?php echo $flw->cart_id; ?>" data-toggle="modal" data-target="#addOns" data-backdrop="static" data-keyboard="false">Add-ons</a></td>
                 <td>Php <?php echo number_format($flw->flower_price, 2); ?></td>
                 <td>
                     <div class="input-group" style="width:90px">
@@ -153,7 +153,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close close_add_ons" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">Add-ons</h4>
       </div>
       <?php echo form_open("addons/save"); ?>
@@ -189,7 +189,7 @@
       <div class="modal-footer">
       	<input type="hidden" name="ao_cart_id" value=""/>
       	<input type="hidden" name="total_price" value=""/>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="close_add_ons btn btn-default" data-dismiss="modal">Close</button>
         <button class="btn btn-primary">Save</button>
       </div>
       <?php echo form_close(); ?>

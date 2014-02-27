@@ -56,24 +56,36 @@
 		add_ons: ".select-add-ons",
 		add_ons_remove: ".add-on-remove",
 		add_ons_show: ".show-order",
+		add_ons_close: ".close_add_ons",
 		arr: 0,
 		add_show: 0
 		
 	}
 	
 	var cartFunc = {
+		add_ons_close: function() {
+			return this.delegate(cartConf.add_ons_close, "click", function(){
+				$(".add-on-remove").each(function() {
+					var item_id = $(this).data("item-id");
+					var item_name = $(".select-add-ons option[value="+item_id+"]").data("item-name");
+					$(".select-add-ons option[value="+item_id+"]").text(item_name);
+				});
+				$(".orig_addons").remove();
+				item_ids = [];
+			})
+		},
 		add_ons_show: function() {
 			return this.delegate(cartConf.add_ons_show, "click", function(){
 				var me = $(this), cart_id = me.data("cart-id");
 				$("input[name=ao_cart_id]").val(cart_id);
-				if(cartConf.add_show == 0) {
+				if(cartConf.add_show != cart_id) {
 					jQuery.ajax({
 						type: "POST",
 						url: config.base_url+"/addons/cartshow/",
 						data: { "cart_id" : cart_id },
 						cache: false,
 						success: function (response) {
-							cartConf.add_show = 1;
+							cartConf.add_show = cart_id;
 							$(".append_row").prepend(response);
 							config.doc.price_calculate();
 							$(".add-on-remove").each(function() {
@@ -194,6 +206,7 @@
 					data: { 'quantity' : quantity, "cart_id" : cart_id },
 					cache: false,
 					success: function (response) {
+						alert("Updated!");
 					}, error: function () {
 						console.log('Something went wrong..');
 					}
@@ -464,6 +477,7 @@
 	config.doc.add_ons_show();
 	config.doc.add_ons();
 	config.doc.add_ons_remove();
+	config.doc.add_ons_close();
 
 	var deleteConf = {
 		archive: "a.delete",

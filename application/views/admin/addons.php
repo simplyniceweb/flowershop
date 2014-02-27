@@ -49,7 +49,7 @@
 <?php include(__DIR__ . "/../includes/footer.php"); ?>
 <script>
 $(document).ready(function(){
-    $("input[name=fee]").keydown(function (e) {
+    $("#item_price").keydown(function (e) {
 		isNumeric(e);
     });
 	
