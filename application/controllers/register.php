@@ -26,6 +26,11 @@ class Register extends CI_Controller {
 
 	public function verify() {
 		$use_mail = 0; // 0 if you don't want to use email and 1 if you want
+		if($use_mail == 0) {
+			$user_status = 0;
+		} else {
+			$user_status = 2;
+		}
 		$action = $this->input->post("action");
 		$data = array(
 			'user_name'     => $this->input->post("user_name"),
@@ -33,7 +38,7 @@ class Register extends CI_Controller {
 			'user_address'  => $this->input->post("user_address"),
 			'user_password' => sha1($this->input->post("user_password")),
 			'user_level'    => 0,
-			'user_status'   => 0 // 2
+			'user_status'   => $user_status
 		);
 		
 		if($data["user_password"] != sha1($this->input->post("confirm_user_password"))) {
