@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2014 at 07:02 PM
+-- Generation Time: Feb 27, 2014 at 05:50 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -25,6 +25,27 @@ USE `flowershop`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `advertisement`
+--
+
+CREATE TABLE IF NOT EXISTS `advertisement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `advertisement`
+--
+
+INSERT INTO `advertisement` (`id`, `type`, `image`) VALUES
+(9, 1, 'ede5d3c3247be60b8e4957b0877e8837.jpg'),
+(13, 1, '92f2ac93806d953ab30bdef2e75ac569.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cart`
 --
 
@@ -32,9 +53,18 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `cart_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `flower_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
   `cart_status` int(11) NOT NULL,
   PRIMARY KEY (`cart_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `user_id`, `flower_id`, `quantity`, `cart_status`) VALUES
+(10, 1, 2, 10, 0),
+(11, 1, 1, 12, 0);
 
 -- --------------------------------------------------------
 
@@ -47,7 +77,34 @@ CREATE TABLE IF NOT EXISTS `category` (
   `category_name` varchar(255) NOT NULL,
   `category_type` int(11) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_id`, `category_name`, `category_type`) VALUES
+(1, 'asdasd', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fee`
+--
+
+CREATE TABLE IF NOT EXISTS `fee` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `location` varchar(255) NOT NULL,
+  `fee` decimal(11,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `fee`
+--
+
+INSERT INTO `fee` (`id`, `location`, `fee`) VALUES
+(1, 'Bulacan', '1500.00');
 
 -- --------------------------------------------------------
 
@@ -65,7 +122,15 @@ CREATE TABLE IF NOT EXISTS `flower` (
   `flower_category` int(11) NOT NULL,
   `flower_status` int(11) NOT NULL,
   PRIMARY KEY (`flower_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `flower`
+--
+
+INSERT INTO `flower` (`flower_id`, `category`, `flower_name`, `flower_description`, `flower_price`, `flower_type`, `flower_category`, `flower_status`) VALUES
+(1, 1, 'asdasd', 'asdasd', 2323, 1, 1, 0),
+(2, 1, 'sadasd', 'asdasdasd', 123213, 2, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -79,7 +144,85 @@ CREATE TABLE IF NOT EXISTS `flower_image` (
   `flower_id` int(11) NOT NULL,
   `flower_main` int(11) NOT NULL,
   PRIMARY KEY (`flower_img_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `flower_image`
+--
+
+INSERT INTO `flower_image` (`flower_img_id`, `flower_img_name`, `flower_id`, `flower_main`) VALUES
+(1, 'e4739f1b1bb6b50bb853b69ea3358ff3.jpg', 1, 1),
+(2, '23ae33aa3705908aefbf3d8f0cfbd051.jpg', 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_history`
+--
+
+CREATE TABLE IF NOT EXISTS `login_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `login_datetime` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `login_history`
+--
+
+INSERT INTO `login_history` (`id`, `user_id`, `login_datetime`) VALUES
+(1, 1, '2014-02-25 22:14:27'),
+(2, 1, '2014-02-26 00:29:46'),
+(3, 1, '2014-02-26 21:17:03'),
+(4, 2, '2014-02-26 21:55:10'),
+(5, 1, '2014-02-26 21:57:02'),
+(6, 1, '2014-02-27 10:29:41');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message`
+--
+
+CREATE TABLE IF NOT EXISTS `message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `message_title` varchar(255) NOT NULL,
+  `date_created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`id`, `user_id`, `message_title`, `date_created`) VALUES
+(1, 1, 'sadasd', '2014-02-26 09:54:41'),
+(2, 2, 'asdasd', '2014-02-26 09:55:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `message_record`
+--
+
+CREATE TABLE IF NOT EXISTS `message_record` (
+  `record_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `message_datetime` datetime NOT NULL,
+  PRIMARY KEY (`record_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `message_record`
+--
+
+INSERT INTO `message_record` (`record_id`, `user_id`, `message_id`, `message`, `message_datetime`) VALUES
+(1, 1, 1, 'asdasdasd', '2014-02-26 00:00:00'),
+(2, 2, 2, 'asdasdasd', '2014-02-26 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -116,7 +259,14 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `payment_id` int(11) NOT NULL AUTO_INCREMENT,
   `payment_name` varchar(255) NOT NULL,
   PRIMARY KEY (`payment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`payment_id`, `payment_name`) VALUES
+(1, 'lbc');
 
 -- --------------------------------------------------------
 
@@ -158,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_level`, `user_name`, `user_password`, `user_email`, `user_address`, `user_birthday`, `user_favorite`, `user_status`) VALUES
-(1, 1, 'Keanna', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin@flowershop.com', 'Purok 9, Brgy Aguisan, Himamaylan City, Negros Occidental', '1990-05-01', 1, 0),
+(1, 1, 'Keanna', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin@keannasflowershop.com', 'Purok 9, Brgy Aguisan, Himamaylan City, Negros Occidental', '1990-05-01', 1, 0),
 (2, 0, 'Juan Dela Cruz', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'juan@delacruz.com', '', '0000-00-00', 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
