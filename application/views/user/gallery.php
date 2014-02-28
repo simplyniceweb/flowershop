@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
     <base href="<?php echo base_url(); ?>"/>
-	<title>About</title>
+	<title>Gallery</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css"/>
     <style>
 		.col-md-12 img { width: 200px; height: 200px; margin:3px; }
