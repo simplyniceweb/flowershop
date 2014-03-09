@@ -5,6 +5,9 @@
     <base href="<?php echo base_url(); ?>"/>
 	<title>Flower Shop</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css"/>
+    <style>
+		.bdg { margin-right: 2px }
+	</style>
 </head>
 <body>
 <?php require_once('includes/header.php'); ?>
@@ -54,16 +57,22 @@
                 <div class="panel-body">
                     <ul class="list-group">
                       <li class="list-group-item">
-                        <a href="admin/orders">Orders</a>
+                        <a href="admin/orders">Orders 
+<span class="bdg badge pull-right" data-toggle="tooltip" data-placement="right" title="Cancelled Order"><?php echo $not_cancel; ?></span>
+<span class="bdg badge pull-right" data-toggle="tooltip" data-placement="bottom" title="Re-scheduled Order"><?php echo $not_sched; ?></span>
+<span class="bdg badge pull-right" data-toggle="tooltip" data-placement="top" title="New Order"><?php echo $not_order; ?></span>
+                        </a>
                       </li>
                       <li class="list-group-item">
-                        <a href="orders/ticket">List of Payment</a>
+                        <a href="orders/ticket">List of Payment 
+<span class="bdg badge pull-right" data-toggle="tooltip" data-placement="right" title="New Payment"><?php echo $not_payment; ?></span></a>
                       </li>
                       <li class="list-group-item">
                         <a href="admin/history">Login History</a>
                       </li>
                       <li class="list-group-item">
-                        <a href="message">Messages</a>
+                        <a href="message">Messages 
+<span class="bdg badge pull-right" data-toggle="tooltip" data-placement="right" title="New Message"><?php echo $not_msg; ?></span></a>
                       </li>
                     </ul>
                 </div>
@@ -111,5 +120,8 @@
 </div>
 
 <?php require_once('includes/footer.php'); ?>
+<script>
+	$('.bdg').tooltip();
+</script>
 </body>
 </html>

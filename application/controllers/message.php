@@ -22,6 +22,11 @@ class Message extends CI_Controller {
 			$user_id = 0;
 		}
 		$message = $this->db->get();
+		
+		if(empty($user_id)) {
+			$this->db->where("new_message", 1);
+			$this->db->delete("notification");
+		}
 
 		$data = array(
 			'action'   => $user_id,
@@ -61,7 +66,14 @@ class Message extends CI_Controller {
 			'message'    => $this->input->post("message"),
 			'message_datetime' => date("Y-m-d")
 		);
+
 		$this->db->insert("message_record", $data);
+		
+		$data = array(
+			'new_message' => 1
+		);
+		
+		$this->db->insert("notification", $data);
 
 		redirect("message/contact?msg=sent");
 	}
@@ -94,7 +106,7 @@ class Message extends CI_Controller {
 
 		$this->load->view('user/message_view', $data);
 	}
-	
+
 	public function reply() {
 		$mysession = $this->session->userdata('logged');
 		if(!$mysession) redirect("login");

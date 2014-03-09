@@ -131,8 +131,15 @@ class Cart extends CI_Controller {
 				// Delete the cart after insert to order tabl
 				$this->db->delete('cart', array("cart_id" => $ct->cart_id));
 			}
-			echo print_r($cart->result());
+
+			$new_order = array(
+				'new_order' => 1
+			);
+			
+			$this->db->insert("notification", $new_order);
+			// echo print_r($cart->result());
 		}
+
 		return TRUE;
 	}
 }

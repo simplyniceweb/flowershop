@@ -19,23 +19,23 @@
 	<td><?php echo ucfirst($flw->category_name); ?></td>
 	<td>Php <?php echo number_format($flw->flower_price, 2); ?></td>
 	<td>
-    <?php if($status == 1) { ?>
+    <?php if($status == 1 && $status != 0) { ?>
 	<button type="submit" class="cancel-flower btn btn-xs btn-default" data-entry-id="<?php echo $flw->flower_id; ?>">
 		<span class="glyphicon glyphicon-remove"></span> 
 		Cancel Order
 	</button>
     <?php } else { ?>
-    No action.
+    Cancelled
     <?php } ?>
 	</td>
     <td>
-    <?php if($status == 1) { ?>
+    <?php if($status == 1 && $status != 0) { ?>
 	<button type="submit" class="btn btn-xs btn-default">
 		<span class="glyphicon glyphicon-credit-card"></span> 
 		<a href="orders/order/<?php echo $flw->flower_id; ?>">Re-schedule Order</a>
 	</button>
     <?php } else { ?>
-    No action.
+    Cancelled
     <?php } ?>
     </td>
 	<td>
@@ -50,7 +50,7 @@
         <a href="javascript:void(0)">View Billing</a>
     </button>
     </td>
-    <?php if($category != 0) { ?>
+    <?php if($category != 0 && $status != 0) { ?>
     <td>
         <select class="form-control order-status" data-entry-id="<?php echo $flw->order_id; ?>" data-status="<?php echo $flw->order_status; ?>">
             <!-- <option <?php if($status == 0) { echo "selected";} ?> value="0">Cancel Order</option> -->
@@ -60,6 +60,8 @@
             <option <?php if($status == 4) { echo "selected";} ?> value="4">Processing</option>
         </select>
     </td>
+    <?php } else if($status == 0) { ?>
+    <td>Cancelled</td>
     <?php } else { ?>
     <td>
     <button type="submit" class="payment btn btn-xs btn-default" data-flower-id="<?php echo $flw->flower_id; ?>" data-order-id="<?php echo $flw->order_id; ?>" data-toggle="modal" data-target="#payment">
@@ -68,13 +70,15 @@
     </button>
     </td>
     <?php } ?>
-    <?php if($category != 0) { ?>
+    <?php if($category != 0 && $status != 0) { ?>
     <td>
         <select class="form-control payment-status" data-entry-id="<?php echo $flw->order_id; ?>" data-status="<?php echo $flw->payment_status; ?>">
             <option <?php if($flw->payment_status == 1){ ?>selected<?php } ?> value="1">Paid</option>
             <option <?php if($flw->payment_status == 0){ ?>selected<?php } ?> value="0">Unpaid</option>
         </select>
     </td>
+    <?php } else if($status == 0) { ?>
+    <td>Cancelled</td>
     <?php } else { ?>
     <td>
         <?php 

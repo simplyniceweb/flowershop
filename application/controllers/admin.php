@@ -12,8 +12,28 @@ class Admin extends CI_Controller {
 		if(!$mysession) redirect("login");
 		if($mysession['user_level'] != 1) redirect("home");
 		
+		$this->db->where("new_message", 1);
+		$not_msg = $this->db->get("notification");
+
+		$this->db->where("new_order", 1);
+		$not_order = $this->db->get("notification");
+
+		$this->db->where("resched_order", 1);
+		$not_sched = $this->db->get("notification");
+
+		$this->db->where("cancelled_order", 1);
+		$not_cancel = $this->db->get("notification");
+		
+		$this->db->where("new_payment", 1);
+		$not_payment = $this->db->get("notification");
+
 		$data = array(
-			'session' => $mysession
+			'session'     => $mysession,
+			'not_msg'     => $not_msg->num_rows(),
+			'not_order'   => $not_order->num_rows(),
+			'not_sched'   => $not_sched->num_rows(),
+			'not_cancel'  => $not_cancel->num_rows(),
+			'not_payment' => $not_payment->num_rows()
 		);
 
 		$this->load->view('adminpage', $data);
@@ -94,6 +114,9 @@ class Admin extends CI_Controller {
 		$mysession = $this->session->userdata('logged');
 		if(!$mysession) redirect("");
 		if($mysession['user_level'] != 1) redirect("home");
+
+		$this->db->where("new_payment", 1);
+		$this->db->delete("notification");
 
 		$data = array(
 			'session' => $mysession,
@@ -279,20 +302,29 @@ class Admin extends CI_Controller {
 		if($mysession['user_level'] != 1) redirect("home");
 		$ym = date("Y-m");
 
+		$this->db->where("new_order", 1);
+		$this->db->or_where("cancelled_order", 1);
+		$this->db->or_where("resched_order", 1);
+		$this->db->delete("notification");
+
 		$this->db->select('*');
 		$this->db->from('flower');
 		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
 		$this->db->join('category', 'category.category_id = flower.category', 'left');
-		// $this->db->join('users', 'users.user_id = orders.user_id', 'left');
 		$this->db->where("flower.flower_status", 0);
 		$this->db->where("flower.flower_category", 1);
 		$this->db->where("orders.order_status", 1);
 		$this->db->like('orders.order_date', $ym);
 		$flower = $this->db->get();
+		
+		$this->db->where("user_level", 0);
+		$this->db->where("user_status", 0);
+		$users = $this->db->get("users");
 
 		$data = array(
 			'session' => $mysession,
-			'flower'  => $flower->result()
+			'flower'  => $flower->result(),
+			'users'   => $users->result()
 		);
 		
 		$this->load->view('admin/orders', $data);

@@ -142,6 +142,7 @@
 <?php include(__DIR__ . "/../includes/footer.php"); ?>
 <script>
 $(document).ready(function(){
+/*
 	$("#delivery_date").change(function(){
 		var date  = new Date();
 		var year  = date.getFullYear();
@@ -159,7 +160,7 @@ $(document).ready(function(){
 			alert("Delivery date is not possible, please select a delivery date greater than date today.");
 		}
 	})
-
+*/
     $("#quantity, #receiver_no").keydown(function (e) {
 		isNumeric(e);
     });

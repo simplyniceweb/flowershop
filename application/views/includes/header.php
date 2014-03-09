@@ -14,7 +14,7 @@
 <style> .panel { background: #fce0ec !important; } .nav .caret { border-top-color: #FFF !important; border-bottom-color: #FFF !important }</style>
         <div class="container">
         <div class="row">
-            <div class="col-md-5" style="z-index:999;background-color: #fce0ec;">
+            <div class="col-md-5" style="z-index:999;">
                 <img src="assets/images/header.jpg" alt="Keanna's Flowershop" style="background: #fce0ec;">
             </div>
         </div>

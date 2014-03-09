@@ -5,6 +5,9 @@
     <base href="<?php echo base_url(); ?>"/>
 	<title>Flower Shop</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/bootstrap/css/bootstrap.min.css"/>
+    <style>
+		button a { color: #FFF }
+	</style>
 </head>
 <body>
 <?php include(__DIR__ . "/../includes/header.php"); ?>
@@ -15,6 +18,7 @@
     	<table class="table table-bordered table-hover">
         	<thead>
             	<tr>
+                <th>Customer</th>
             	<th>Details</th>
                 <th>Proof</th>
                 <th>Re-Schedule</th>
@@ -27,6 +31,10 @@
             <tbody class="append_orders">
             <?php foreach($flower as $flw) { ?>
             <tr>
+            	<td>
+                <?php if($flw->user_favorite == 1) { ?><i style="color:#707070" class="glyphicon glyphicon-star"></i><?php } ?>
+				<?php echo $flw->user_name; ?>
+                </td>
                 <td><?php echo $flw->ticket_details; ?></td>
                 <td><a href="assets/ticket/<?php echo $flw->ticket_proof; ?>" target="_blank">Proof of ticket ( Click to view or download )</a></td>
                 <td>
@@ -49,6 +57,7 @@
                 </td>
                 <td>
                     <select class="form-control payment-status" data-entry-id="<?php echo $flw->order_id; ?>" data-status="<?php echo $flw->payment_status; ?>">
+                    	<option <?php if($flw->payment_status == 2){ ?>selected<?php } ?> value="2">Downpayment</option>
                         <option <?php if($flw->payment_status == 1){ ?>selected<?php } ?> value="1">Paid</option>
                         <option <?php if($flw->payment_status == 0){ ?>selected<?php } ?> value="0">Unpaid</option>
                     </select>

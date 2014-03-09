@@ -37,6 +37,15 @@
             </select>
         </div>
         <div class="form-group">
+        	<label><small>Users</small></label>
+        	<select class="form-control user-id">
+            		<option value="0">Select User</option>
+            	<?php foreach($users as $u) { ?>
+                	<option value="<?php echo $u->user_id; ?>"><?php echo $u->user_name; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="form-group">
         	<label><small>Type of order</small></label>
         	<select class="form-control append-orders" data-action="1">
             	<option value="empty">Select type of orders</option>

@@ -317,10 +317,11 @@
 				}
 				
 				if(order_status == "") return false;
+				var user_id = $(".user-id").val();
 				jQuery.ajax({
 					type: "POST",
 					url: config.base_url+"/orders/append/",
-					data: { 'order_status' : order_status, 'action': action, 'f_categ' : f_categ },
+					data: { 'order_status' : order_status, 'action': action, 'f_categ' : f_categ, 'user_id' : user_id },
 					cache: false,
 					success: function (response) {
 						$(".append_orders").html(response);

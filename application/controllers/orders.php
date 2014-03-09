@@ -41,7 +41,13 @@ class Orders extends CI_Controller {
 		
 		$this->db->where("order_id", $id);
 		$this->db->update("orders", $data);
+
+		$data = array(
+			'cancelled_order' => 1
+		);
 		
+		$this->db->insert("notification", $data);
+
 		return TRUE;
 	}
 	
@@ -52,6 +58,7 @@ class Orders extends CI_Controller {
 		$order_status = $this->input->post("order_status");
 		$f_categ = $this->input->post("f_categ");
 		$date = $this->input->post("date");
+		$user_id = $this->input->post("user_id");
 		$action = $this->input->post("action");
 
 		$this->db->select('*');
@@ -60,6 +67,9 @@ class Orders extends CI_Controller {
 		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		if($action == 1) {
 			$this->db->like('orders.order_date', $date);
+			if($user_id != 0) {
+				$this->db->where("orders.user_id", $user_id);
+			}
 			$this->db->where("flower.flower_category", $f_categ);
 		}
 		$this->db->where("flower.flower_status", 0);
@@ -160,11 +170,23 @@ class Orders extends CI_Controller {
 
 		if($action == 0) {
 			$this->db->insert("orders", $data);
+
+			$the_data = array(
+				'new_order' => 1
+			);
+			
+			$this->db->insert("notification", $the_data);
 		} else {
 			$data['delivery_fee'] = $this->input->post("delivery_fee");
 			$order_id = $this->input->post("order_id");
 			$this->db->where("order_id", $order_id);
 			$this->db->update("orders", $data);
+			
+			$the_data = array(
+				'resched_order' => 1
+			);
+			
+			$this->db->insert("notification", $the_data);
 		}
 
 		echo $action;
@@ -265,6 +287,12 @@ class Orders extends CI_Controller {
 				);
 				$this->db->insert('ticket', $ticket);
 		}
+		
+		$data = array(
+			'new_payment' => 1
+		);
+		
+		$this->db->insert("notification", $data);
 
 		redirect("orders?payment=true");
 	}
@@ -280,7 +308,8 @@ class Orders extends CI_Controller {
 		$this->db->join('category', 'category.category_id = flower.category', 'left');
 		$this->db->join('orders', 'orders.flower_id = flower.flower_id', 'left');
 		$this->db->join('payment', 'payment.payment_id = orders.payment', 'left');
-		$this->db->join('ticket', 'ticket.order_id = orders.order_id');
+		$this->db->join('ticket', 'ticket.order_id = orders.order_id', 'inner');
+		$this->db->join('users', 'users.user_id = orders.user_id', 'left');
 		$this->db->where("flower.flower_status",0);
 		$flower = $this->db->get();
 
@@ -288,6 +317,9 @@ class Orders extends CI_Controller {
 			'session' => $mysession,
 			'flower'  => $flower->result()
 		);
+		
+		$this->db->where("new_payment", 1);
+		$this->db->delete("notification");
 
 		$this->load->view("user/ticket", $data);
 	}

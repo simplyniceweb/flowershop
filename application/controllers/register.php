@@ -25,7 +25,7 @@ class Register extends CI_Controller {
 	}
 
 	public function verify() {
-		$use_mail = 0; // 0 if you don't want to use email and 1 if you want
+		$use_mail = 1; // 0 if you don't want to use email and 1 if you want
 		if($use_mail == 0) {
 			$user_status = 0;
 		} else {
@@ -53,22 +53,23 @@ class Register extends CI_Controller {
 		
 		// insert to database
 		$this->db->insert("users", $data);
+		$user_id = $this->db->insert_id();
 		
 		if($action == 1) redirect("admin");
 		// send an email
 		if($use_mail == 1) {
-
 			$email_config = array(
 				'protocol'  => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
-				'smtp_port' => '465', //587
+				'smtp_port' => '465',
 				'smtp_user' => 'dummyofruben@gmail.com',
 				'smtp_pass' => 'varikas12345',
 				'mailtype'  => 'html',
-				'charset'   => 'iso-8859-1',
-				'newline'   => "\r\n"
+				'charset'   => 'utf-8',
+				'newline'   => "\r\n",
+				'validate'  => TRUE
 			);
-	
+
 			$this->load->library('email', $email_config);
 	
 			$link = base_url() . "login?verify=" . $user_id;
@@ -85,7 +86,6 @@ class Register extends CI_Controller {
 
 		} else if($use_mail == 0){
 
-			$user_id = $this->db->insert_id();
 			$this->db->where('user_id', $user_id);
 			$login = $this->db->get("users");
 
