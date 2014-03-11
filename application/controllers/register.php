@@ -25,7 +25,7 @@ class Register extends CI_Controller {
 	}
 
 	public function verify() {
-		$use_mail = 1; // 0 if you don't want to use email and 1 if you want
+		$use_mail = 0; // 0 if you don't want to use email and 1 if you want
 		if($use_mail == 0) {
 			$user_status = 0;
 		} else {
@@ -49,15 +49,20 @@ class Register extends CI_Controller {
 		$this->db->from('users');
 		$this->db->where('user_email', $data['user_email']);
 		$check = $this->db->get();
-		if($check->num_rows() > 0) redirect("register?email=false");
+		if($check->num_rows() > 0) {
+			redirect("register?email=false");
+		}
 		
 		// insert to database
 		$this->db->insert("users", $data);
 		$user_id = $this->db->insert_id();
 		
-		if($action == 1) redirect("admin");
+		if($action == 1) {
+			redirect("admin");
+		}
 		// send an email
 		if($use_mail == 1) {
+
 			$email_config = array(
 				'protocol'  => 'smtp',
 				'smtp_host' => 'ssl://smtp.gmail.com',
@@ -69,6 +74,20 @@ class Register extends CI_Controller {
 				'newline'   => "\r\n",
 				'validate'  => TRUE
 			);
+
+			/*
+			$email_config = array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'mail.keannasflowershop.com',
+			'smtp_port' => '465',
+			'smtp_user' => 'admin@keannasflowershop.com',
+			'smtp_pass' => 'password',
+			'mailtype' => 'html',
+			'charset' => 'utf-8',
+			'newline' => "\r\n",
+			'validate' => TRUE
+			);
+			*/
 
 			$this->load->library('email', $email_config);
 	

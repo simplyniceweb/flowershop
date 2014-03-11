@@ -21,14 +21,6 @@
 	</style>
 </head>
 <body>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=223633884496335";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 <?php require_once('includes/header.php'); ?>
 <div class="container">
 
@@ -150,9 +142,6 @@
          <?php } ?>  
     </div>
 	<br />
-    <div class="col-md-12 col-md-offset-1">
-    	<div class="fb-comments" data-href="<?php echo base_url(); ?>/home" data-width="900" data-numposts="15" data-colorscheme="light"></div>
-    </div>
 </div>
 
 <?php require_once('includes/footer.php'); ?>
