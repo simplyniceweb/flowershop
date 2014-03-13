@@ -131,8 +131,11 @@ class Orders extends CI_Controller {
 	}
 
 	public function add_order() {
+		$mysession = $this->session->userdata('logged');
+
 		$action = $this->input->post("action");
 		$payment = $this->input->post("payment");
+		$fee = $this->input->post("delivery_fee");
 		$flower_id = $this->input->post("flower_id");
 		$user_id = $this->input->post("user_id");
 		$receiver = $this->input->post("receiver");
@@ -150,6 +153,7 @@ class Orders extends CI_Controller {
 		}
 
 		if($action == 0) {
+			$cart_id = $this->input->post("cart_id");
 			$this->db->delete('cart', array("user_id" => $user_id, "flower_id" => $flower_id));
 		}
 
@@ -163,6 +167,7 @@ class Orders extends CI_Controller {
 			'quantity' => $quantity,
 			'receiver_address' => $receiver_address,
 			'card_message' => $card_message,
+			'delivery_fee' => $fee,
 			'order_status' => 1, // 0 cancel, 1 pending , 2 = On delivery, 3 = Delivered, 4 = Processing
 			'order_date' => date("Y-m-d"),
 			'suggestions' => $suggestions,
@@ -170,6 +175,31 @@ class Orders extends CI_Controller {
 
 		if($action == 0) {
 			$this->db->insert("orders", $data);
+			$order_id = $this->db->insert_id();
+			
+			$email_config = array(
+				'protocol' => 'smtp',
+				'smtp_crypto' => 'ssl',
+				'smtp_host' => 'agila001.http.ph',
+				'smtp_port' => '465',
+				'smtp_user' => 'admin@keannasflowershop.com',
+				'smtp_pass' => 'password123',
+				'mailtype' => 'html',
+				'charset' => 'utf-8',
+				'newline' => "\r\n",
+				'validate' => TRUE
+			);
+
+			$this->load->library('email', $email_config);
+			
+			$link = base_url() . "orders";
+			$anchor = "<a href='". $link ."'>Click to see your order list.</a>";
+
+			$this->email->from('admin@keannasflowershop.com', 'Keanna\'s Flowershop');
+			$this->email->to($mysession["user_email"]);
+			$this->email->subject('Order confirmation');
+			$this->email->message('Thank you for shopping @ keanna\'s Flowershop! <br/>' . $anchor);
+			$this->email->send();
 
 			$the_data = array(
 				'new_order' => 1
@@ -187,6 +217,12 @@ class Orders extends CI_Controller {
 			);
 			
 			$this->db->insert("notification", $the_data);
+		}
+		
+		if($action == 0) {
+			$addons = array("cart_id" => NULL, "order_id" => $order_id);
+			$this->db->where("cart_id", $cart_id);
+			$this->db->update("order_add_ons", $addons);
 		}
 
 		echo $action;
@@ -272,7 +308,8 @@ class Orders extends CI_Controller {
 					'ticket_proof'     => $array['file_name'],
 					'order_id'         => $order_id,
 					'flower_id'        => $flower_id,
-					'ticket_date'      => date("Y-m-d")
+					'ticket_date'      => date("Y-m-d"),
+					'ticket_status'    => 5
 				);
 				$this->db->insert('ticket', $ticket);
 				$counter = $counter + 1;
@@ -283,7 +320,8 @@ class Orders extends CI_Controller {
 					'ticket_proof'     => "blank",
 					'order_id'         => $order_id,
 					'flower_id'        => $flower_id,
-					'ticket_date'      => date("Y-m-d")
+					'ticket_date'      => date("Y-m-d"),
+					'ticket_status'    => 5
 				);
 				$this->db->insert('ticket', $ticket);
 		}

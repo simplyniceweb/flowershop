@@ -108,6 +108,7 @@
                     <?php } ?>
                     <div class="form-group">
                     	<input type="hidden" name="action" value="<?php echo $action; ?>"/>
+                        <input type="hidden" name="cart_id" value="<?php if(isset($flw->cart_id)) { echo $flw->cart_id; }?>"/>
                         <input type="hidden" name="order_id" value="<?php if(isset($flw->order_id)) { echo $flw->order_id; }?>"/>
                     	<button type="button" class="order-btn btn btn-primary" data-action="1">
                         <?php if($action == 1) {

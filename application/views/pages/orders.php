@@ -100,10 +100,20 @@
 				</button>
                 </td>
                 <td>
+                <?php
+					$this->db->where("order_id", $flw->order_id);
+					$this->db->where("flower_id", $flw->flower_id);
+					$this->db->where("ticket_status", 5);
+					$has_ticket = $this->db->get("ticket");
+					if($has_ticket->num_rows() > 0) {
+						echo "Sent";
+					} else {
+				?>
                 <button type="submit" class="payment btn btn-xs btn-default" data-flower-id="<?php echo $flw->flower_id; ?>" data-order-id="<?php echo $flw->order_id; ?>" data-toggle="modal" data-target="#payment">
                     <span class="glyphicon glyphicon-usd"></span> 
                     <a href="javascript:void(0)">Payment</a>
                 </button>
+                <?php } ?>
                 </td>
                 <td>
                 	<?php 

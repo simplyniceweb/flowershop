@@ -29,12 +29,12 @@
             <small>Add-ons has been added successfully.</small>
         </div>
         <?php endif; ?>
-        <a href="#" class="order-all btn btn-sm btn-primary" data-toggle="modal" data-target="#orderForm"><span class="glyphicon glyphicon-credit-card"></span> Order Now</a>
+        <!-- <a href="#" class="order-all btn btn-sm btn-primary" data-toggle="modal" data-target="#orderForm"><span class="glyphicon glyphicon-credit-card"></span> Order Now</a> -->
         <br /><br />
     	<table class="table table-bordered table-hover">
         	<thead>
             	<tr>
-                <th><input type="checkbox" class="multiple-order" /></th>
+                <!-- <th><input type="checkbox" class="multiple-order" /></th> -->
             	<th>Product Name</th>
                 <th>Category</th>
                 <th>Add-ons</th>
@@ -48,7 +48,10 @@
             <tbody>
             <?php foreach($flower as $flw) { ?>
             <tr class="row-<?php echo $flw->cart_id; ?>">
-            	<td><input type="checkbox" id="my_id<?php echo $flw->cart_id; ?>" class="child-order" name="child-order[]" value="<?php echo $flw->cart_id; ?>" data-flower-id="<?php echo $flw->flower_id; ?>"/></td>
+            	<!-- <td>
+                <input type="checkbox" id="my_id<?php echo $flw->cart_id; ?>" class="child-order" name="child-order[]" value="<?php echo $flw->cart_id; ?>" data-flower-id="<?php echo $flw->flower_id; ?>"/>
+                </td>
+                -->
             	<td><?php echo ucfirst($flw->flower_name); ?></td>
                 <td><?php echo ucfirst($flw->category_name); ?></td>
                 <td><a href="#" class="btn btn-primary btn-sm show-order" data-cart-id="<?php echo $flw->cart_id; ?>" data-toggle="modal" data-target="#addOns" data-backdrop="static" data-keyboard="false">Add-ons</a></td>
@@ -75,8 +78,8 @@
             <?php } ?>
            	</tbody>
         </table>
-		<a href="#" class="order-all btn btn-sm btn-primary" data-toggle="modal" data-target="#orderForm">
-        <span class="glyphicon glyphicon-credit-card"></span> Order Now</a>
+		<!-- <a href="#" class="order-all btn btn-sm btn-primary" data-toggle="modal" data-target="#orderForm">
+        <span class="glyphicon glyphicon-credit-card"></span> Order Now</a> -->
         </div>
     </div>
 </div>
