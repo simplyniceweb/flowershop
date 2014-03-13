@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2014 at 01:11 PM
+-- Generation Time: Mar 13, 2014 at 06:12 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -254,6 +254,7 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `ticket_id` int(11) NOT NULL AUTO_INCREMENT,
   `ticket_details` text NOT NULL,
   `ticket_proof` varchar(255) NOT NULL,
+  `ticket_status` int(11) NOT NULL,
   `flower_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `ticket_date` datetime NOT NULL,
@@ -284,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_level`, `user_name`, `user_password`, `user_email`, `user_address`, `user_birthday`, `user_favorite`, `user_status`) VALUES
-(1, 1, 'Keanna', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin@keannasflowershop.com', 'Purok 9, Brgy Aguisan, Himamaylan City, Negros Occidental', '1990-05-01', 1, 0),
+(1, 1, 'Keanna', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin@keannasflowershop.com', 'Purok 9, Brgy Aguisan, Himamaylan City, Negros Occidental', '1990-05-01', 0, 0),
 (2, 0, 'Juan Dela Cruz', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'juan@delacruz.com', '', '0000-00-00', 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
